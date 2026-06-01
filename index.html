@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RGPV Exam Notes | Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #F8F9FA;
+            --text-color: #1a1a2e;
+            --card-bg: #ffffff;
+            --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+            --border-color: #eef0f2;
+
+            --c-blue: #1565C0;
+            --c-blue-light: #E3F2FD;
+            --c-purple: #6A1B9A;
+            --c-purple-light: #F3E5F5;
+            --c-green: #2E7D32;
+            --c-green-light: #E8F5E9;
+        }
+
+        [data-theme="dark"] {
+            color-scheme: dark;
+            --bg-color: #0f1117;
+            --text-color: #d0d4e0;
+            --card-bg: #161829;
+            --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            --border-color: #2a2d45;
+
+            --c-blue: #42A5F5;
+            --c-blue-light: #1a2744;
+            --c-purple: #AB47BC;
+            --c-purple-light: #2a1a3e;
+            --c-green: #66BB6A;
+            --c-green-light: #1a2e1e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background 0.35s ease, color 0.35s ease;
+        }
+
+        /* THEME TOGGLE */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+        }
+
+        .theme-toggle:active {
+            transform: scale(0.95);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            padding: 5rem 2rem 4rem;
+            text-align: center;
+            background: linear-gradient(135deg, #0d47a1, #1565C0, #283593);
+            color: #ffffff;
+            border-radius: 0 0 30px 30px;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] .hero {
+            background: linear-gradient(135deg, #0a1929, #0d2137, #102a43);
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .hero-badges {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .h-badge {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            backdrop-filter: blur(5px);
+        }
+
+        /* CONTAINER & GRID */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 6px;
+            height: 24px;
+            background: var(--c-blue);
+            border-radius: 4px;
+            display: block;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        /* SUBJECT CARD */
+        .subject-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.35s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .subject-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] .subject-card:hover {
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .card-header {
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .bg-blue {
+            background: linear-gradient(135deg, #1565C0, #1976D2);
+            color: #fff;
+        }
+
+        .bg-purple {
+            background: linear-gradient(135deg, #6A1B9A, #7B1FA2);
+            color: #fff;
+        }
+
+        .bg-green {
+            background: linear-gradient(135deg, #2E7D32, #388E3C);
+            color: #fff;
+        }
+
+        [data-theme="dark"] .bg-blue {
+            background: linear-gradient(135deg, #0d2137, #1565C0);
+        }
+
+        [data-theme="dark"] .bg-purple {
+            background: linear-gradient(135deg, #1a0a2e, #6A1B9A);
+        }
+
+        [data-theme="dark"] .bg-green {
+            background: linear-gradient(135deg, #0a2010, #2E7D32);
+        }
+
+        .subject-code {
+            background: rgba(255, 255, 255, 0.25);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            backdrop-filter: blur(4px);
+        }
+
+        .card-header h2 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-body p {
+            font-size: 0.95rem;
+            opacity: 0.85;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .action-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* BUTTONS */
+        .btn {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-decoration: none;
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .btn-icon {
+            font-size: 1.1rem;
+        }
+
+        /* Theme colors for buttons */
+        .btn-outline-blue {
+            background: var(--c-blue-light);
+            color: var(--c-blue);
+            border: 2px solid var(--c-blue-light);
+        }
+
+        .btn-outline-blue:hover {
+            border-color: var(--c-blue);
+            background: transparent;
+        }
+
+        .btn-solid-blue {
+            background: var(--c-blue);
+            color: #fff;
+        }
+
+        .btn-solid-blue:hover {
+            filter: brightness(1.1);
+            box-shadow: 0 4px 12px rgba(21, 101, 192, 0.3);
+        }
+
+        .btn-outline-purple {
+            background: var(--c-purple-light);
+            color: var(--c-purple);
+            border: 2px solid var(--c-purple-light);
+        }
+
+        .btn-outline-purple:hover {
+            border-color: var(--c-purple);
+            background: transparent;
+        }
+
+        .btn-solid-purple {
+            background: var(--c-purple);
+            color: #fff;
+        }
+
+        .btn-solid-purple:hover {
+            filter: brightness(1.1);
+            box-shadow: 0 4px 12px rgba(106, 27, 154, 0.3);
+        }
+
+        .btn-outline-green {
+            background: var(--c-green-light);
+            color: var(--c-green);
+            border: 2px solid var(--c-green-light);
+        }
+
+        .btn-outline-green:hover {
+            border-color: var(--c-green);
+            background: transparent;
+        }
+
+        .btn-solid-green {
+            background: var(--c-green);
+            color: #fff;
+        }
+
+        .btn-solid-green:hover {
+            filter: brightness(1.1);
+            box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+        }
+
+        .btn-disabled {
+            background: #f1f3f4;
+            color: #9aa0a6;
+            border: 2px solid #f1f3f4;
+            cursor: not-allowed;
+        }
+
+        [data-theme="dark"] .btn-disabled {
+            background: #202124;
+            color: #5f6368;
+            border-color: #202124;
+        }
+
+        .coming-soon-badge {
+            background: #FFB300;
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        [data-theme="dark"] .coming-soon-badge {
+            background: #F57F17;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+
+<body>
+
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode"
+        aria-label="Toggle theme">🌙</button>
+
+    <header class="hero">
+        <h1>🎓 RGPV CSE EXAM</h1>
+        <p>Premium Study Material, Comprehensive Syllabus Notes &amp; Previous Year Theory Answers</p>
+        <div class="hero-badges">
+            <span class="h-badge">📚 8th Semester</span>
+            <span class="h-badge">✍️ Exam Oriented</span>
+            <span class="h-badge">✨ CSE Branch</span>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2 class="section-title">Available Subjects</h2>
+
+        <div class="card-grid">
+
+            <!-- IoT Card -->
+            <div class="subject-card">
+                <div class="card-header bg-blue">
+                    <span class="subject-code">CS801</span>
+                    <h2>Internet of Things (IoT)</h2>
+                </div>
+                <div class="card-body">
+                    <p>Explore the full IoT ecosystem, architectures, sensors, network configurations, and smart case
+                        studies.</p>
+                    <div class="action-links">
+                        <a href="SYLLABUS/IOT.html" class="btn btn-outline-blue">
+                            <span>📖 Syllabus Notes</span>
+                            <span class="btn-icon">→</span>
+                        </a>
+                        <a href="ANSWERS/AnswersIOT.html" class="btn btn-solid-blue">
+                            <span>📝 Theory (PYQ Answers)</span>
+                            <span class="btn-icon">→</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cloud Computing Card -->
+            <div class="subject-card">
+                <div class="card-header bg-purple">
+                    <span class="subject-code">CS802(B)</span>
+                    <h2>Cloud Computing</h2>
+                </div>
+                <div class="card-body">
+                    <p>Master Service Oriented Architecture, Elastic Computing, Cloud File Systems (GFS/HDFS), and
+                        Security.</p>
+                    <div class="action-links">
+                        <a href="SYLLABUS/Cloud_Computing.html" class="btn btn-outline-purple">
+                            <span>📖 Syllabus Notes</span>
+                            <span class="btn-icon">→</span>
+                        </a>
+                        <div class="btn btn-disabled">
+                            <span>📝 Theory (PYQ Answers)</span>
+                            <span class="coming-soon-badge">Coming Soon</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IPCV Card -->
+            <div class="subject-card">
+                <div class="card-header bg-green">
+                    <span class="subject-code">CS802(A)</span>
+                    <h2>Image Processing &amp; CV</h2>
+                </div>
+                <div class="card-body">
+                    <p>Learn Morphological operations, Hough Transforms, Object Recognition, and Deep Learning models.
+                    </p>
+                    <div class="action-links">
+                        <a href="SYLLABUS/IPCV.html" class="btn btn-outline-green">
+                            <span>📖 Syllabus Notes</span>
+                            <span class="btn-icon">→</span>
+                        </a>
+                        <div class="btn btn-disabled">
+                            <span>📝 Theory (PYQ Answers)</span>
+                            <span class="coming-soon-badge">Coming Soon</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>Develope by Gautam Verma</p>
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const btn = document.getElementById('themeToggle');
+            if (html.getAttribute('data-theme') === 'dark') {
+                html.removeAttribute('data-theme');
+                btn.textContent = '🌙';
+                btn.title = 'Switch to Dark Mode';
+                localStorage.setItem('rgpv-theme', 'light');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                btn.textContent = '☀️';
+                btn.title = 'Switch to Light Mode';
+                localStorage.setItem('rgpv-theme', 'dark');
+            }
+        }
+
+        // Check saved theme on load
+        (function () {
+            const saved = localStorage.getItem('rgpv-theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (saved === 'dark' || (!saved && prefersDark)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                const btn = document.getElementById('themeToggle');
+                if (btn) { btn.textContent = '☀️'; btn.title = 'Switch to Light Mode'; }
+            }
+        })();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,2398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CS801 - Internet of Things | RGPV Exam Notes</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Fira+Mono:wght@400;600&display=swap');
+  :root {
+    --u1:#1565C0; --u2:#6A1B9A; --u3:#2E7D32; --u4:#E65100; --u5:#AD1457;
+    --u1l:#E3F2FD; --u2l:#F3E5F5; --u3l:#E8F5E9; --u4l:#FFF3E0; --u5l:#FCE4EC;
+    --u1b:#1976D2; --u2b:#7B1FA2; --u3b:#388E3C; --u4b:#F57C00; --u5b:#C2185B;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Nunito',sans-serif; background:#F8F9FA; color:#1a1a2e; line-height:1.8; }
+
+  /* ===== TOP BANNER ===== */
+  .top-banner {
+    background:linear-gradient(135deg,#0d47a1,#1565C0,#1976D2);
+    color:#fff; padding:2.5rem 2rem; text-align:center;
+  }
+  .top-banner h1 { font-size:2rem; font-weight:800; letter-spacing:1px; }
+  .top-banner p { font-size:1rem; opacity:0.9; margin-top:0.5rem; }
+  .badges { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:1rem; }
+  .badge { background:rgba(255,255,255,0.2); border:1px solid rgba(255,255,255,0.4);
+    padding:4px 14px; border-radius:20px; font-size:0.8rem; font-weight:600; }
+
+  /* ===== TOC ===== */
+  .toc { background:#fff; border-radius:12px; margin:1.5rem 2rem;
+    box-shadow:0 2px 12px rgba(0,0,0,0.08); padding:1.5rem; }
+  .toc h2 { font-size:1.2rem; color:#0d47a1; margin-bottom:1rem; font-weight:800; }
+  .toc-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:8px; }
+  .toc-item { padding:8px 14px; border-radius:8px; font-size:0.85rem; font-weight:600;
+    border-left:4px solid; cursor:pointer; text-decoration:none; display:block; transition:all 0.2s; }
+  .toc-item:hover { opacity:0.85; transform:translateX(3px); }
+  .toc-u1 { background:var(--u1l); border-color:var(--u1); color:var(--u1); }
+  .toc-u2 { background:var(--u2l); border-color:var(--u2); color:var(--u2); }
+  .toc-u3 { background:var(--u3l); border-color:var(--u3); color:var(--u3); }
+  .toc-u4 { background:var(--u4l); border-color:var(--u4); color:var(--u4); }
+  .toc-u5 { background:var(--u5l); border-color:var(--u5); color:var(--u5); }
+
+  /* ===== UNIT HEADER ===== */
+  .unit-header {
+    margin:2rem 2rem 0; padding:1.4rem 2rem; border-radius:14px 14px 0 0;
+    color:#fff; display:flex; align-items:center; gap:1rem;
+  }
+  .unit-num-badge { background:rgba(255,255,255,0.25); border-radius:50%;
+    width:52px; height:52px; display:flex; align-items:center; justify-content:center;
+    font-size:1.5rem; font-weight:800; flex-shrink:0; }
+  .unit-header h2 { font-size:1.4rem; font-weight:800; }
+  .unit-header p { font-size:0.85rem; opacity:0.9; margin-top:2px; }
+  .u1-hdr { background:linear-gradient(135deg,#1565C0,#1976D2); }
+  .u2-hdr { background:linear-gradient(135deg,#6A1B9A,#7B1FA2); }
+  .u3-hdr { background:linear-gradient(135deg,#2E7D32,#388E3C); }
+  .u4-hdr { background:linear-gradient(135deg,#E65100,#F57C00); }
+  .u5-hdr { background:linear-gradient(135deg,#AD1457,#C2185B); }
+
+  /* ===== UNIT BODY ===== */
+  .unit-body { background:#fff; margin:0 2rem 2rem;
+    border-radius:0 0 14px 14px; box-shadow:0 4px 20px rgba(0,0,0,0.07); padding:2rem; }
+
+  /* ===== TOPIC ===== */
+  .topic { margin-bottom:2.5rem; border-bottom:1px dashed #e0e0e0; padding-bottom:2rem; }
+  .topic:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
+  .topic-title {
+    font-size:1.15rem; font-weight:800; padding:0.5rem 1rem 0.5rem 1.2rem;
+    border-radius:8px; margin-bottom:1rem; border-left:5px solid;
+  }
+  .t-u1 { background:var(--u1l); color:var(--u1); border-color:var(--u1); }
+  .t-u2 { background:var(--u2l); color:var(--u2); border-color:var(--u2); }
+  .t-u3 { background:var(--u3l); color:var(--u3); border-color:var(--u3); }
+  .t-u4 { background:var(--u4l); color:var(--u4); border-color:var(--u4); }
+  .t-u5 { background:var(--u5l); color:var(--u5); border-color:var(--u5); }
+
+  /* ===== SECTION LABELS ===== */
+  .sec-label {
+    display:inline-block; font-size:0.72rem; font-weight:800; letter-spacing:1px;
+    text-transform:uppercase; padding:2px 10px; border-radius:20px;
+    margin-bottom:0.4rem; margin-top:0.9rem;
+  }
+  .sl-def { background:#E3F2FD; color:#0d47a1; }
+  .sl-exp { background:#E8F5E9; color:#1B5E20; }
+  .sl-char { background:#F3E5F5; color:#4A148C; }
+  .sl-types { background:#FFF3E0; color:#BF360C; }
+  .sl-arch { background:#E0F7FA; color:#006064; }
+  .sl-adv { background:#F1F8E9; color:#33691E; }
+  .sl-dis { background:#FFEBEE; color:#B71C1C; }
+  .sl-app { background:#EDE7F6; color:#311B92; }
+  .sl-imp { background:#FFF8E1; color:#F57F17; }
+  .sl-conc { background:#ECEFF1; color:#37474F; }
+
+  p { margin-bottom:0.6rem; font-size:0.95rem; }
+  strong { color:#1a1a2e; }
+  u { text-decoration-color:#E65100; text-decoration-thickness:2px; }
+
+  /* ===== HIGHLIGHT BOXES ===== */
+  .highlight-box {
+    border-radius:10px; padding:1rem 1.2rem; margin:0.8rem 0;
+    border-left:5px solid; font-size:0.92rem;
+  }
+  .hb-blue   { background:#E3F2FD; border-color:#1565C0; }
+  .hb-green  { background:#E8F5E9; border-color:#2E7D32; }
+  .hb-orange { background:#FFF3E0; border-color:#E65100; }
+  .hb-purple { background:#F3E5F5; border-color:#6A1B9A; }
+  .hb-red    { background:#FFEBEE; border-color:#C62828; }
+  .hb-yellow { background:#FFFDE7; border-color:#F9A825; }
+  .hb-teal   { background:#E0F7FA; border-color:#00838F; }
+
+  /* ===== EXAM TIP ===== */
+  .exam-tip {
+    background:linear-gradient(135deg,#FFF9C4,#FFFDE7); border:2px solid #F9A825;
+    border-radius:10px; padding:0.9rem 1.2rem; margin:0.8rem 0;
+    display:flex; gap:0.7rem; align-items:flex-start;
+  }
+  .exam-tip .star { font-size:1.3rem; flex-shrink:0; }
+  .exam-tip p { margin:0; font-size:0.88rem; font-weight:700; color:#5D4037; }
+
+  /* ===== MARKS BADGE ===== */
+  .marks-row { display:flex; gap:8px; margin:0.5rem 0 1rem; flex-wrap:wrap; }
+  .marks-badge { font-size:0.75rem; font-weight:700; padding:3px 10px; border-radius:20px; }
+  .m5 { background:#BBDEFB; color:#0d47a1; }
+  .m7 { background:#C8E6C9; color:#1B5E20; }
+  .m10 { background:#FFE0B2; color:#BF360C; }
+
+  /* ===== BULLET LIST ===== */
+  .point-list { list-style:none; padding-left:0; margin:0.4rem 0; }
+  .point-list li { padding:3px 0 3px 22px; position:relative; font-size:0.92rem; }
+  .point-list li::before { content:'▸'; position:absolute; left:0; color:#1976D2; font-weight:700; }
+  .point-list.green li::before { color:#2E7D32; }
+  .point-list.orange li::before { color:#E65100; }
+  .point-list.purple li::before { color:#6A1B9A; }
+  .point-list.red li::before { content:'✗'; color:#C62828; }
+  .point-list.check li::before { content:'✓'; color:#2E7D32; font-weight:700; }
+
+  /* ===== TABLES ===== */
+  .data-table { width:100%; border-collapse:collapse; margin:0.8rem 0; font-size:0.88rem; border-radius:8px; overflow:hidden; }
+  .data-table th { padding:10px 12px; text-align:left; font-weight:700; color:#fff; background:#1565C0; }
+  .data-table td { padding:9px 12px; border-bottom:1px solid #E0E0E0; }
+  .data-table tr:nth-child(even) td { background:#F5F5F5; }
+  .data-table tr:hover td { background:#E3F2FD; }
+
+  /* ===== DIAGRAM / ARCHITECTURE BOXES ===== */
+  .diagram-container {
+    background:#F8F9FA; border:1.5px solid #CFD8DC; border-radius:12px;
+    padding:1.2rem; margin:1rem 0; text-align:center; font-family:'Fira Mono',monospace;
+    font-size:0.82rem; color:#37474F; overflow-x:auto;
+  }
+  .diagram-container .diag-title {
+    background:#37474F; color:#fff; font-size:0.78rem; font-weight:700;
+    padding:4px 16px; border-radius:20px; display:inline-block; margin-bottom:1rem;
+    letter-spacing:1px; text-transform:uppercase;
+  }
+  .diag-box {
+    display:inline-block; background:#fff; border:2px solid; border-radius:8px;
+    padding:6px 16px; margin:4px; font-weight:700; font-size:0.82rem;
+  }
+  .db-blue   { border-color:#1565C0; color:#1565C0; background:#E3F2FD; }
+  .db-green  { border-color:#2E7D32; color:#2E7D32; background:#E8F5E9; }
+  .db-orange { border-color:#E65100; color:#E65100; background:#FFF3E0; }
+  .db-purple { border-color:#6A1B9A; color:#6A1B9A; background:#F3E5F5; }
+  .db-red    { border-color:#C62828; color:#C62828; background:#FFEBEE; }
+  .db-teal   { border-color:#00838F; color:#00838F; background:#E0F7FA; }
+  .db-gray   { border-color:#607D8B; color:#37474F; background:#ECEFF1; }
+  .arrow { font-size:1.2rem; color:#607D8B; margin:2px 4px; }
+  .diag-row { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; margin:4px 0; }
+  .diag-col { display:flex; flex-direction:column; align-items:center; gap:4px; }
+
+  /* ===== COMPARISON TABLE special header ===== */
+  .comp-table th.h-u1 { background:var(--u1); }
+  .comp-table th.h-u2 { background:var(--u2); }
+  .comp-table th.h-u3 { background:var(--u3); }
+  .comp-table th.h-u4 { background:var(--u4); }
+  .comp-table th.h-u5 { background:var(--u5); }
+
+  /* ===== CONCLUSION ===== */
+  .conclusion {
+    background:linear-gradient(135deg,#E8EAF6,#EDE7F6); border-radius:10px;
+    padding:0.9rem 1.2rem; margin-top:0.8rem; border-left:5px solid #5C6BC0;
+  }
+  .conclusion p { margin:0; font-size:0.9rem; font-style:italic; color:#283593; font-weight:600; }
+
+  /* ===== FORMULA BOX ===== */
+  .formula-box {
+    background:#263238; color:#80CBC4; font-family:'Fira Mono',monospace;
+    padding:0.8rem 1.2rem; border-radius:8px; margin:0.6rem 0; font-size:0.85rem;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media(max-width:600px){
+    .unit-header, .unit-body { margin-left:0.5rem; margin-right:0.5rem; }
+    .toc { margin:1rem 0.5rem; }
+    .top-banner h1 { font-size:1.4rem; }
+    .diag-row { flex-direction:column; }
+  }
+
+  /* ===== PRINT ===== */
+  @media print {
+    .unit-header, .unit-body { box-shadow:none; }
+    body { background:#fff; }
+    .theme-toggle { display:none !important; }
+  }
+
+  /* ===== THEME TOGGLE BUTTON ===== */
+  .theme-toggle {
+    position:fixed; top:20px; right:20px; z-index:9999;
+    width:40px; height:40px; border-radius:50%; border:none; cursor:pointer;
+    background-color:#ffffff; color:#5f6368;
+    font-size:1.1rem; display:flex; align-items:center; justify-content:center;
+    box-shadow:0 2px 5px rgba(0,0,0,0.2); transition:background-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  }
+  .theme-toggle:hover { box-shadow:0 4px 8px rgba(0,0,0,0.2); background-color:#f1f3f4; }
+  .theme-toggle:active { box-shadow:0 1px 3px rgba(0,0,0,0.2); transform:scale(0.95); }
+
+  /* ===== DARK MODE ===== */
+  [data-theme="dark"] { color-scheme: dark; }
+  [data-theme="dark"] body { background:#0f1117; color:#d0d4e0; }
+  [data-theme="dark"] strong { color:#e0e4f0; }
+  [data-theme="dark"] u { text-decoration-color:#ffa726; }
+  [data-theme="dark"] p { color:#c8ccda; }
+
+  /* Toggle button in dark mode */
+  [data-theme="dark"] .theme-toggle {
+    background-color:#202124;
+    color:#e8eaed;
+  }
+  [data-theme="dark"] .theme-toggle:hover { background-color:#303134; }
+
+  /* Banner — keep dark, just soften */
+  [data-theme="dark"] .top-banner { background:linear-gradient(135deg,#0a1929,#0d2137,#102a43); }
+
+  /* TOC */
+  [data-theme="dark"] .toc { background:#161829; box-shadow:0 2px 12px rgba(0,0,0,0.4); }
+  [data-theme="dark"] .toc h2 { color:#64B5F6; }
+  [data-theme="dark"] .toc-u1 { background:#1a2744; color:#64B5F6; border-color:#42A5F5; }
+  [data-theme="dark"] .toc-u2 { background:#2a1a3e; color:#CE93D8; border-color:#AB47BC; }
+  [data-theme="dark"] .toc-u3 { background:#1a2e1e; color:#81C784; border-color:#66BB6A; }
+  [data-theme="dark"] .toc-u4 { background:#2e2418; color:#FFB74D; border-color:#FFA726; }
+  [data-theme="dark"] .toc-u5 { background:#2e1a26; color:#F48FB1; border-color:#EC407A; }
+
+  /* Unit headers — keep gradients, darken */
+  [data-theme="dark"] .u1-hdr { background:linear-gradient(135deg,#0d2137,#1565C0); }
+  [data-theme="dark"] .u2-hdr { background:linear-gradient(135deg,#1a0a2e,#6A1B9A); }
+  [data-theme="dark"] .u3-hdr { background:linear-gradient(135deg,#0a2010,#2E7D32); }
+  [data-theme="dark"] .u4-hdr { background:linear-gradient(135deg,#2e1800,#E65100); }
+  [data-theme="dark"] .u5-hdr { background:linear-gradient(135deg,#2e0a1a,#AD1457); }
+
+  /* Unit body */
+  [data-theme="dark"] .unit-body { background:#161829; box-shadow:0 4px 20px rgba(0,0,0,0.4); }
+
+  /* Topic */
+  [data-theme="dark"] .topic { border-bottom-color:#2a2d45; }
+  [data-theme="dark"] .t-u1 { background:#1a2744; color:#64B5F6; border-color:#42A5F5; }
+  [data-theme="dark"] .t-u2 { background:#2a1a3e; color:#CE93D8; border-color:#AB47BC; }
+  [data-theme="dark"] .t-u3 { background:#1a2e1e; color:#81C784; border-color:#66BB6A; }
+  [data-theme="dark"] .t-u4 { background:#2e2418; color:#FFB74D; border-color:#FFA726; }
+  [data-theme="dark"] .t-u5 { background:#2e1a26; color:#F48FB1; border-color:#EC407A; }
+
+  /* Section labels */
+  [data-theme="dark"] .sl-def  { background:#1a2744; color:#64B5F6; }
+  [data-theme="dark"] .sl-exp  { background:#1a2e1e; color:#81C784; }
+  [data-theme="dark"] .sl-char { background:#2a1a3e; color:#CE93D8; }
+  [data-theme="dark"] .sl-types{ background:#2e2418; color:#FFB74D; }
+  [data-theme="dark"] .sl-arch { background:#1a2e2e; color:#4DD0E1; }
+  [data-theme="dark"] .sl-adv  { background:#1a2e1e; color:#A5D6A7; }
+  [data-theme="dark"] .sl-dis  { background:#2e1a1a; color:#EF9A9A; }
+  [data-theme="dark"] .sl-app  { background:#1e1a3e; color:#B39DDB; }
+  [data-theme="dark"] .sl-imp  { background:#2e2a18; color:#FFD54F; }
+  [data-theme="dark"] .sl-conc { background:#1e2028; color:#B0BEC5; }
+
+  /* Highlight boxes */
+  [data-theme="dark"] .hb-blue   { background:#101e33; border-color:#42A5F5; color:#b8d4f0; }
+  [data-theme="dark"] .hb-green  { background:#0f2418; border-color:#66BB6A; color:#b0d8b4; }
+  [data-theme="dark"] .hb-orange { background:#261c0f; border-color:#FFA726; color:#e0c8a8; }
+  [data-theme="dark"] .hb-purple { background:#1e1030; border-color:#AB47BC; color:#d4b8e0; }
+  [data-theme="dark"] .hb-red    { background:#260f0f; border-color:#EF5350; color:#e0b0b0; }
+  [data-theme="dark"] .hb-yellow { background:#26220f; border-color:#FFCA28; color:#e0d8a8; }
+  [data-theme="dark"] .hb-teal   { background:#0f2626; border-color:#26C6DA; color:#a8d8e0; }
+
+  /* Exam tip */
+  [data-theme="dark"] .exam-tip {
+    background:linear-gradient(135deg,#2a2410,#26220f); border-color:#F9A825;
+  }
+  [data-theme="dark"] .exam-tip p { color:#FFD54F; }
+
+  /* Marks badges */
+  [data-theme="dark"] .m5 { background:#1a2744; color:#64B5F6; }
+  [data-theme="dark"] .m7 { background:#1a2e1e; color:#81C784; }
+  [data-theme="dark"] .m10{ background:#2e2418; color:#FFB74D; }
+
+  /* Point list */
+  [data-theme="dark"] .point-list li { color:#c8ccda; }
+  [data-theme="dark"] .point-list li::before { color:#42A5F5; }
+  [data-theme="dark"] .point-list.green li::before { color:#66BB6A; }
+  [data-theme="dark"] .point-list.orange li::before { color:#FFA726; }
+  [data-theme="dark"] .point-list.purple li::before { color:#AB47BC; }
+  [data-theme="dark"] .point-list.red li::before { color:#EF5350; }
+  [data-theme="dark"] .point-list.check li::before { color:#66BB6A; }
+
+  /* Tables */
+  [data-theme="dark"] .data-table th { background:#1a2744; color:#e0e4f0; }
+  [data-theme="dark"] .data-table td { border-bottom-color:#2a2d45; color:#c8ccda; background:#161829; }
+  [data-theme="dark"] .data-table tr:nth-child(even) td { background:#1a1d30; }
+  [data-theme="dark"] .data-table tr:hover td { background:#1e2a44; }
+  [data-theme="dark"] .comp-table th.h-u1 { background:#1565C0; }
+  [data-theme="dark"] .comp-table th.h-u2 { background:#6A1B9A; }
+  [data-theme="dark"] .comp-table th.h-u3 { background:#2E7D32; }
+  [data-theme="dark"] .comp-table th.h-u4 { background:#E65100; }
+  [data-theme="dark"] .comp-table th.h-u5 { background:#AD1457; }
+
+  /* Diagram containers */
+  [data-theme="dark"] .diagram-container {
+    background:#10121c; border-color:#2a2d45; color:#b0b4c8;
+  }
+  [data-theme="dark"] .diagram-container .diag-title { background:#b0b4c8; color:#10121c; }
+  [data-theme="dark"] .diag-box { background:#161829; }
+  [data-theme="dark"] .db-blue   { border-color:#42A5F5; color:#64B5F6; background:#101e33; }
+  [data-theme="dark"] .db-green  { border-color:#66BB6A; color:#81C784; background:#0f2418; }
+  [data-theme="dark"] .db-orange { border-color:#FFA726; color:#FFB74D; background:#261c0f; }
+  [data-theme="dark"] .db-purple { border-color:#AB47BC; color:#CE93D8; background:#1e1030; }
+  [data-theme="dark"] .db-red    { border-color:#EF5350; color:#EF9A9A; background:#260f0f; }
+  [data-theme="dark"] .db-teal   { border-color:#26C6DA; color:#4DD0E1; background:#0f2626; }
+  [data-theme="dark"] .db-gray   { border-color:#78909C; color:#B0BEC5; background:#1a1d28; }
+  [data-theme="dark"] .arrow { color:#78909C; }
+
+  /* Conclusion */
+  [data-theme="dark"] .conclusion {
+    background:linear-gradient(135deg,#161839,#1a1a3e); border-color:#5C6BC0;
+  }
+  [data-theme="dark"] .conclusion p { color:#9FA8DA; }
+
+  /* Formula box */
+  [data-theme="dark"] .formula-box { background:#0a0e14; color:#80CBC4; }
+
+  /* Footer */
+  [data-theme="dark"] .site-footer { background:#0a0c12; }
+
+  /* Smooth transitions */
+  body, .toc, .unit-body, .topic-title, .highlight-box, .exam-tip,
+  .data-table td, .data-table th, .diagram-container, .diag-box,
+  .conclusion, .sec-label, .marks-badge, .site-footer {
+    transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  }
+</style>
+</head>
+<body>
+
+<!-- THEME TOGGLE -->
+<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode" aria-label="Toggle theme">🌙</button>
+
+<!-- TOP BANNER -->
+<div class="top-banner">
+  <h1>📡 CS801 — Internet of Things (IoT)</h1>
+  <p>RGPV Bhopal · Computer Science &amp; Engineering · VIII Semester · Complete Exam Notes</p>
+  <div class="badges">
+    <span class="badge">📘 5-Mark Answers</span>
+    <span class="badge">📗 7-Mark Answers</span>
+    <span class="badge">📕 10-Mark Answers</span>
+    <span class="badge">📊 Diagrams &amp; Tables</span>
+    <span class="badge">⭐ Exam Tips</span>
+  </div>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<div class="toc">
+  <h2>📋 Table of Contents</h2>
+  <div class="toc-grid">
+    <a href="#unit1" class="toc-item toc-u1">Unit 1 — IoT Fundamentals &amp; Architecture</a>
+    <a href="#unit2" class="toc-item toc-u2">Unit 2 — Sensors &amp; Actuators</a>
+    <a href="#unit3" class="toc-item toc-u3">Unit 3 — IoT Networking &amp; Protocols</a>
+    <a href="#unit4" class="toc-item toc-u4">Unit 4 — IoT Messaging Protocols</a>
+    <a href="#unit5" class="toc-item toc-u5">Unit 5 — Platforms, Security &amp; Case Studies</a>
+  </div>
+</div>
+
+<!-- ============================== UNIT 1 ============================== -->
+<div id="unit1">
+<div class="unit-header u1-hdr">
+  <div class="unit-num-badge">1</div>
+  <div>
+    <h2>UNIT 1 — IoT Fundamentals, Architecture &amp; Framework</h2>
+    <p>IoT Definition · Characteristics · Architecture · Components · M2M · WoT · Networks · Microcontrollers</p>
+  </div>
+</div>
+<div class="unit-body">
+
+<!-- TOPIC 1.1 -->
+<div class="topic">
+  <div class="topic-title t-u1">1.1 Definition and Introduction to IoT</div>
+  <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span><span class="marks-badge m10">10 Marks</span></div>
+
+  <span class="sec-label sl-def">Definition</span>
+  <p><strong>Internet of Things (IoT)</strong> is defined as a <u>network of physical objects (things)</u> embedded with sensors, software, and other technologies that connect and exchange data with other devices and systems over the internet.</p>
+  <div class="highlight-box hb-blue">
+    <strong>Simple Definition:</strong> IoT = Physical World + Internet. It means connecting everyday physical objects (like bulbs, fans, fridges, cars) to the internet so they can send and receive data automatically — without needing a human to operate them.
+  </div>
+
+  <span class="sec-label sl-exp">Explanation</span>
+  <p>The term <strong>"Internet of Things"</strong> was coined by <u>Kevin Ashton</u> in 1999. In traditional internet, humans interact with digital content. In IoT, <strong>machines/devices interact with each other</strong> (M2M) and with humans through the internet.</p>
+  <p>Example: A smart thermostat reads room temperature (sensor), sends data to the cloud, which then decides to turn on/off the AC (actuator) — all automatically.</p>
+
+  <span class="sec-label sl-char">Characteristics of IoT</span>
+  <ul class="point-list">
+    <li><strong>Connectivity:</strong> All IoT devices must be connected to the internet or a network.</li>
+    <li><strong>Intelligence (Smart Behavior):</strong> IoT devices can sense, analyze, and respond.</li>
+    <li><strong>Dynamic Nature:</strong> Devices change their state (active/passive) automatically.</li>
+    <li><strong>Enormous Scale:</strong> Billions of devices worldwide are connected (50 billion by 2030).</li>
+    <li><strong>Self-Configuring:</strong> IoT devices can configure themselves when connected to a network.</li>
+    <li><strong>Interoperability:</strong> Different devices from different companies can work together.</li>
+    <li><strong>Sensing:</strong> IoT devices collect real-world data using sensors.</li>
+    <li><strong>Energy Efficiency:</strong> IoT devices are designed to consume very low power.</li>
+    <li><strong>Security:</strong> Data exchanged must be protected from unauthorized access.</li>
+    <li><strong>Integration:</strong> IoT integrates physical and digital worlds seamlessly.</li>
+  </ul>
+
+  <span class="sec-label sl-app">Applications</span>
+  <ul class="point-list green">
+    <li>Smart Home (Alexa, Google Home)</li>
+    <li>Smart Healthcare (patient monitoring)</li>
+    <li>Smart Agriculture (soil sensors, irrigation)</li>
+    <li>Smart Cities (traffic management, waste management)</li>
+    <li>Industrial IoT / Industry 4.0</li>
+    <li>Smart Vehicles / Connected Cars</li>
+  </ul>
+
+  <span class="sec-label sl-imp">Important Points for Exam</span>
+  <div class="exam-tip"><span class="star">⭐</span><p>Kevin Ashton coined "IoT" in 1999. RFID was the first IoT technology. IoT = Sensors + Connectivity + Data Processing. The 3 pillars of IoT are: Sensing, Processing, and Communication.</p></div>
+
+  <div class="conclusion"><p>✏️ IoT is the backbone of modern digital transformation. It connects billions of physical devices to the internet, enabling smart automation and data-driven decision-making across all sectors of life.</p></div>
+</div>
+
+<!-- TOPIC 1.2 -->
+<div class="topic">
+  <div class="topic-title t-u1">1.2 IoT Conceptual and Architectural Framework</div>
+  <div class="marks-row"><span class="marks-badge m7">7 Marks</span><span class="marks-badge m10">10 Marks</span></div>
+
+  <span class="sec-label sl-def">Introduction</span>
+  <p>The <strong>IoT Architectural Framework</strong> defines how different components of IoT communicate and work together. It provides a <u>layered structure</u> from physical devices to cloud applications.</p>
+
+  <span class="sec-label sl-arch">IoT 4-Layer Architecture</span>
+  <div class="diagram-container">
+    <div class="diag-title">IoT Layered Architecture</div>
+    <div class="diag-col">
+      <div class="diag-box db-blue" style="width:320px;font-size:0.9rem;padding:10px;">🖥️ Layer 4: Application Layer<br><small style="font-weight:400">Smart Home, Healthcare, Agriculture Apps</small></div>
+      <div class="arrow">⬇ ⬆</div>
+      <div class="diag-box db-purple" style="width:320px;font-size:0.9rem;padding:10px;">☁️ Layer 3: Processing / Middleware Layer<br><small style="font-weight:400">Cloud Computing, Data Storage, Analytics</small></div>
+      <div class="arrow">⬇ ⬆</div>
+      <div class="diag-box db-orange" style="width:320px;font-size:0.9rem;padding:10px;">🌐 Layer 2: Network / Transport Layer<br><small style="font-weight:400">WiFi, 3G/4G, Bluetooth, ZigBee, LoRa</small></div>
+      <div class="arrow">⬇ ⬆</div>
+      <div class="diag-box db-green" style="width:320px;font-size:0.9rem;padding:10px;">📟 Layer 1: Perception / Sensing Layer<br><small style="font-weight:400">Sensors, Actuators, RFID, Smart Devices</small></div>
+    </div>
+  </div>
+
+  <span class="sec-label sl-exp">Layer-wise Explanation</span>
+  <table class="data-table">
+    <thead><tr><th>Layer</th><th>Name</th><th>Function</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Layer 1</strong></td><td>Perception Layer</td><td>Collects data from physical world</td><td>Temperature sensor, camera, RFID</td></tr>
+      <tr><td><strong>Layer 2</strong></td><td>Network Layer</td><td>Transmits data to processing systems</td><td>WiFi, Bluetooth, ZigBee, LTE</td></tr>
+      <tr><td><strong>Layer 3</strong></td><td>Processing Layer</td><td>Stores, analyzes, and processes data</td><td>Cloud servers, databases, ML models</td></tr>
+      <tr><td><strong>Layer 4</strong></td><td>Application Layer</td><td>Delivers end-user services</td><td>Smart home app, healthcare dashboard</td></tr>
+    </tbody>
+  </table>
+
+  <span class="sec-label sl-exp">IoT Reference Architecture (3-Layer)</span>
+  <p>A simpler 3-layer model is also used in some references:</p>
+  <ul class="point-list">
+    <li><strong>Perception Layer</strong> — Physical layer with sensors/actuators</li>
+    <li><strong>Network Layer</strong> — Connects devices, gateways, and cloud</li>
+    <li><strong>Application Layer</strong> — End-user specific applications</li>
+  </ul>
+
+  <div class="exam-tip"><span class="star">⭐</span><p>RGPV frequently asks 4-layer IoT architecture diagram. Always draw the diagram and label all 4 layers from bottom (sensing) to top (application). Remember the full form and function of each layer.</p></div>
+
+  <div class="conclusion"><p>✏️ IoT architectural framework provides a structured way to design and implement IoT systems. The layered approach ensures modularity, scalability, and ease of management.</p></div>
+</div>
+
+<!-- TOPIC 1.3 -->
+<div class="topic">
+  <div class="topic-title t-u1">1.3 Components of IoT Ecosystem</div>
+  <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span></div>
+
+  <span class="sec-label sl-def">Definition</span>
+  <p>The <strong>IoT Ecosystem</strong> refers to all the components, technologies, people, and processes that together make IoT work. It is a complete environment where devices, networks, data, and services interact.</p>
+
+  <span class="sec-label sl-exp">Key Components</span>
+  <div class="diagram-container">
+    <div class="diag-title">IoT Ecosystem Components</div>
+    <div class="diag-row" style="gap:8px;flex-wrap:wrap;">
+      <div class="diag-box db-blue">📡 Sensors / Devices</div>
+      <div class="arrow">→</div>
+      <div class="diag-box db-orange">🔗 Connectivity</div>
+      <div class="arrow">→</div>
+      <div class="diag-box db-teal">🔄 IoT Gateway</div>
+      <div class="arrow">→</div>
+      <div class="diag-box db-purple">☁️ Cloud / Edge</div>
+      <div class="arrow">→</div>
+      <div class="diag-box db-green">📊 Analytics &amp; UI</div>
+    </div>
+  </div>
+
+  <ul class="point-list">
+    <li><strong>Sensors &amp; Actuators:</strong> Hardware components that sense the environment and act upon it.</li>
+    <li><strong>Connectivity (Network):</strong> Medium through which devices communicate — WiFi, Bluetooth, ZigBee, LoRa, 5G.</li>
+    <li><strong>IoT Gateway:</strong> A bridge between IoT devices and the cloud; handles protocol conversion and local processing.</li>
+    <li><strong>Cloud Platform:</strong> Stores, processes, and analyzes data from IoT devices at large scale.</li>
+    <li><strong>Edge Computing:</strong> Data is processed near the device (edge) to reduce latency and cloud load.</li>
+    <li><strong>Data Analytics:</strong> Converts raw IoT data into meaningful insights and decisions.</li>
+    <li><strong>User Interface / Application:</strong> Web or mobile apps through which users monitor and control IoT systems.</li>
+    <li><strong>Security:</strong> Encryption, authentication, and access control to protect IoT devices and data.</li>
+  </ul>
+
+  <div class="conclusion"><p>✏️ All components of the IoT ecosystem are interdependent. A failure in any one component — be it connectivity, security, or analytics — can disrupt the entire system.</p></div>
+</div>
+
+<!-- TOPIC 1.4 -->
+<div class="topic">
+  <div class="topic-title t-u1">1.4 Physical and Logical Design of IoT</div>
+  <div class="marks-row"><span class="marks-badge m7">7 Marks</span><span class="marks-badge m10">10 Marks</span></div>
+
+  <span class="sec-label sl-def">Introduction</span>
+  <p>IoT system design is divided into two parts — <strong>Physical Design</strong> (hardware and connectivity) and <strong>Logical Design</strong> (software and functional model).</p>
+
+  <span class="sec-label sl-exp">Physical Design of IoT</span>
+  <p>Physical design refers to the <u>hardware components</u> of an IoT system and how they are physically connected.</p>
+  <ul class="point-list">
+    <li><strong>IoT Devices/Things:</strong> Smart objects with embedded sensors, processors (microcontrollers), and communication modules.</li>
+    <li><strong>Communication Networks:</strong> The physical wired or wireless links connecting devices.</li>
+    <li><strong>IoT Gateways:</strong> Physical hardware that aggregates data from devices.</li>
+    <li><strong>Cloud/Server Infrastructure:</strong> Physical servers or cloud hardware where data is stored and processed.</li>
+  </ul>
+
+  <span class="sec-label sl-exp">Logical Design of IoT</span>
+  <p>Logical design defines the <u>functional behavior and architecture</u> — how data flows, how processes are organized, and how services interact.</p>
+
+  <table class="data-table">
+    <thead><tr><th>Aspect</th><th>Physical Design</th><th>Logical Design</th></tr></thead>
+    <tbody>
+      <tr><td>Focus</td><td>Hardware &amp; Wiring</td><td>Software &amp; Data Flow</td></tr>
+      <tr><td>Components</td><td>Sensors, Boards, Cables, Antenna</td><td>APIs, Protocols, Services, Apps</td></tr>
+      <tr><td>Design Tool</td><td>Circuit diagrams, PCB layout</td><td>DFDs, UML, Architecture diagrams</td></tr>
+      <tr><td>Example</td><td>Raspberry Pi + Temperature Sensor</td><td>MQTT protocol + Cloud database</td></tr>
+    </tbody>
+  </table>
+
+  <span class="sec-label sl-exp">IoT Functional Blocks (Logical)</span>
+  <ul class="point-list purple">
+    <li><strong>Device:</strong> Sensing, actuation, monitoring, control</li>
+    <li><strong>Communication:</strong> Connectivity functions (WiFi, BT)</li>
+    <li><strong>Services:</strong> Device monitoring, control, discovery, data publishing</li>
+    <li><strong>Management:</strong> Fault management, configuration management</li>
+    <li><strong>Security:</strong> Authentication, Authorization, Integrity, Privacy</li>
+    <li><strong>Application:</strong> User interface, API</li>
+  </ul>
+
+  <div class="conclusion"><p>✏️ Physical design ensures the hardware is properly assembled and connected. Logical design ensures that the data flows correctly through the system and the right services are delivered.</p></div>
+</div>
+
+<!-- TOPIC 1.5 -->
+<div class="topic">
+  <div class="topic-title t-u1">1.5 IoT Enablers</div>
+  <div class="marks-row"><span class="marks-badge m5">5 Marks</span></div>
+
+  <span class="sec-label sl-def">Definition</span>
+  <p><strong>IoT Enablers</strong> are the key technologies and innovations that have made IoT possible and practical. Without these, IoT as we know it today would not exist.</p>
+
+  <span class="sec-label sl-exp">Key IoT Enablers</span>
+  <ul class="point-list">
+    <li><strong>RFID (Radio Frequency Identification):</strong> Allows unique identification of objects using radio waves — the original IoT technology.</li>
+    <li><strong>Wireless Sensor Networks (WSN):</strong> Network of small, low-power sensors that collect and transmit environmental data.</li>
+    <li><strong>IPv6 (Internet Protocol v6):</strong> Provides virtually unlimited IP addresses (3.4×10³⁸) to connect billions of IoT devices.</li>
+    <li><strong>Cloud Computing:</strong> Provides scalable storage, processing, and analytics for massive IoT data.</li>
+    <li><strong>Big Data &amp; Analytics:</strong> Enables extracting useful insights from the huge volumes of IoT data.</li>
+    <li><strong>Miniaturization of Hardware:</strong> Advances in chip design make powerful microcontrollers very small and cheap.</li>
+    <li><strong>Machine Learning / AI:</strong> Allows IoT systems to make intelligent autonomous decisions.</li>
+    <li><strong>5G Networks:</strong> Ultra-fast, low-latency communication for massive IoT deployments.</li>
+    <li><strong>Edge Computing:</strong> Allows processing near the device, reducing latency and bandwidth usage.</li>
+    <li><strong>Low-power Communication (ZigBee, LoRa):</strong> Enables battery-operated IoT devices to run for months or years.</li>
+  </ul>
+
+  <div class="exam-tip"><span class="star">⭐</span><p>Remember the top 5 enablers: RFID, WSN, IPv6, Cloud Computing, and Miniaturization of Hardware. These are most commonly asked in 5-mark questions.</p></div>
+</div>
+
+<!-- TOPIC 1.6 -->
+<div class="topic">
+  <div class="topic-title t-u1">1.6 Modern Day IoT Applications</div>
+  <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span></div>
+
+  <table class="data-table">
+    <thead><tr><th>Domain</th><th>Application</th><th>How IoT is Used</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Smart Home</strong></td><td>Home Automation</td><td>Smart locks, thermostats, voice assistants (Alexa)</td></tr>
+      <tr><td><strong>Healthcare</strong></td><td>Remote Patient Monitoring</td><td>Wearable heart rate monitors, glucose sensors</td></tr>
+      <tr><td><strong>Agriculture</strong></td><td>Precision Farming</td><td>Soil moisture sensors, drone crop monitoring</td></tr>
+      <tr><td><strong>Manufacturing</strong></td><td>Industry 4.0</td><td>Predictive maintenance, automated assembly lines</td></tr>
+      <tr><td><strong>Smart Cities</strong></td><td>Traffic Management</td><td>Intelligent traffic signals, smart parking systems</td></tr>
+      <tr><td><strong>Energy</strong></td><td>Smart Grid</td><td>Smart electricity meters, demand response</td></tr>
+      <tr><td><strong>Transportation</strong></td><td>Connected Vehicles</td><td>GPS tracking, vehicle diagnostics, self-driving cars</td></tr>
+      <tr><td><strong>Retail</strong></td><td>Inventory Management</td><td>RFID-based stock tracking, smart shelves</td></tr>
+      <tr><td><strong>Environment</strong></td><td>Pollution Monitoring</td><td>Air quality sensors, water quality monitoring</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- TOPIC 1.7 -->
+<div class="topic">
+  <div class="topic-title t-u1">1.7 M2M Communications (Machine to Machine)</div>
+  <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span></div>
+
+  <span class="sec-label sl-def">Definition</span>
+  <p><strong>Machine-to-Machine (M2M) Communication</strong> is a <u>direct communication between two or more devices</u> (machines) without any human interaction. Devices collect data and share it with other machines autonomously.</p>
+
+  <span class="sec-label sl-exp">How M2M Works</span>
+  <div class="diagram-container">
+    <div class="diag-title">M2M Communication Flow</div>
+    <div class="diag-row">
+      <div class="diag-box db-blue">📡 Machine 1<br><small>Sensor/Device</small></div>
+      <div class="arrow">→ Wired/Wireless →</div>
+      <div class="diag-box db-orange">📶 M2M Network<br><small>Cellular/WiFi</small></div>
+      <div class="arrow">→</div>
+      <div class="diag-box db-green">🖥️ Machine 2<br><small>Server/Device</small></div>
+      <div class="arrow">→</div>
+      <div class="diag-box db-purple">📊 Application</div>
+    </div>
+  </div>
+
+  <span class="sec-label sl-char">Features of M2M</span>
+  <ul class="point-list">
+    <li>No human intervention required</li>
+    <li>Uses point-to-point communication</li>
+    <li>Typically uses cellular networks (2G/3G/4G) or wired connections</li>
+    <li>Designed for specific, closed applications</li>
+    <li>Limited scalability compared to IoT</li>
+  </ul>
+
+  <span class="sec-label sl-app">Applications of M2M</span>
+  <ul class="point-list green">
+    <li>ATM machines communicating with bank servers</li>
+    <li>Smart electricity meters sending readings to utility companies</li>
+    <li>Fleet management systems tracking vehicles</li>
+    <li>Remote monitoring of industrial machinery</li>
+  </ul>
+</div>
+
+<!-- TOPIC 1.8 -->
+<div class="topic">
+  <div class="topic-title t-u1">1.8 IoT vs M2M vs WoT — Comparison</div>
+  <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span><span class="marks-badge m10">10 Marks</span></div>
+
+  <span class="sec-label sl-def">WoT Definition</span>
+  <p><strong>Web of Things (WoT)</strong> is an extension of IoT where IoT devices are accessible via standard <u>web technologies</u> like HTTP, REST APIs, and URLs — making them part of the World Wide Web.</p>
+
+  <table class="data-table comp-table">
+    <thead>
+      <tr>
+        <th>Aspect</th>
+        <th class="h-u3">IoT</th>
+        <th class="h-u2">M2M</th>
+        <th class="h-u4">WoT</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Full Form</strong></td><td>Internet of Things</td><td>Machine to Machine</td><td>Web of Things</td></tr>
+      <tr><td><strong>Scope</strong></td><td>Very broad — all connected devices</td><td>Narrow — specific point-to-point</td><td>Subset of IoT using web standards</td></tr>
+      <tr><td><strong>Communication</strong></td><td>Internet (IP-based)</td><td>Cellular, wired, or short-range</td><td>HTTP, REST, WebSockets</td></tr>
+      <tr><td><strong>Human Interaction</strong></td><td>Both human &amp; machine</td><td>Primarily machine only</td><td>Web-based human interface</td></tr>
+      <tr><td><strong>Standards</strong></td><td>Multiple (MQTT, CoAP, etc.)</td><td>Proprietary or cellular</td><td>Web standards (HTTP, REST)</td></tr>
+      <tr><td><strong>Scalability</strong></td><td>Very high</td><td>Limited</td><td>High (web scale)</td></tr>
+      <tr><td><strong>Example</strong></td><td>Smart home ecosystem</td><td>ATM ↔ Bank server</td><td>Smart bulb controlled via browser URL</td></tr>
+      <tr><td><strong>Data Format</strong></td><td>JSON, XML, MQTT</td><td>Proprietary formats</td><td>JSON-LD, HTML, RSS</td></tr>
+    </tbody>
+  </table>
+
+  <div class="highlight-box hb-yellow">
+    <strong>Simple Analogy:</strong> Think of M2M as a private phone call between two specific people. IoT is like a mobile network where millions of devices communicate. WoT is like using WhatsApp Web — IoT devices accessible through the web browser.
+  </div>
+
+  <div class="exam-tip"><span class="star">⭐</span><p>IoT vs M2M comparison table is very frequently asked in RGPV. Remember: IoT is broader than M2M. WoT = IoT + Web Standards. M2M is a subset/predecessor of IoT.</p></div>
+</div>
+
+<!-- TOPIC 1.9 -->
+<div class="topic">
+  <div class="topic-title t-u1">1.9 IoT Reference Architecture</div>
+  <div class="marks-row"><span class="marks-badge m7">7 Marks</span><span class="marks-badge m10">10 Marks</span></div>
+
+  <span class="sec-label sl-def">Definition</span>
+  <p>The <strong>IoT Reference Architecture</strong> is a standardized, generalized framework that defines the building blocks, interfaces, and interaction patterns for designing any IoT system.</p>
+
+  <span class="sec-label sl-arch">IoT-A Reference Architecture (EU Standard)</span>
+  <div class="diagram-container">
+    <div class="diag-title">IoT Reference Architecture (7-Layer)</div>
+    <div class="diag-col" style="gap:3px;">
+      <div class="diag-box db-purple" style="width:90%">7. Business Layer — Business models, profit analysis, graphs</div>
+      <div class="arrow">↕</div>
+      <div class="diag-box db-blue" style="width:90%">6. Application Layer — Smart apps (Home, Health, Industry)</div>
+      <div class="arrow">↕</div>
+      <div class="diag-box db-teal" style="width:90%">5. Service Composition Layer — API integration, mashups</div>
+      <div class="arrow">↕</div>
+      <div class="diag-box db-green" style="width:90%">4. Service Layer — IoT service management</div>
+      <div class="arrow">↕</div>
+      <div class="diag-box db-orange" style="width:90%">3. Process &amp; Analysis Layer — Data processing, analytics</div>
+      <div class="arrow">↕</div>
+      <div class="diag-box db-red" style="width:90%">2. Network Layer — Communication protocols (WiFi, ZigBee)</div>
+      <div class="arrow">↕</div>
+      <div class="diag-box db-gray" style="width:90%">1. Device &amp; Physical Layer — Sensors, actuators, RFID</div>
+    </div>
+  </div>
+
+  <span class="sec-label sl-imp">Key Components of IoT Reference Architecture</span>
+  <ul class="point-list">
+    <li><strong>IoT Devices:</strong> Physical things with embedded sensors/actuators</li>
+    <li><strong>Resource Manager:</strong> Manages hardware resources of IoT devices</li>
+    <li><strong>Communication Manager:</strong> Handles protocol selection and data exchange</li>
+    <li><strong>IoT Service:</strong> Exposes device functionality as services</li>
+    <li><strong>Virtual Entity:</strong> Digital representation of a physical thing</li>
+    <li><strong>IoT Service Platform:</strong> Middleware layer for managing IoT services</li>
+    <li><strong>Application:</strong> End-user or business applications</li>
+  </ul>
+
+  <div class="conclusion"><p>✏️ The IoT Reference Architecture provides a universal blueprint that can be adapted to build any IoT system — from a simple smart bulb to a complex industrial automation platform.</p></div>
+</div>
+
+<!-- TOPIC 1.10 -->
+<div class="topic">
+  <div class="topic-title t-u1">1.10 IoT Network Configurations — LAN, WAN, Node, Gateway, Proxy</div>
+  <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span><span class="marks-badge m10">10 Marks</span></div>
+
+  <span class="sec-label sl-def">Introduction</span>
+  <p>IoT devices are organized and connected through specific <strong>network configurations</strong>. Understanding these is essential for designing scalable IoT systems.</p>
+
+  <span class="sec-label sl-exp">IoT LAN (Local Area Network)</span>
+  <div class="highlight-box hb-blue">
+    <strong>IoT LAN</strong> is a network that connects IoT devices within a small, limited area such as a home, office, or factory floor. It uses protocols like <u>WiFi, Bluetooth, ZigBee, Z-Wave</u>.
+    <br><strong>Example:</strong> All smart devices in a smart home connected to a home router.
+  </div>
+
+  <span class="sec-label sl-exp">IoT WAN (Wide Area Network)</span>
+  <div class="highlight-box hb-purple">
+    <strong>IoT WAN</strong> connects IoT devices over large geographical areas — cities, countries, or globally. It uses protocols like <u>LoRaWAN, NB-IoT, LTE-M, Sigfox, cellular networks</u>.
+    <br><strong>Example:</strong> Agricultural sensors across thousands of farms sending data to a central cloud server.
+  </div>
+
+  <span class="sec-label sl-exp">IoT Node</span>
+  <div class="highlight-box hb-green">
+    An <strong>IoT Node</strong> is the most basic unit of an IoT network — a single device with a sensor/actuator, a microcontroller/processor, and a communication module. It is the "end device" in the IoT network.
+    <br><strong>Example:</strong> A temperature sensor on a factory floor = one IoT node.
+  </div>
+
+  <span class="sec-label sl-exp">IoT Gateway</span>
+  <div class="highlight-box hb-orange">
+    An <strong>IoT Gateway</strong> is a hardware device that acts as a <u>bridge between IoT nodes and the cloud/internet</u>. It performs:<br>
+    • <strong>Protocol Translation</strong> — converts ZigBee → WiFi → Internet<br>
+    • <strong>Data Aggregation</strong> — combines data from multiple sensors<br>
+    • <strong>Local Processing (Edge)</strong> — filters and pre-processes data before sending to cloud<br>
+    • <strong>Security</strong> — acts as first line of defense<br>
+    <strong>Example:</strong> Amazon Echo Hub, Industrial IoT Gateway by Cisco
+  </div>
+
+  <span class="sec-label sl-exp">IoT Proxy</span>
+  <div class="highlight-box hb-teal">
+    An <strong>IoT Proxy</strong> is an intermediary device or software that acts <u>on behalf of an IoT device</u> when the device cannot directly communicate with the network. The proxy receives requests, processes them, and forwards them to the actual device.
+    <br><strong>Example:</strong> A constrained sensor with no IP address uses a proxy to communicate over the internet.
+  </div>
+
+  <div class="diagram-container">
+    <div class="diag-title">IoT Network Configuration Overview</div>
+    <div class="diag-col">
+      <div class="diag-row">
+        <div class="diag-box db-gray">IoT Node (Sensor)</div>
+        <div class="diag-box db-gray">IoT Node (Sensor)</div>
+        <div class="diag-box db-gray">IoT Node (Actuator)</div>
+      </div>
+      <div class="arrow">↓ ZigBee/Bluetooth/Z-Wave (IoT LAN)</div>
+      <div class="diag-box db-orange" style="width:300px">🔗 IoT Gateway (Protocol Translation)</div>
+      <div class="arrow">↓ WiFi/Ethernet</div>
+      <div class="diag-box db-teal" style="width:300px">🔄 IoT Proxy (if needed)</div>
+      <div class="arrow">↓ Internet/LTE/LoRa (IoT WAN)</div>
+      <div class="diag-box db-purple" style="width:300px">☁️ Cloud Platform / Server</div>
+      <div class="arrow">↓</div>
+      <div class="diag-box db-blue" style="width:300px">📱 User Application</div>
+    </div>
+  </div>
+
+  <table class="data-table">
+    <thead><tr><th>Component</th><th>Role</th><th>Location in Network</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td><strong>IoT Node</strong></td><td>Sense/Act</td><td>Edge (end device)</td><td>DHT11 temperature sensor</td></tr>
+      <tr><td><strong>IoT LAN</strong></td><td>Local networking</td><td>Home/factory level</td><td>ZigBee mesh network</td></tr>
+      <tr><td><strong>IoT Gateway</strong></td><td>Bridge + translate</td><td>Between LAN and WAN</td><td>Raspberry Pi as gateway</td></tr>
+      <tr><td><strong>IoT Proxy</strong></td><td>Represent constrained device</td><td>Network edge</td><td>CoAP-HTTP proxy</td></tr>
+      <tr><td><strong>IoT WAN</strong></td><td>Long-distance networking</td><td>City/country level</td><td>LoRaWAN, NB-IoT</td></tr>
+    </tbody>
+  </table>
+
+  <div class="exam-tip"><span class="star">⭐</span><p>Gateway vs Proxy: Gateway connects different NETWORKS. Proxy represents a device that cannot communicate directly. Both are important intermediaries in IoT architecture.</p></div>
+</div>
+
+<!-- TOPIC 1.11 -->
+<div class="topic">
+  <div class="topic-title t-u1">1.11 Review of Basic Microcontrollers and Interfacing</div>
+  <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span></div>
+
+  <span class="sec-label sl-def">What is a Microcontroller?</span>
+  <p>A <strong>Microcontroller (MCU)</strong> is a compact integrated circuit that contains a <u>processor, memory, and programmable I/O peripherals</u> — all on a single chip. It is the "brain" of an IoT device.</p>
+
+  <span class="sec-label sl-exp">Microcontroller vs Microprocessor</span>
+  <table class="data-table comp-table">
+    <thead><tr><th>Feature</th><th class="h-u3">Microcontroller</th><th class="h-u1">Microprocessor</th></tr></thead>
+    <tbody>
+      <tr><td>Integration</td><td>CPU + RAM + ROM + I/O on one chip</td><td>Only CPU on chip</td></tr>
+      <tr><td>Cost</td><td>Low cost (₹50–₹500)</td><td>Higher cost</td></tr>
+      <tr><td>Power</td><td>Very low power consumption</td><td>Higher power consumption</td></tr>
+      <tr><td>Application</td><td>Embedded systems, IoT devices</td><td>Computers, servers</td></tr>
+      <tr><td>Example</td><td>Arduino (ATmega328), ESP8266</td><td>Intel i5, AMD Ryzen</td></tr>
+    </tbody>
+  </table>
+
+  <span class="sec-label sl-exp">Popular Microcontrollers in IoT</span>
+  <ul class="point-list">
+    <li><strong>Arduino (ATmega328):</strong> Most popular for IoT prototyping; easy to program; open-source.</li>
+    <li><strong>ESP8266 / ESP32:</strong> WiFi-enabled microcontrollers; widely used for IoT due to built-in WiFi/BT.</li>
+    <li><strong>PIC Microcontroller:</strong> Industrial-grade MCU by Microchip Technology.</li>
+    <li><strong>STM32:</strong> ARM Cortex-based MCU; used in professional IoT products.</li>
+    <li><strong>Raspberry Pi (SBC):</strong> A single-board computer (not just MCU); used as IoT gateway/hub.</li>
+  </ul>
+
+  <span class="sec-label sl-exp">Interfacing in IoT</span>
+  <p><strong>Interfacing</strong> means connecting external devices (sensors, actuators, displays) to a microcontroller. Common interfacing types:</p>
+  <table class="data-table">
+    <thead><tr><th>Interface Type</th><th>Full Form</th><th>Usage</th><th>Example Devices</th></tr></thead>
+    <tbody>
+      <tr><td><strong>GPIO</strong></td><td>General Purpose I/O</td><td>Digital input/output</td><td>LED, button, relay</td></tr>
+      <tr><td><strong>ADC</strong></td><td>Analog-to-Digital Converter</td><td>Read analog sensors</td><td>Temperature, light sensors</td></tr>
+      <tr><td><strong>I2C</strong></td><td>Inter-Integrated Circuit</td><td>Multi-device bus (2 wires)</td><td>OLED display, accelerometer</td></tr>
+      <tr><td><strong>SPI</strong></td><td>Serial Peripheral Interface</td><td>High-speed peripheral comm</td><td>SD card, RF modules</td></tr>
+      <tr><td><strong>UART</strong></td><td>Universal Async Receiver-Transmitter</td><td>Serial communication</td><td>GPS, GSM modules</td></tr>
+      <tr><td><strong>PWM</strong></td><td>Pulse Width Modulation</td><td>Control motors, dimmers</td><td>Servo motor, LED dimming</td></tr>
+    </tbody>
+  </table>
+
+  <div class="exam-tip"><span class="star">⭐</span><p>Arduino uses ATmega328 MCU. ESP32 has built-in WiFi + Bluetooth. I2C uses only 2 wires (SDA, SCL). SPI is faster than I2C. These are common 2-mark questions in RGPV.</p></div>
+  <div class="conclusion"><p>✏️ Microcontrollers are the heart of IoT devices. Their ability to read sensors, process data, and communicate wirelessly makes them the key building block of the entire IoT ecosystem.</p></div>
+</div>
+
+</div><!-- /unit-body -->
+</div><!-- /unit1 -->
+
+<!-- ============================== UNIT 2 ============================== -->
+<div id="unit2">
+<div class="unit-header u2-hdr">
+  <div class="unit-num-badge">2</div>
+  <div>
+    <h2>UNIT 2 — Sensors &amp; Actuators</h2>
+    <p>Sensor Definition · Types · Errors · Actuators · Hydraulic · Pneumatic · Electrical · Thermal · Soft Actuators</p>
+  </div>
+</div>
+<div class="unit-body">
+
+<!-- TOPIC 2.1 -->
+<div class="topic">
+  <div class="topic-title t-u2">2.1 Sensor — Definition, Components, and Challenges</div>
+  <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span><span class="marks-badge m10">10 Marks</span></div>
+
+  <span class="sec-label sl-def">Definition of Sensor</span>
+  <p>A <strong>Sensor</strong> is a device that <u>detects or measures a physical quantity</u> (such as temperature, pressure, light, humidity) and converts it into an electrical signal that can be processed by a computer or microcontroller.</p>
+  <div class="highlight-box hb-purple">
+    <strong>Simple Definition:</strong> Sensor = Input Transducer. It converts real-world physical signals → electrical signals. Example: Thermometer converts temperature → voltage reading.
+  </div>
+
+  <span class="sec-label sl-exp">Basic Components of a Sensor Node</span>
+  <div class="diagram-container">
+    <div class="diag-title">Sensor Node Block Diagram</div>
+    <div class="diag-row">
+      <div class="diag-box db-blue">🌡️ Sensor<br><small>(Physical input)</small></div>
+      <div class="arrow">→</div>
+      <div class="diag-box db-orange">⚡ Signal Conditioning<br><small>(Amplify, Filter)</small></div>
+      <div class="arrow">→</div>
+      <div class="diag-box db-green">🔢 ADC<br><small>(Analog→Digital)</small></div>
+      <div class="arrow">→</div>
+      <div class="diag-box db-purple">🧠 Processor/MCU<br><small>(Process data)</small></div>
+      <div class="arrow">→</div>
+      <div class="diag-box db-teal">📡 Communication<br><small>(Send data)</small></div>
+    </div>
+    <br>
+    <div style="text-align:center"><span class="diag-box db-gray">🔋 Power Supply (Battery / Energy Harvesting)</span></div>
+  </div>
+
+  <span class="sec-label sl-exp">Components Explained</span>
+  <ul class="point-list purple">
+    <li><strong>Sensing Element:</strong> The actual transducer that detects the physical quantity (e.g., thermistor in a temp sensor).</li>
+    <li><strong>Signal Conditioning Circuit:</strong> Amplifies and filters the raw sensor signal to make it usable.</li>
+    <li><strong>ADC (Analog-to-Digital Converter):</strong> Converts analog electrical signal to digital form for microcontroller.</li>
+    <li><strong>Microcontroller/Processor:</strong> Processes sensor data — applies calibration, filtering, and decision-making.</li>
+    <li><strong>Memory:</strong> Stores sensor readings, calibration data, and firmware.</li>
+    <li><strong>Communication Module:</strong> Transmits processed data via WiFi, ZigBee, BT to gateway/cloud.</li>
+    <li><strong>Power Supply:</strong> Battery or energy harvesting (solar, vibration) to power the sensor node.</li>
+  </ul>
+
+  <span class="sec-label sl-exp">Challenges of Sensor Nodes</span>
+  <ul class="point-list red">
+    <li><strong>Limited Energy:</strong> Battery-operated — energy efficiency is critical. Must last months/years.</li>
+    <li><strong>Limited Processing Power:</strong> Tiny MCUs cannot run complex algorithms.</li>
+    <li><strong>Limited Memory:</strong> Very small RAM and Flash storage.</li>
+    <li><strong>Communication Range:</strong> Short communication range requires relay/mesh networks.</li>
+    <li><strong>Environmental Exposure:</strong> Sensors deployed outdoors face heat, humidity, and dust.</li>
+    <li><strong>Data Accuracy:</strong> Calibration drift over time affects measurement accuracy.</li>
+    <li><strong>Security:</strong> Constrained devices cannot run heavy encryption algorithms.</li>
+    <li><strong>Cost:</strong> Must be cheap enough for mass deployment.</li>
+  </ul>
+
+  <div class="conclusion"><p>✏️ Sensors are the foundation of any IoT system. Despite their small size, they face significant technical challenges. Efficient design and energy management are the core concerns in sensor node development.</p></div>
+</div>
+
+<!-- TOPIC 2.2 -->
+<div class="topic">
+  <div class="topic-title t-u2">2.2 Sensor Features and Sensor Resolution</div>
+  <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span></div>
+
+  <span class="sec-label sl-char">Key Features/Specifications of a Sensor</span>
+  <table class="data-table">
+    <thead><tr><th>Feature</th><th>Definition</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Range</strong></td><td>Minimum and maximum values a sensor can measure</td><td>Temp sensor: -40°C to +125°C</td></tr>
+      <tr><td><strong>Sensitivity</strong></td><td>Change in output per unit change in input (output/input ratio)</td><td>10 mV/°C for LM35</td></tr>
+      <tr><td><strong>Accuracy</strong></td><td>How close the measured value is to the true value</td><td>±0.5°C accuracy</td></tr>
+      <tr><td><strong>Resolution</strong></td><td>Smallest detectable change in input</td><td>0.1°C resolution</td></tr>
+      <tr><td><strong>Linearity</strong></td><td>Output is proportional to input over the full range</td><td>Ideal: straight-line output vs input graph</td></tr>
+      <tr><td><strong>Response Time</strong></td><td>Time taken by sensor to respond to a change in input</td><td>DHT22: 2 seconds response time</td></tr>
+      <tr><td><strong>Repeatability</strong></td><td>Ability to give same output for same input under same conditions</td><td>±0.1°C repeatability</td></tr>
+      <tr><td><strong>Stability / Drift</strong></td><td>Ability to maintain accuracy over time</td><td>Zero drift, span drift</td></tr>
+      <tr><td><strong>Noise</strong></td><td>Unwanted random signal that interferes with measurement</td><td>Electrical noise in signal conditioning</td></tr>
+      <tr><td><strong>Operating Conditions</strong></td><td>Temperature, humidity, pressure range for correct operation</td><td>Operates 0–60°C ambient temperature</td></tr>
+    </tbody>
+  </table>
+
+  <span class="sec-label sl-exp">Sensor Resolution — Detailed</span>
+  <p><strong>Sensor Resolution</strong> is the <u>smallest change in the measured quantity that the sensor can detect and report</u>. It determines how "fine-grained" the measurements are.</p>
+  <div class="highlight-box hb-purple">
+    <strong>Resolution Formula:</strong><br>
+    <code>Resolution = Full Scale Range / 2ⁿ</code><br>
+    Where n = number of bits in the ADC.<br>
+    <strong>Example:</strong> A 12-bit ADC measuring 0–5V: Resolution = 5V / 2¹² = 5/4096 ≈ <strong>1.22 mV</strong>
+  </div>
+  <ul class="point-list purple">
+    <li>Higher resolution → More bits in ADC → Finer measurements</li>
+    <li>8-bit ADC: 256 levels; 12-bit ADC: 4096 levels; 16-bit ADC: 65536 levels</li>
+    <li>Resolution is different from accuracy — a sensor can have high resolution but low accuracy</li>
+  </ul>
+</div>
+
+<!-- TOPIC 2.3 -->
+<div class="topic">
+  <div class="topic-title t-u2">2.3 Sensor Classes — Analog, Digital, Scalar, Vector Sensors</div>
+  <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span></div>
+
+  <table class="data-table">
+    <thead><tr><th>Class</th><th>Definition</th><th>Output Type</th><th>Advantages</th><th>Examples</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Analog Sensor</strong></td>
+        <td>Produces a <u>continuous electrical signal</u> (voltage/current) proportional to the measured quantity</td>
+        <td>Continuous voltage/current signal</td>
+        <td>Simple, low-cost, high resolution</td>
+        <td>LM35 (temp), LDR (light), Thermistor</td>
+      </tr>
+      <tr>
+        <td><strong>Digital Sensor</strong></td>
+        <td>Produces output in <u>discrete binary format</u> (0 or 1). Often includes an ADC onboard</td>
+        <td>Digital (binary) pulses / protocol</td>
+        <td>Noise immune, long distance, direct MCU interfacing</td>
+        <td>DHT22 (temp+humidity), DS18B20, PIR</td>
+      </tr>
+      <tr>
+        <td><strong>Scalar Sensor</strong></td>
+        <td>Measures a <u>single physical quantity that has magnitude only</u> (no direction)</td>
+        <td>Single numerical value</td>
+        <td>Simple measurement, easy to process</td>
+        <td>Temperature, Pressure, Humidity sensors</td>
+      </tr>
+      <tr>
+        <td><strong>Vector Sensor</strong></td>
+        <td>Measures quantities that have <u>both magnitude AND direction</u></td>
+        <td>Multiple values (x, y, z axes)</td>
+        <td>Captures directional information</td>
+        <td>Accelerometer, Magnetometer, Gyroscope</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="highlight-box hb-yellow">
+    <strong>Key Difference — Scalar vs Vector:</strong><br>
+    Scalar sensor: "Temperature is 25°C" (just a number — magnitude only)<br>
+    Vector sensor: "Acceleration is 9.8 m/s² in the downward direction" (magnitude + direction)
+  </div>
+</div>
+
+<!-- TOPIC 2.4 -->
+<div class="topic">
+  <div class="topic-title t-u2">2.4 Sensor Errors — Bias, Drift, Hysteresis, Quantization</div>
+  <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span><span class="marks-badge m10">10 Marks</span></div>
+
+  <span class="sec-label sl-def">Sensor Bias</span>
+  <div class="highlight-box hb-blue">
+    <strong>Bias</strong> is a <u>constant systematic error</u> where the sensor output is consistently offset from the true value by a fixed amount. It is also called "offset error."<br>
+    <strong>Example:</strong> A temperature sensor always reads 2°C higher than actual → Bias = +2°C<br>
+    <strong>Fix:</strong> Calibration (subtract the bias value from all readings)
+  </div>
+
+  <span class="sec-label sl-def">Sensor Drift</span>
+  <div class="highlight-box hb-purple">
+    <strong>Drift</strong> is a <u>gradual change in sensor output over time</u> even when the input quantity remains constant. Drift is caused by aging of components, temperature changes, humidity, etc.<br>
+    <strong>Types:</strong><br>
+    • <strong>Zero Drift:</strong> The zero point of the sensor shifts over time<br>
+    • <strong>Span Drift:</strong> The full-scale output changes over time<br>
+    <strong>Example:</strong> A pressure sensor in a factory reads slightly different values each month even when measuring the same pressure.
+  </div>
+
+  <span class="sec-label sl-def">Hysteresis Error</span>
+  <div class="highlight-box hb-orange">
+    <strong>Hysteresis Error</strong> occurs when a sensor gives <u>different output values for the same input depending on whether the input is increasing or decreasing</u>. The sensor has "memory" of past states.<br>
+    <strong>Example:</strong> When temperature increases from 20°C to 50°C, the sensor reads 25°C at input 25°C. But when temperature decreases from 50°C to 20°C, the sensor reads 27°C at input 25°C → Hysteresis = 2°C<br>
+    <strong>Common in:</strong> Magnetic sensors, pressure sensors, mechanical sensors
+  </div>
+
+  <span class="sec-label sl-def">Quantization Error</span>
+  <div class="highlight-box hb-green">
+    <strong>Quantization Error</strong> is the error introduced when a <u>continuous analog signal is converted to a discrete digital value</u> by an ADC. The original signal cannot be represented exactly — it is rounded to the nearest digital level.<br>
+    <strong>Formula:</strong> Quantization Error = ±(Resolution/2) = ±(FSR / 2^(n+1))<br>
+    <strong>Example:</strong> For a 3-bit ADC measuring 0–8V:<br>
+    Resolution = 8/8 = 1V. Quantization Error = ±0.5V<br>
+    A value of 2.7V would be stored as 3V — Error = 0.3V
+  </div>
+
+  <table class="data-table">
+    <thead><tr><th>Error Type</th><th>Cause</th><th>Nature</th><th>How to Reduce</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Bias</strong></td><td>Manufacturing defects, setup errors</td><td>Constant offset</td><td>Calibration, zero adjustment</td></tr>
+      <tr><td><strong>Drift</strong></td><td>Aging, temperature, humidity</td><td>Slow change over time</td><td>Periodic re-calibration, temperature compensation</td></tr>
+      <tr><td><strong>Hysteresis</strong></td><td>Mechanical backlash, magnetic effects</td><td>Path-dependent error</td><td>Better materials, dithering</td></tr>
+      <tr><td><strong>Quantization</strong></td><td>ADC analog→digital conversion</td><td>Rounding error in digitization</td><td>Higher bit-depth ADC (12-bit, 16-bit)</td></tr>
+    </tbody>
+  </table>
+
+  <div class="exam-tip"><span class="star">⭐</span><p>All four error types are important for RGPV exam. Draw a simple graph for Hysteresis (showing two different curves for increasing vs decreasing input). Remember: Bias = Fixed offset. Drift = Slow change. Hysteresis = Path-dependent. Quantization = Digital rounding.</p></div>
+</div>
+
+<!-- TOPIC 2.5 -->
+<div class="topic">
+  <div class="topic-title t-u2">2.5 Actuator — Definition and Types</div>
+  <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span><span class="marks-badge m10">10 Marks</span></div>
+
+  <span class="sec-label sl-def">Definition of Actuator</span>
+  <p>An <strong>Actuator</strong> is a device that <u>converts an electrical signal (or other energy form) into a physical action or movement</u>. While sensors are inputs, actuators are <strong>outputs</strong> — they make things happen in the physical world.</p>
+  <div class="highlight-box hb-orange">
+    <strong>Simple Analogy:</strong> Sensor = Eyes of IoT (collects information). Actuator = Hands/Muscles of IoT (takes action). Example: Temperature sensor detects high temp → actuator (cooling fan) switches on.
+  </div>
+
+  <span class="sec-label sl-types">Types of Actuators</span>
+
+  <p><strong>1. Hydraulic Actuators</strong></p>
+  <ul class="point-list orange">
+    <li>Use <u>pressurized hydraulic fluid</u> to produce mechanical motion</li>
+    <li>Capable of producing very high forces and torque</li>
+    <li>Used in heavy machinery, construction equipment, aircraft landing gear</li>
+    <li><strong>Advantage:</strong> Very high force output, precise control</li>
+    <li><strong>Disadvantage:</strong> Fluid leakage risk, bulky, requires maintenance</li>
+    <li><strong>IoT Use:</strong> Industrial automation, heavy robotic arms</li>
+  </ul>
+
+  <p><strong>2. Pneumatic Actuators</strong></p>
+  <ul class="point-list orange">
+    <li>Use <u>compressed air or gas</u> to produce linear or rotary motion</li>
+    <li>Lighter and faster than hydraulic actuators</li>
+    <li>Used in manufacturing assembly lines, valve control, packaging</li>
+    <li><strong>Advantage:</strong> Fast, clean (no fluid), low maintenance</li>
+    <li><strong>Disadvantage:</strong> Lower force than hydraulic, air compressor required</li>
+    <li><strong>IoT Use:</strong> Smart manufacturing, automated doors</li>
+  </ul>
+
+  <p><strong>3. Electrical Actuators</strong></p>
+  <ul class="point-list orange">
+    <li>Convert <u>electrical energy into mechanical movement</u> using motors or solenoids</li>
+    <li>Most common actuator type in IoT systems</li>
+    <li><strong>Sub-types:</strong> DC motors, Stepper motors, Servo motors, Solenoid valves, Relays</li>
+    <li><strong>Advantage:</strong> Easy to control with microcontrollers, precise, efficient</li>
+    <li><strong>Disadvantage:</strong> Cannot produce as high force as hydraulic</li>
+    <li><strong>IoT Use:</strong> Smart locks, robotic systems, home automation</li>
+  </ul>
+
+  <p><strong>4. Thermal / Magnetic Actuators</strong></p>
+  <ul class="point-list orange">
+    <li><strong>Thermal Actuators:</strong> Use <u>shape-memory alloys or bi-metallic strips</u> that deform when heated. Used in thermostats and HVAC.</li>
+    <li><strong>Magnetic Actuators (Electromagnets):</strong> Use <u>magnetic fields</u> to produce mechanical force. Used in solenoids, maglev systems, MRI machines.</li>
+    <li><strong>Advantage:</strong> Silent operation, no moving parts in some designs</li>
+    <li><strong>IoT Use:</strong> HVAC control valves, electromagnetic door locks</li>
+  </ul>
+
+  <p><strong>5. Mechanical Actuators</strong></p>
+  <ul class="point-list orange">
+    <li>Convert <u>rotary motion into linear motion</u> using mechanical components (gears, screws, levers, cams)</li>
+    <li>Examples: Lead screw, rack and pinion, cam follower</li>
+    <li><strong>Advantage:</strong> Simple, reliable, no fluid required</li>
+    <li><strong>IoT Use:</strong> Linear actuators for solar panel positioning, automated window openers</li>
+  </ul>
+
+  <p><strong>6. Soft Actuators</strong></p>
+  <ul class="point-list orange">
+    <li>Made of <u>soft, flexible materials</u> (silicone, hydrogels, shape-memory polymers)</li>
+    <li>Can perform gentle, compliant movements — safe for human interaction</li>
+    <li>Inspired by biological muscles</li>
+    <li><strong>Advantage:</strong> Flexible, safe for human contact, adaptable to irregular shapes</li>
+    <li><strong>IoT Use:</strong> Medical robotics, wearable devices, soft robotic grippers</li>
+  </ul>
+
+  <table class="data-table">
+    <thead><tr><th>Actuator Type</th><th>Energy Input</th><th>Output</th><th>Force Level</th><th>IoT Application</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Hydraulic</strong></td><td>Pressurized fluid</td><td>Linear/rotary</td><td>Very High</td><td>Heavy industry robots</td></tr>
+      <tr><td><strong>Pneumatic</strong></td><td>Compressed air</td><td>Linear/rotary</td><td>High</td><td>Smart manufacturing</td></tr>
+      <tr><td><strong>Electrical</strong></td><td>Electricity</td><td>Rotation/linear</td><td>Medium</td><td>Smart locks, drones</td></tr>
+      <tr><td><strong>Thermal</strong></td><td>Heat</td><td>Expansion/deformation</td><td>Low-Medium</td><td>HVAC valves</td></tr>
+      <tr><td><strong>Magnetic</strong></td><td>Magnetic field</td><td>Linear force</td><td>Medium</td><td>Solenoid locks</td></tr>
+      <tr><td><strong>Mechanical</strong></td><td>Rotary motion</td><td>Linear motion</td><td>Variable</td><td>Panel positioners</td></tr>
+      <tr><td><strong>Soft</strong></td><td>Air / chemical</td><td>Flexible deformation</td><td>Low</td><td>Medical wearables</td></tr>
+    </tbody>
+  </table>
+
+  <div class="exam-tip"><span class="star">⭐</span><p>Remember: Actuators are OUTPUT devices. Key comparison: Hydraulic (highest force, fluid) vs Pneumatic (air, faster, cleaner). Soft actuators are the newest type used in medical IoT. Electrical actuators (motors, solenoids) are most common in consumer IoT.</p></div>
+  <div class="conclusion"><p>✏️ Actuators are essential components of IoT systems that enable machines to interact with the physical world. Selecting the right actuator type depends on the required force, speed, precision, and environment.</p></div>
+</div>
+
+</div></div><!-- /unit2 -->
+
+<!-- ============================== UNIT 3 ============================== -->
+<div id="unit3">
+<div class="unit-header u3-hdr">
+  <div class="unit-num-badge">3</div>
+  <div>
+    <h2>UNIT 3 — IoT Networking, Protocols &amp; Technologies</h2>
+    <p>6LoWPAN · IEEE 802.15.4 · ZigBee · RFID · NFC · Bluetooth · Wireless Sensor Networks</p>
+  </div>
+</div>
+<div class="unit-body">
+
+<!-- TOPIC 3.1 -->
+<div class="topic">
+  <div class="topic-title t-u3">3.1 Basics of IoT Networking and IoT Service-Oriented Architecture</div>
+  <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span></div>
+
+  <span class="sec-label sl-def">IoT Networking Basics</span>
+  <p><strong>IoT Networking</strong> refers to the <u>technologies, protocols, and infrastructure</u> that allow IoT devices to communicate with each other, with gateways, and with cloud platforms.</p>
+
+  <span class="sec-label sl-char">Key Requirements of IoT Networks</span>
+  <ul class="point-list green">
+    <li><strong>Low Power:</strong> Devices must operate for years on batteries</li>
+    <li><strong>Low Cost:</strong> Chips and modules must be affordable for mass deployment</li>
+    <li><strong>Low Data Rate:</strong> Most IoT data is small packets (temperature = few bytes)</li>
+    <li><strong>Long Range:</strong> Some applications need kilometers of coverage (agriculture)</li>
+    <li><strong>High Device Density:</strong> Must support millions of devices per km²</li>
+    <li><strong>Security:</strong> End-to-end encryption and authentication</li>
+    <li><strong>Reliability:</strong> Data must be delivered even in noisy RF environments</li>
+  </ul>
+
+  <span class="sec-label sl-exp">IoT Service-Oriented Architecture (SOA)</span>
+  <p>IoT <strong>Service-Oriented Architecture</strong> treats every IoT capability (sensing, actuation, storage) as a <u>service</u> that can be accessed by other components over a network using standard interfaces.</p>
+
+  <div class="diagram-container">
+    <div class="diag-title">IoT Service-Oriented Architecture</div>
+    <div class="diag-col">
+      <div class="diag-box db-blue" style="width:85%">📱 Application Layer — Business Applications using IoT Services</div>
+      <div class="arrow">↕ Service Requests / Responses</div>
+      <div class="diag-box db-purple" style="width:85%">🔧 Service Layer — Sensing Service | Actuation Service | Storage Service</div>
+      <div class="arrow">↕</div>
+      <div class="diag-box db-orange" style="width:85%">🌐 Network Layer — IP-based Communication, IoT Middleware</div>
+      <div class="arrow">↕</div>
+      <div class="diag-box db-green" style="width:85%">📡 Device Layer — Sensors, Actuators, RFID, Smart Devices</div>
+    </div>
+  </div>
+
+  <ul class="point-list green">
+    <li><strong>Service Discovery:</strong> Devices register and discover services dynamically</li>
+    <li><strong>Service Composition:</strong> Complex applications built by combining multiple IoT services</li>
+    <li><strong>Loose Coupling:</strong> Services are independent — change one without breaking others</li>
+    <li><strong>Reusability:</strong> A sensor service can be used by multiple applications</li>
+  </ul>
+</div>
+
+<!-- TOPIC 3.2 -->
+<div class="topic">
+  <div class="topic-title t-u3">3.2 IoT Challenges</div>
+  <div class="marks-row"><span class="marks-badge m5">5 Marks</span></div>
+
+  <table class="data-table">
+    <thead><tr><th>Category</th><th>Challenge</th><th>Details</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Security</strong></td><td>Weak Security in Devices</td><td>Many IoT devices have no encryption, default passwords</td></tr>
+      <tr><td><strong>Privacy</strong></td><td>Data Collection &amp; Misuse</td><td>IoT devices collect sensitive personal data 24/7</td></tr>
+      <tr><td><strong>Interoperability</strong></td><td>Lack of Standards</td><td>Devices from different vendors cannot communicate</td></tr>
+      <tr><td><strong>Scalability</strong></td><td>Managing Billions of Devices</td><td>Networks, platforms, IP addresses must scale massively</td></tr>
+      <tr><td><strong>Power</strong></td><td>Energy Constraints</td><td>Battery-operated devices need ultra-low power operation</td></tr>
+      <tr><td><strong>Connectivity</strong></td><td>Reliable Communication</td><td>Network outages affect critical IoT applications</td></tr>
+      <tr><td><strong>Data Volume</strong></td><td>Big Data from IoT</td><td>Billions of devices generate enormous amounts of data</td></tr>
+      <tr><td><strong>Heterogeneity</strong></td><td>Diverse Devices &amp; Platforms</td><td>Different OS, hardware, protocols make integration hard</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- TOPIC 3.3 -->
+<div class="topic">
+  <div class="topic-title t-u3">3.3 6LoWPAN (IPv6 over Low-Power Wireless Personal Area Networks)</div>
+  <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span><span class="marks-badge m10">10 Marks</span></div>
+
+  <span class="sec-label sl-def">Definition</span>
+  <p><strong>6LoWPAN</strong> stands for <u>IPv6 over Low-Power Wireless Personal Area Networks</u>. It is an <strong>adaptation layer</strong> that allows IPv6 packets to be transmitted over IEEE 802.15.4 low-power wireless networks by compressing and fragmenting IPv6 headers.</p>
+
+  <span class="sec-label sl-exp">Why is 6LoWPAN Needed?</span>
+  <div class="highlight-box hb-green">
+    <strong>Problem:</strong> IPv6 packet headers are 40 bytes minimum. IEEE 802.15.4 (the physical layer) supports max frame size of only 127 bytes. After subtracting other headers, only ~80 bytes are available for data payload. A standard IPv6 header (40 bytes) would take up half the frame!<br>
+    <strong>Solution:</strong> 6LoWPAN compresses the IPv6 header from 40 bytes down to as few as 2 bytes, making IPv6 feasible for low-power IoT devices.
+  </div>
+
+  <span class="sec-label sl-char">Features of 6LoWPAN</span>
+  <ul class="point-list green">
+    <li><strong>Header Compression:</strong> Reduces IPv6 header to 2–7 bytes using IPHC (IP Header Compression)</li>
+    <li><strong>Fragmentation &amp; Reassembly:</strong> Splits large IPv6 packets into small 802.15.4 frames</li>
+    <li><strong>Mesh Addressing:</strong> Supports multi-hop routing in mesh networks</li>
+    <li><strong>Works on IEEE 802.15.4:</strong> Physical and MAC layer standard for low-power wireless</li>
+    <li><strong>Enables End-to-End IPv6:</strong> IoT devices can directly communicate using IPv6 addresses</li>
+    <li><strong>Low Power:</strong> Designed for battery-operated devices</li>
+    <li><strong>Defined by:</strong> IETF RFC 4944 (original) and RFC 6282 (header compression)</li>
+  </ul>
+
+  <div class="diagram-container">
+    <div class="diag-title">6LoWPAN in Protocol Stack</div>
+    <div class="diag-col" style="gap:2px;">
+      <div class="diag-box db-blue" style="width:70%">Application Layer (CoAP, HTTP)</div>
+      <div class="diag-box db-purple" style="width:70%">Transport Layer (UDP / TCP)</div>
+      <div class="diag-box db-teal" style="width:70%">Network Layer (IPv6)</div>
+      <div class="diag-box db-orange" style="width:70%">⭐ 6LoWPAN Adaptation Layer ⭐</div>
+      <div class="diag-box db-green" style="width:70%">IEEE 802.15.4 MAC Layer</div>
+      <div class="diag-box db-gray" style="width:70%">IEEE 802.15.4 Physical Layer</div>
+    </div>
+  </div>
+
+  <span class="sec-label sl-app">Applications of 6LoWPAN</span>
+  <ul class="point-list green">
+    <li>Smart home automation (interconnecting sensors)</li>
+    <li>Smart building energy management</li>
+    <li>Healthcare body area networks</li>
+    <li>Industrial wireless sensor networks</li>
+    <li>Smart metering (electricity, gas, water)</li>
+  </ul>
+
+  <div class="exam-tip"><span class="star">⭐</span><p>6LoWPAN full form, need, and protocol stack position are most asked. Remember: 6LoWPAN is NOT a full protocol — it is an ADAPTATION LAYER between IPv6 and IEEE 802.15.4. It solves the header size mismatch problem.</p></div>
+</div>
+
+<!-- TOPIC 3.4 -->
+<div class="topic">
+  <div class="topic-title t-u3">3.4 IEEE 802.15.4 Standard</div>
+  <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span></div>
+
+  <span class="sec-label sl-def">Definition</span>
+  <p><strong>IEEE 802.15.4</strong> is a standard that defines the <u>Physical (PHY) and Medium Access Control (MAC) layer specifications</u> for low-rate wireless personal area networks (LR-WPAN). It is the foundation for ZigBee, 6LoWPAN, and Thread.</p>
+
+  <span class="sec-label sl-char">Key Specifications</span>
+  <table class="data-table">
+    <thead><tr><th>Parameter</th><th>Value</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Frequency Bands</strong></td><td>2.4 GHz (global), 915 MHz (Americas), 868 MHz (Europe)</td></tr>
+      <tr><td><strong>Data Rate</strong></td><td>250 kbps (2.4 GHz), 40 kbps (915 MHz), 20 kbps (868 MHz)</td></tr>
+      <tr><td><strong>Range</strong></td><td>10–100 meters (typical)</td></tr>
+      <tr><td><strong>Max Frame Size</strong></td><td>127 bytes</td></tr>
+      <tr><td><strong>Addressing</strong></td><td>16-bit or 64-bit device addresses</td></tr>
+      <tr><td><strong>Power Consumption</strong></td><td>Ultra-low — suitable for battery operation</td></tr>
+      <tr><td><strong>Network Topology</strong></td><td>Star, Peer-to-Peer (Mesh)</td></tr>
+      <tr><td><strong>Channel Access</strong></td><td>CSMA-CA (Carrier Sense Multiple Access with Collision Avoidance)</td></tr>
+    </tbody>
+  </table>
+
+  <span class="sec-label sl-exp">Two Device Types</span>
+  <ul class="point-list green">
+    <li><strong>FFD (Full Function Device):</strong> Can act as coordinator, router, or end device. Can communicate with any device.</li>
+    <li><strong>RFD (Reduced Function Device):</strong> Simpler, lower-power device. Can only communicate with an FFD. Used for simple sensors/actuators.</li>
+  </ul>
+</div>
+
+<!-- TOPIC 3.5 -->
+<div class="topic">
+  <div class="topic-title t-u3">3.5 ZigBee and Its Types</div>
+  <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span><span class="marks-badge m10">10 Marks</span></div>
+
+  <span class="sec-label sl-def">Definition</span>
+  <p><strong>ZigBee</strong> is a <u>low-power, low-data-rate wireless communication standard</u> based on IEEE 802.15.4. It is designed for IoT and sensor networks that require long battery life and simple, low-cost implementation. It is maintained by the ZigBee Alliance (now Connectivity Standards Alliance).</p>
+
+  <span class="sec-label sl-char">ZigBee Specifications</span>
+  <table class="data-table">
+    <thead><tr><th>Parameter</th><th>Value</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Standard</strong></td><td>IEEE 802.15.4 (PHY + MAC)</td></tr>
+      <tr><td><strong>Frequency</strong></td><td>2.4 GHz (global), 868/915 MHz</td></tr>
+      <tr><td><strong>Data Rate</strong></td><td>250 kbps</td></tr>
+      <tr><td><strong>Range</strong></td><td>10–100 m (up to 1 km with mesh)</td></tr>
+      <tr><td><strong>Network Nodes</strong></td><td>Up to 65,000 devices per network</td></tr>
+      <tr><td><strong>Battery Life</strong></td><td>Months to years</td></tr>
+      <tr><td><strong>Network Types</strong></td><td>Star, Tree, Mesh</td></tr>
+      <tr><td><strong>Security</strong></td><td>AES-128 encryption</td></tr>
+    </tbody>
+  </table>
+
+  <span class="sec-label sl-types">ZigBee Device Types</span>
+  <ul class="point-list green">
+    <li><strong>ZigBee Coordinator (ZC):</strong> The "brain" of the ZigBee network. There is exactly ONE coordinator per network. It initializes, maintains the network, and acts as the trust center for security. Uses FFD device.</li>
+    <li><strong>ZigBee Router (ZR):</strong> Extends network range by relaying data to other devices. Can join child devices. Acts as intermediate nodes. Uses FFD device.</li>
+    <li><strong>ZigBee End Device (ZED):</strong> Simplest device — only sends/receives data. Cannot route. Sleeps most of the time to save battery. Uses RFD or FFD device.</li>
+  </ul>
+
+  <div class="diagram-container">
+    <div class="diag-title">ZigBee Star + Mesh Topology</div>
+    <div style="font-family:'Fira Mono',monospace;font-size:0.8rem;text-align:left;display:inline-block;">
+      <pre style="color:var(--color-text-primary,#333);background:transparent;padding:0">
+                    [Coordinator]
+                    /      |      \
+                   /       |       \
+               [Router]  [Router]  [End Device]
+               /    \       |
+          [End]   [End]  [Router]
+                            |
+                          [End]
+      </pre>
+      <div style="text-align:center;margin-top:8px">
+        <span class="diag-box db-blue" style="font-size:0.75rem">● Coordinator</span>
+        <span class="diag-box db-green" style="font-size:0.75rem">● Router</span>
+        <span class="diag-box db-gray" style="font-size:0.75rem">● End Device</span>
+      </div>
+    </div>
+  </div>
+
+  <span class="sec-label sl-app">ZigBee Applications</span>
+  <ul class="point-list green">
+    <li>Smart home lighting control (ZigBee Light Link)</li>
+    <li>Building automation (HVAC, security)</li>
+    <li>Smart energy/metering</li>
+    <li>Healthcare monitoring</li>
+    <li>Industrial automation</li>
+    <li>Agriculture sensor networks</li>
+  </ul>
+
+  <span class="sec-label sl-adv">Advantages</span>
+  <ul class="point-list check">
+    <li>Very low power consumption — batteries last years</li>
+    <li>Self-organizing mesh network — no central point of failure</li>
+    <li>Supports up to 65,000 devices</li>
+    <li>AES-128 encryption for security</li>
+    <li>Inexpensive modules</li>
+  </ul>
+  <span class="sec-label sl-dis">Disadvantages</span>
+  <ul class="point-list red">
+    <li>Low data rate (250 kbps) — not suitable for video/audio</li>
+    <li>Short range without mesh</li>
+    <li>Interference with WiFi at 2.4 GHz</li>
+    <li>Not interoperable with non-ZigBee devices without gateway</li>
+  </ul>
+
+  <div class="exam-tip"><span class="star">⭐</span><p>ZigBee coordinator (only ONE per network), Router (relay), End Device (sleeps) — these 3 device types are frequently asked. ZigBee vs WiFi vs Bluetooth comparison table may appear in 10-mark question.</p></div>
+</div>
+
+<!-- TOPIC 3.6 -->
+<div class="topic">
+  <div class="topic-title t-u3">3.6 RFID — Features, Working Principle, and Applications</div>
+  <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span><span class="marks-badge m10">10 Marks</span></div>
+
+  <span class="sec-label sl-def">Definition</span>
+  <p><strong>RFID (Radio Frequency Identification)</strong> is a technology that uses <u>radio waves to wirelessly identify and track objects</u> using small electronic tags (chips) attached to them. It is one of the earliest IoT enabling technologies.</p>
+
+  <span class="sec-label sl-exp">RFID System Components</span>
+  <ul class="point-list">
+    <li><strong>RFID Tag (Transponder):</strong> A small chip + antenna attached to an object. Stores unique identifier (UID).</li>
+    <li><strong>RFID Reader (Interrogator):</strong> Device that emits radio waves to read/write RFID tags.</li>
+    <li><strong>Antenna:</strong> Transmits and receives radio frequency signals between reader and tag.</li>
+    <li><strong>Middleware/Backend:</strong> Software system that processes the tag data and connects to databases/applications.</li>
+  </ul>
+
+  <span class="sec-label sl-arch">RFID Working Principle</span>
+  <div class="diagram-container">
+    <div class="diag-title">RFID Working Principle</div>
+    <div class="diag-col">
+      <div class="diag-row">
+        <div class="diag-box db-orange">📡 RFID Reader<br><small>Emits RF energy</small></div>
+        <div class="arrow" style="font-size:1.5rem">⟷ Radio Waves ⟷</div>
+        <div class="diag-box db-blue">🏷️ RFID Tag<br><small>Reflects encoded signal</small></div>
+      </div>
+      <div class="arrow">↓</div>
+      <div class="diag-box db-green" style="width:80%">💻 Backend System — Identifies tag, matches to database record</div>
+    </div>
+    <p style="margin-top:8px;font-size:0.78rem;">Step 1: Reader emits RF field → Step 2: Tag absorbs energy → Step 3: Tag sends back stored ID → Step 4: Reader receives and decodes → Step 5: System processes ID</p>
+  </div>
+
+  <span class="sec-label sl-types">Types of RFID Tags</span>
+  <table class="data-table">
+    <thead><tr><th>Type</th><th>Power Source</th><th>Range</th><th>Cost</th><th>Use Case</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Passive Tag</strong></td><td>No battery — powered by reader's RF field</td><td>Up to 7 meters</td><td>Very cheap (₹5–₹20)</td><td>Library books, retail tags, access cards</td></tr>
+      <tr><td><strong>Active Tag</strong></td><td>Has internal battery</td><td>Up to 100 meters</td><td>Expensive (₹200+)</td><td>Vehicle tracking, asset management</td></tr>
+      <tr><td><strong>Semi-Passive Tag</strong></td><td>Battery for chip, RF for communication</td><td>Medium range</td><td>Medium</td><td>Temperature monitoring in transit</td></tr>
+    </tbody>
+  </table>
+
+  <span class="sec-label sl-char">RFID Frequency Bands</span>
+  <table class="data-table">
+    <thead><tr><th>Band</th><th>Frequency</th><th>Range</th><th>Application</th></tr></thead>
+    <tbody>
+      <tr><td>LF (Low Freq)</td><td>125–134 kHz</td><td>&lt;0.5 m</td><td>Animal tracking, access control</td></tr>
+      <tr><td>HF (High Freq)</td><td>13.56 MHz</td><td>&lt;1 m</td><td>NFC, smart cards, library</td></tr>
+      <tr><td>UHF (Ultra High Freq)</td><td>860–960 MHz</td><td>Up to 7 m</td><td>Retail, supply chain, e-passport</td></tr>
+      <tr><td>Microwave</td><td>2.45 GHz</td><td>Up to 100 m</td><td>Vehicle tolling, active tags</td></tr>
+    </tbody>
+  </table>
+
+  <span class="sec-label sl-app">Applications of RFID</span>
+  <ul class="point-list green">
+    <li>Retail inventory management (tracking products)</li>
+    <li>Library book management</li>
+    <li>Supply chain &amp; logistics tracking</li>
+    <li>Access control systems (employee cards)</li>
+    <li>Animal tracking (livestock identification)</li>
+    <li>Electronic toll collection (FASTag in India)</li>
+    <li>E-passport and identity management</li>
+    <li>Healthcare (patient wristbands, drug tracking)</li>
+  </ul>
+
+  <div class="exam-tip"><span class="star">⭐</span><p>FASTag uses RFID technology (UHF band). Passive vs Active tag difference is frequently asked. RFID Working Principle diagram is a must-draw for 7/10 mark questions. Remember: RFID = Radio waves + Chip tag + Reader.</p></div>
+</div>
+
+<!-- TOPIC 3.7 -->
+<div class="topic">
+  <div class="topic-title t-u3">3.7 NFC (Near Field Communication)</div>
+  <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span></div>
+
+  <span class="sec-label sl-def">Definition</span>
+  <p><strong>NFC (Near Field Communication)</strong> is a short-range wireless communication technology that enables devices to exchange data when they are <u>brought within 4 cm (approximately) of each other</u>. It operates at 13.56 MHz and is based on RFID principles.</p>
+
+  <span class="sec-label sl-char">Key Features of NFC</span>
+  <ul class="point-list">
+    <li><strong>Frequency:</strong> 13.56 MHz (HF RFID band)</li>
+    <li><strong>Range:</strong> Up to 4 cm (very short range — by design, for security)</li>
+    <li><strong>Data Rate:</strong> 106, 212, or 424 kbps</li>
+    <li><strong>Standard:</strong> ISO 14443, ISO 18092</li>
+    <li><strong>Communication:</strong> Half-duplex (one direction at a time)</li>
+  </ul>
+
+  <span class="sec-label sl-types">NFC Operating Modes</span>
+  <ul class="point-list">
+    <li><strong>Reader/Writer Mode:</strong> NFC device reads/writes NFC tags (like reading a product tag)</li>
+    <li><strong>Peer-to-Peer Mode:</strong> Two NFC devices exchange data (phone ↔ phone)</li>
+    <li><strong>Card Emulation Mode:</strong> NFC device acts as a smart card (mobile payments)</li>
+  </ul>
+
+  <table class="data-table comp-table">
+    <thead><tr><th>Feature</th><th class="h-u3">NFC</th><th class="h-u1">RFID</th><th class="h-u4">Bluetooth</th></tr></thead>
+    <tbody>
+      <tr><td>Range</td><td>~4 cm</td><td>Few cm to 100m</td><td>10–100 m</td></tr>
+      <tr><td>Frequency</td><td>13.56 MHz</td><td>LF/HF/UHF</td><td>2.4 GHz</td></tr>
+      <tr><td>Setup Time</td><td>Instant (&lt;0.1 sec)</td><td>Instant</td><td>Pairing needed (~6 sec)</td></tr>
+      <tr><td>Power</td><td>Very low</td><td>Very low (passive)</td><td>Low</td></tr>
+      <tr><td>Security</td><td>Very high (proximity)</td><td>Medium</td><td>Medium</td></tr>
+      <tr><td>Use Case</td><td>Mobile payments, transit</td><td>Inventory, logistics</td><td>Audio, data transfer</td></tr>
+    </tbody>
+  </table>
+
+  <span class="sec-label sl-app">Applications of NFC</span>
+  <ul class="point-list green">
+    <li>Mobile payments (Google Pay, Apple Pay, PhonePe)</li>
+    <li>Public transit ticketing (metro cards)</li>
+    <li>Smart posters &amp; product info tags</li>
+    <li>Access control (hotel rooms, offices)</li>
+    <li>Data sharing between smartphones</li>
+    <li>Healthcare patient identification</li>
+  </ul>
+</div>
+
+<!-- TOPIC 3.8 -->
+<div class="topic">
+  <div class="topic-title t-u3">3.8 Bluetooth in IoT</div>
+  <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span></div>
+
+  <span class="sec-label sl-def">Definition</span>
+  <p><strong>Bluetooth</strong> is a short-range wireless technology standard for exchanging data over short distances using <u>radio waves in the 2.4 GHz ISM band</u>. For IoT, <strong>Bluetooth Low Energy (BLE)</strong> is the key variant.</p>
+
+  <table class="data-table">
+    <thead><tr><th>Feature</th><th>Classic Bluetooth</th><th>Bluetooth Low Energy (BLE)</th></tr></thead>
+    <tbody>
+      <tr><td>Version</td><td>Bluetooth 1.0–3.0</td><td>Bluetooth 4.0+ (BLE)</td></tr>
+      <tr><td>Range</td><td>10–100 m</td><td>10–100 m</td></tr>
+      <tr><td>Data Rate</td><td>1–3 Mbps</td><td>1 Mbps</td></tr>
+      <tr><td>Power</td><td>Higher power</td><td>Very low (can last years on coin cell)</td></tr>
+      <tr><td>Latency</td><td>~100 ms</td><td>~3 ms (very fast)</td></tr>
+      <tr><td>IoT Use</td><td>Audio streaming, file transfer</td><td>Wearables, beacons, sensors</td></tr>
+    </tbody>
+  </table>
+
+  <span class="sec-label sl-app">Bluetooth IoT Applications</span>
+  <ul class="point-list green">
+    <li>Fitness trackers &amp; smartwatches (BLE)</li>
+    <li>Indoor positioning (Bluetooth beacons)</li>
+    <li>Smart home device pairing</li>
+    <li>Medical devices (glucose monitors, hearing aids)</li>
+    <li>Asset tracking in warehouses</li>
+  </ul>
+</div>
+
+<!-- TOPIC 3.9 -->
+<div class="topic">
+  <div class="topic-title t-u3">3.9 Wireless Sensor Networks (WSN) and Applications</div>
+  <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span><span class="marks-badge m10">10 Marks</span></div>
+
+  <span class="sec-label sl-def">Definition</span>
+  <p>A <strong>Wireless Sensor Network (WSN)</strong> is a network of <u>spatially distributed, autonomous sensor nodes</u> that cooperatively monitor physical or environmental conditions (temperature, sound, vibration, pressure) and communicate wirelessly to a central system.</p>
+
+  <span class="sec-label sl-arch">WSN Architecture</span>
+  <div class="diagram-container">
+    <div class="diag-title">WSN Architecture</div>
+    <div class="diag-col">
+      <div class="diag-row">
+        <div class="diag-box db-gray">📡 Sensor Node 1</div>
+        <div class="diag-box db-gray">📡 Sensor Node 2</div>
+        <div class="diag-box db-gray">📡 Sensor Node 3</div>
+        <div class="diag-box db-gray">📡 Sensor Node N</div>
+      </div>
+      <div class="arrow">↓ Multi-hop Wireless Communication</div>
+      <div class="diag-box db-orange" style="width:60%">🔗 Sink Node / Base Station (Gateway)</div>
+      <div class="arrow">↓ Internet / Satellite</div>
+      <div class="diag-box db-blue" style="width:60%">💻 Remote User / Control Center</div>
+    </div>
+  </div>
+
+  <span class="sec-label sl-char">Characteristics of WSN</span>
+  <ul class="point-list green">
+    <li><strong>Self-Organization:</strong> Nodes automatically form a network without manual configuration</li>
+    <li><strong>Multi-Hop Routing:</strong> Data travels through multiple nodes to reach the base station (extends range)</li>
+    <li><strong>Energy Awareness:</strong> Routing algorithms consider battery levels to extend network lifetime</li>
+    <li><strong>Fault Tolerance:</strong> Network continues functioning even if some nodes fail</li>
+    <li><strong>Scalability:</strong> Can have hundreds to thousands of nodes</li>
+    <li><strong>Data Aggregation:</strong> Nodes combine data from multiple sources to reduce transmissions</li>
+  </ul>
+
+  <span class="sec-label sl-app">Applications of WSN</span>
+  <table class="data-table">
+    <thead><tr><th>Domain</th><th>Application</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Military</strong></td><td>Battlefield surveillance, target tracking, intrusion detection</td></tr>
+      <tr><td><strong>Environmental</strong></td><td>Forest fire detection, flood warning, air/water quality monitoring</td></tr>
+      <tr><td><strong>Agriculture</strong></td><td>Soil moisture, crop health, irrigation automation</td></tr>
+      <tr><td><strong>Healthcare</strong></td><td>Remote patient monitoring, elderly fall detection</td></tr>
+      <tr><td><strong>Structural Health</strong></td><td>Monitoring bridges, buildings for vibrations/cracks</td></tr>
+      <tr><td><strong>Industrial</strong></td><td>Machine health monitoring, predictive maintenance</td></tr>
+      <tr><td><strong>Smart Home</strong></td><td>Distributed temperature/lighting control</td></tr>
+    </tbody>
+  </table>
+
+  <div class="exam-tip"><span class="star">⭐</span><p>WSN Architecture diagram (Sensor Nodes → Sink → Internet → User) is frequently asked. Key difference between WSN and IoT: WSN focuses on sensing and short-range multi-hop communication; IoT connects to the global internet and adds intelligence/services.</p></div>
+  <div class="conclusion"><p>✏️ WSN forms the physical sensing backbone of many IoT systems. Its self-organizing, energy-efficient, multi-hop nature makes it ideal for large-scale environmental and infrastructure monitoring.</p></div>
+</div>
+
+</div></div><!-- /unit3 -->
+
+<!-- ============================== UNIT 4 ============================== -->
+<div id="unit4">
+<div class="unit-header u4-hdr">
+  <div class="unit-num-badge">4</div>
+  <div>
+    <h2>UNIT 4 — IoT Messaging and Application Protocols</h2>
+    <p>MQTT · SMQTT · CoAP · XMPP · AMQP — Complete Protocol Study</p>
+  </div>
+</div>
+<div class="unit-body">
+
+<!-- TOPIC 4.1 -->
+<div class="topic">
+  <div class="topic-title t-u4">4.1 MQTT — Message Queuing Telemetry Transport</div>
+  <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span><span class="marks-badge m10">10 Marks</span></div>
+
+  <span class="sec-label sl-def">Definition</span>
+  <p><strong>MQTT (Message Queuing Telemetry Transport)</strong> is a <u>lightweight, publish-subscribe messaging protocol</u> designed for constrained IoT devices and low-bandwidth, high-latency networks. It runs over TCP/IP and is ideal for machine-to-machine communication.</p>
+  <div class="highlight-box hb-orange">
+    <strong>Key Idea:</strong> MQTT uses a Pub-Sub model — devices do NOT communicate directly. A central <strong>Broker</strong> receives messages from publishers and forwards them to all interested subscribers.
+  </div>
+
+  <span class="sec-label sl-exp">MQTT Components</span>
+  <ul class="point-list orange">
+    <li><strong>Publisher (Client):</strong> An IoT device that produces/sends data. It publishes messages to a <strong>topic</strong>. Example: Temperature sensor publishes to topic "home/bedroom/temperature".</li>
+    <li><strong>Broker (Server):</strong> The central intermediary. Receives all published messages and routes them to appropriate subscribers. Example: Mosquitto Broker, AWS IoT Core, HiveMQ.</li>
+    <li><strong>Subscriber (Client):</strong> An application or device that wants to receive data. It subscribes to a specific topic. Example: A smartphone app subscribes to "home/bedroom/temperature" to display readings.</li>
+    <li><strong>Topic:</strong> A hierarchical string used to categorize messages. Allows wildcards (# and +). Example: "factory/machine1/temperature".</li>
+  </ul>
+
+  <span class="sec-label sl-arch">MQTT Working — Pub-Sub Model</span>
+  <div class="diagram-container">
+    <div class="diag-title">MQTT Publish-Subscribe Architecture</div>
+    <div class="diag-col">
+      <div class="diag-row" style="gap:20px;">
+        <div class="diag-col">
+          <div class="diag-box db-blue">🌡️ Temp Sensor<br><small>Publisher</small></div>
+          <div class="arrow">↓ Publish: "home/temp" = 25°C</div>
+        </div>
+        <div class="diag-col">
+          <div class="diag-box db-blue">💡 Light Sensor<br><small>Publisher</small></div>
+          <div class="arrow">↓ Publish: "home/light" = ON</div>
+        </div>
+      </div>
+      <div style="text-align:center;margin:8px 0">↓↓↓</div>
+      <div class="diag-box db-orange" style="width:70%;padding:12px;">🔄 MQTT BROKER<br><small>Receives, filters, routes all messages</small></div>
+      <div style="text-align:center;margin:8px 0">↓↓↓</div>
+      <div class="diag-row" style="gap:20px;">
+        <div class="diag-col">
+          <div class="diag-box db-green">📱 Smartphone App<br><small>Subscriber: "home/#"</small></div>
+        </div>
+        <div class="diag-col">
+          <div class="diag-box db-green">🖥️ Dashboard<br><small>Subscriber: "home/temp"</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <span class="sec-label sl-exp">MQTT QoS (Quality of Service) Levels</span>
+  <table class="data-table">
+    <thead><tr><th>QoS Level</th><th>Name</th><th>Guarantee</th><th>Use When</th></tr></thead>
+    <tbody>
+      <tr><td><strong>QoS 0</strong></td><td>At Most Once</td><td>Message may be lost. No acknowledgment.</td><td>Non-critical sensor readings</td></tr>
+      <tr><td><strong>QoS 1</strong></td><td>At Least Once</td><td>Message delivered at least once (duplicates possible)</td><td>Important but duplicate-tolerant data</td></tr>
+      <tr><td><strong>QoS 2</strong></td><td>Exactly Once</td><td>Message delivered exactly once. No loss, no duplicate.</td><td>Critical: financial, medical data</td></tr>
+    </tbody>
+  </table>
+
+  <span class="sec-label sl-exp">MQTT Methods (Control Packets)</span>
+  <table class="data-table">
+    <thead><tr><th>Packet Type</th><th>Direction</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td><strong>CONNECT</strong></td><td>Client → Broker</td><td>Client requests connection to broker</td></tr>
+      <tr><td><strong>CONNACK</strong></td><td>Broker → Client</td><td>Broker acknowledges connection</td></tr>
+      <tr><td><strong>PUBLISH</strong></td><td>Client ↔ Broker</td><td>Send a message with topic</td></tr>
+      <tr><td><strong>PUBACK</strong></td><td>Receiver → Sender</td><td>Acknowledge publish (QoS 1)</td></tr>
+      <tr><td><strong>SUBSCRIBE</strong></td><td>Client → Broker</td><td>Subscribe to one or more topics</td></tr>
+      <tr><td><strong>SUBACK</strong></td><td>Broker → Client</td><td>Acknowledge subscription</td></tr>
+      <tr><td><strong>UNSUBSCRIBE</strong></td><td>Client → Broker</td><td>Unsubscribe from topics</td></tr>
+      <tr><td><strong>PINGREQ/PINGRESP</strong></td><td>Client ↔ Broker</td><td>Keep-alive heartbeat</td></tr>
+      <tr><td><strong>DISCONNECT</strong></td><td>Client → Broker</td><td>Clean disconnection</td></tr>
+    </tbody>
+  </table>
+
+  <span class="sec-label sl-char">MQTT Features</span>
+  <ul class="point-list check">
+    <li>Very <strong>lightweight</strong> — minimum 2-byte fixed header</li>
+    <li>Runs over <strong>TCP/IP</strong> — reliable delivery</li>
+    <li>Supports <strong>Last Will and Testament (LWT)</strong> — broker notifies others if a client disconnects unexpectedly</li>
+    <li>Supports <strong>Retained Messages</strong> — broker saves last message on a topic for new subscribers</li>
+    <li>Supports <strong>persistent sessions</strong> for offline clients</li>
+    <li>Default port: <strong>1883</strong> (unencrypted), <strong>8883</strong> (TLS/SSL encrypted)</li>
+  </ul>
+
+  <span class="sec-label sl-adv">Advantages</span>
+  <ul class="point-list check">
+    <li>Extremely lightweight — works on 8-bit microcontrollers with very little RAM</li>
+    <li>Works well on unreliable, high-latency networks</li>
+    <li>Scalable — one broker can handle thousands of clients</li>
+    <li>Flexible QoS levels for different reliability needs</li>
+  </ul>
+  <span class="sec-label sl-dis">Disadvantages</span>
+  <ul class="point-list red">
+    <li>Requires always-on broker — single point of failure</li>
+    <li>Basic security in early versions (no built-in encryption in MQTT 3.1)</li>
+    <li>Not suitable for request-response communication (like HTTP)</li>
+  </ul>
+
+  <span class="sec-label sl-app">Applications of MQTT</span>
+  <ul class="point-list orange">
+    <li>Smart home automation (sending sensor data)</li>
+    <li>Facebook Messenger (used MQTT for mobile notifications)</li>
+    <li>AWS IoT, Microsoft Azure IoT Hub</li>
+    <li>Industrial IoT machine monitoring</li>
+    <li>Vehicle telematics</li>
+  </ul>
+
+  <div class="exam-tip"><span class="star">⭐</span><p>MQTT Pub-Sub diagram, QoS levels, and packet types are most asked topics. Remember: MQTT runs on TCP. Port 1883 (normal), 8883 (secure). Publisher → Broker → Subscriber. MQTT is the MOST IMPORTANT IoT protocol in RGPV exams.</p></div>
+  <div class="conclusion"><p>✏️ MQTT's lightweight nature, flexible QoS levels, and publish-subscribe model make it the most widely used messaging protocol in IoT applications worldwide.</p></div>
+</div>
+
+<!-- TOPIC 4.2 -->
+<div class="topic">
+  <div class="topic-title t-u4">4.2 SMQTT (Secure MQTT)</div>
+  <div class="marks-row"><span class="marks-badge m5">5 Marks</span></div>
+
+  <span class="sec-label sl-def">Definition</span>
+  <p><strong>SMQTT (Secure MQTT)</strong> is an <u>extension of the standard MQTT protocol</u> that adds a security layer using <strong>broadcast encryption</strong> to protect IoT data. It provides attribute-based encryption to ensure that only authorized subscribers can decrypt messages.</p>
+
+  <span class="sec-label sl-exp">SMQTT Working — 4 Phases</span>
+  <ul class="point-list orange">
+    <li><strong>Setup Phase:</strong> Master key is generated and distributed. Each subscriber gets a unique attribute-based key based on their permissions.</li>
+    <li><strong>Encrypt Phase:</strong> Publisher encrypts the message using a broadcast encryption scheme. Only subscribers with matching attributes can decrypt it.</li>
+    <li><strong>Publish Phase:</strong> Encrypted message is published to the broker on a topic (same as MQTT).</li>
+    <li><strong>Decrypt Phase:</strong> Authorized subscriber receives the message and decrypts it using their attribute key.</li>
+  </ul>
+
+  <span class="sec-label sl-char">SMQTT vs MQTT</span>
+  <table class="data-table">
+    <thead><tr><th>Feature</th><th>MQTT</th><th>SMQTT</th></tr></thead>
+    <tbody>
+      <tr><td>Security</td><td>Basic (TLS optional)</td><td>Attribute-based broadcast encryption</td></tr>
+      <tr><td>Privacy</td><td>Broker can read messages</td><td>Broker CANNOT read encrypted messages</td></tr>
+      <tr><td>Access Control</td><td>Topic-level only</td><td>Fine-grained attribute-based access</td></tr>
+      <tr><td>Overhead</td><td>Very low</td><td>Higher due to encryption</td></tr>
+      <tr><td>Use Case</td><td>General IoT</td><td>Security-critical IoT (medical, military)</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- TOPIC 4.3 -->
+<div class="topic">
+  <div class="topic-title t-u4">4.3 CoAP — Constrained Application Protocol</div>
+  <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span><span class="marks-badge m10">10 Marks</span></div>
+
+  <span class="sec-label sl-def">Definition</span>
+  <p><strong>CoAP (Constrained Application Protocol)</strong> is a <u>lightweight, RESTful application-layer protocol</u> designed for use with constrained nodes (low memory, low power) in IoT networks. It is essentially a <strong>simplified version of HTTP</strong> for IoT devices.</p>
+  <div class="highlight-box hb-orange">
+    <strong>Key Point:</strong> CoAP uses <strong>UDP</strong> (not TCP like HTTP/MQTT) to minimize overhead. It also supports <strong>Observe</strong> mechanism (like subscribe in MQTT) and <strong>multicast</strong>.
+  </div>
+
+  <span class="sec-label sl-exp">CoAP Message Types</span>
+  <table class="data-table">
+    <thead><tr><th>Message Type</th><th>Abbreviation</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Confirmable</strong></td><td>CON</td><td>Requires acknowledgment from receiver. Reliable delivery. Retransmitted until ACK received.</td></tr>
+      <tr><td><strong>Non-confirmable</strong></td><td>NON</td><td>Fire-and-forget. No ACK required. Used for periodic sensor readings.</td></tr>
+      <tr><td><strong>Acknowledgment</strong></td><td>ACK</td><td>Sent in response to a CON message. Can also carry a response payload (Piggybacked Response).</td></tr>
+      <tr><td><strong>Reset</strong></td><td>RST</td><td>Sent when a message cannot be processed. Indicates error/rejection.</td></tr>
+    </tbody>
+  </table>
+
+  <span class="sec-label sl-arch">CoAP Request-Response Model</span>
+  <div class="diagram-container">
+    <div class="diag-title">CoAP Request-Response (RESTful)</div>
+    <div class="diag-row">
+      <div class="diag-col">
+        <div class="diag-box db-blue">📱 CoAP Client<br><small>(e.g., smartphone)</small></div>
+        <div style="margin:8px 0;text-align:center;">
+          <div style="color:#E65100;font-size:0.8rem;font-weight:700">→ GET /temperature (CON)</div>
+          <div style="color:#2E7D32;font-size:0.8rem;font-weight:700">← 2.05 Content: "25°C" (ACK)</div>
+          <div style="color:#E65100;font-size:0.8rem;font-weight:700;margin-top:4px">→ PUT /led "ON" (CON)</div>
+          <div style="color:#2E7D32;font-size:0.8rem;font-weight:700">← 2.04 Changed (ACK)</div>
+        </div>
+      </div>
+      <div class="diag-col">
+        <div class="diag-box db-orange">🖥️ CoAP Server<br><small>(e.g., sensor node)</small></div>
+      </div>
+    </div>
+  </div>
+
+  <span class="sec-label sl-exp">CoAP Methods</span>
+  <ul class="point-list orange">
+    <li><strong>GET:</strong> Retrieve the value of a resource (e.g., GET /temperature)</li>
+    <li><strong>POST:</strong> Create a new resource (e.g., POST /logs with data)</li>
+    <li><strong>PUT:</strong> Update an existing resource (e.g., PUT /led with "ON")</li>
+    <li><strong>DELETE:</strong> Remove a resource (e.g., DELETE /old-data)</li>
+  </ul>
+
+  <span class="sec-label sl-exp">CoAP Response Codes</span>
+  <table class="data-table">
+    <thead><tr><th>Code</th><th>Meaning</th><th>HTTP Equivalent</th></tr></thead>
+    <tbody>
+      <tr><td>2.01</td><td>Created</td><td>201 Created</td></tr>
+      <tr><td>2.04</td><td>Changed</td><td>204 No Content</td></tr>
+      <tr><td>2.05</td><td>Content</td><td>200 OK</td></tr>
+      <tr><td>4.04</td><td>Not Found</td><td>404 Not Found</td></tr>
+      <tr><td>4.00</td><td>Bad Request</td><td>400 Bad Request</td></tr>
+    </tbody>
+  </table>
+
+  <table class="data-table comp-table">
+    <thead><tr><th>Feature</th><th class="h-u4">CoAP</th><th class="h-u1">HTTP</th><th class="h-u3">MQTT</th></tr></thead>
+    <tbody>
+      <tr><td>Transport</td><td>UDP</td><td>TCP</td><td>TCP</td></tr>
+      <tr><td>Model</td><td>Request-Response (REST)</td><td>Request-Response</td><td>Publish-Subscribe</td></tr>
+      <tr><td>Overhead</td><td>Very low (4-byte header)</td><td>High</td><td>Low (2-byte header)</td></tr>
+      <tr><td>Multicast</td><td>Yes</td><td>No</td><td>No</td></tr>
+      <tr><td>Observe (Subscribe)</td><td>Yes (CoAP Observe)</td><td>No</td><td>Yes (built-in)</td></tr>
+      <tr><td>Best For</td><td>Constrained devices, RESTful IoT</td><td>Web services</td><td>Real-time messaging</td></tr>
+    </tbody>
+  </table>
+
+  <div class="exam-tip"><span class="star">⭐</span><p>CoAP runs on UDP (not TCP!). Header is only 4 bytes. CoAP = IoT version of HTTP. 4 message types (CON, NON, ACK, RST) and 4 methods (GET, POST, PUT, DELETE) are must-remember for RGPV. CoAP URI format: coap://server/resource</p></div>
+</div>
+
+<!-- TOPIC 4.4 -->
+<div class="topic">
+  <div class="topic-title t-u4">4.4 XMPP (Extensible Messaging and Presence Protocol)</div>
+  <div class="marks-row"><span class="marks-badge m5">5 Marks</span></div>
+
+  <span class="sec-label sl-def">Definition</span>
+  <p><strong>XMPP (Extensible Messaging and Presence Protocol)</strong> is an <u>open-standard XML-based protocol</u> for real-time messaging, presence information (online/offline status), and request-response services. Originally developed for instant messaging (Jabber).</p>
+
+  <span class="sec-label sl-char">XMPP Features</span>
+  <ul class="point-list orange">
+    <li><strong>Decentralized:</strong> No central server — anyone can run their own XMPP server</li>
+    <li><strong>Open Standard:</strong> Defined by IETF (RFC 6120)</li>
+    <li><strong>XML-based:</strong> All messages are XML stanzas</li>
+    <li><strong>Presence Information:</strong> Devices/users can show online/offline/busy status</li>
+    <li><strong>Extensible:</strong> New features added via XMPP Extension Protocols (XEPs)</li>
+    <li><strong>Runs over TCP</strong> — reliable delivery</li>
+    <li><strong>Addressing:</strong> Uses JID (Jabber ID) format: user@domain/resource</li>
+  </ul>
+
+  <span class="sec-label sl-exp">XMPP Stanza Types</span>
+  <ul class="point-list">
+    <li><strong>&lt;message&gt;:</strong> One-way message from sender to recipient</li>
+    <li><strong>&lt;presence&gt;:</strong> Broadcasts device availability/status</li>
+    <li><strong>&lt;iq&gt; (Info/Query):</strong> Request-response mechanism — used to get/set information</li>
+  </ul>
+
+  <span class="sec-label sl-app">IoT Applications of XMPP</span>
+  <ul class="point-list orange">
+    <li>Smart home device status monitoring</li>
+    <li>IoT device presence management</li>
+    <li>Machine-to-machine real-time communication</li>
+    <li>Google Talk (historical), WhatsApp (modified XMPP)</li>
+  </ul>
+</div>
+
+<!-- TOPIC 4.5 -->
+<div class="topic">
+  <div class="topic-title t-u4">4.5 AMQP — Advanced Message Queuing Protocol</div>
+  <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span><span class="marks-badge m10">10 Marks</span></div>
+
+  <span class="sec-label sl-def">Definition</span>
+  <p><strong>AMQP (Advanced Message Queuing Protocol)</strong> is an <u>open, wire-level messaging protocol</u> for enterprise and IoT messaging. It provides reliable message queuing, flexible routing, transactions, and security. Defined by ISO/IEC 19464.</p>
+  <div class="highlight-box hb-orange">
+    <strong>Key Difference from MQTT:</strong> AMQP is more feature-rich and heavyweight. It is designed for <strong>enterprise-level, broker-based messaging</strong> where reliability, transactions, and complex routing are needed. MQTT is simpler; AMQP is more powerful.
+  </div>
+
+  <span class="sec-label sl-exp">AMQP Components</span>
+  <ul class="point-list orange">
+    <li><strong>Producer (Publisher):</strong> Application that creates and sends messages.</li>
+    <li><strong>Broker:</strong> Central server with Exchanges and Queues. Routes messages. Example: RabbitMQ, Apache ActiveMQ.</li>
+    <li><strong>Exchange:</strong> Receives messages from producers and routes them to queues based on routing rules (binding keys).</li>
+    <li><strong>Queue:</strong> Buffer that stores messages until they are consumed by a consumer.</li>
+    <li><strong>Consumer (Subscriber):</strong> Application that receives messages from queues.</li>
+    <li><strong>Binding:</strong> Rule that links an exchange to a queue with a routing key.</li>
+    <li><strong>Virtual Host (vHost):</strong> Logical grouping of resources for isolation.</li>
+    <li><strong>Channel:</strong> Lightweight connection within a TCP connection. Multiple channels share one TCP connection.</li>
+  </ul>
+
+  <span class="sec-label sl-arch">AMQP Architecture</span>
+  <div class="diagram-container">
+    <div class="diag-title">AMQP Message Flow</div>
+    <div class="diag-col">
+      <div class="diag-box db-blue" style="width:80%">📤 Producer — Creates message with routing key</div>
+      <div class="arrow">↓ Publishes to Exchange</div>
+      <div class="diag-box db-orange" style="width:80%">🔀 Exchange — Routes based on Exchange Type (Direct / Fanout / Topic / Headers)</div>
+      <div class="arrow">↓ Routes to Queue (via Binding)</div>
+      <div class="diag-row" style="gap:12px;">
+        <div class="diag-box db-teal">📋 Queue A</div>
+        <div class="diag-box db-teal">📋 Queue B</div>
+        <div class="diag-box db-teal">📋 Queue C</div>
+      </div>
+      <div class="arrow">↓ Delivers to Consumer</div>
+      <div class="diag-box db-green" style="width:80%">📥 Consumer — Receives and processes message</div>
+    </div>
+  </div>
+
+  <span class="sec-label sl-types">AMQP Exchange Types</span>
+  <table class="data-table">
+    <thead><tr><th>Exchange Type</th><th>Routing Logic</th><th>Use Case</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Direct</strong></td><td>Routes to queue with exact binding key match</td><td>Unicast — specific device receives message</td></tr>
+      <tr><td><strong>Fanout</strong></td><td>Routes to ALL bound queues (ignores routing key)</td><td>Broadcast — all devices receive message</td></tr>
+      <tr><td><strong>Topic</strong></td><td>Pattern matching with wildcards (* and #)</td><td>Multicast — subscribe by topic pattern</td></tr>
+      <tr><td><strong>Headers</strong></td><td>Routes based on message header attributes</td><td>Complex filtering by metadata</td></tr>
+    </tbody>
+  </table>
+
+  <span class="sec-label sl-exp">AMQP Frame Types</span>
+  <table class="data-table">
+    <thead><tr><th>Frame Type</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Method Frame</strong></td><td>Carries AMQP commands (Connect, Publish, Subscribe, etc.)</td></tr>
+      <tr><td><strong>Header Frame</strong></td><td>Contains properties/metadata about the message (size, content type)</td></tr>
+      <tr><td><strong>Body Frame</strong></td><td>Contains the actual message content/payload data</td></tr>
+      <tr><td><strong>Heartbeat Frame</strong></td><td>Keeps the connection alive; detects dead connections</td></tr>
+    </tbody>
+  </table>
+
+  <span class="sec-label sl-adv">AMQP Features</span>
+  <ul class="point-list check">
+    <li><strong>Reliable delivery:</strong> Persistent messages survive broker restart</li>
+    <li><strong>Transactions:</strong> Group multiple operations atomically</li>
+    <li><strong>Acknowledgments:</strong> Consumer confirms successful processing</li>
+    <li><strong>Security:</strong> SASL authentication + TLS encryption</li>
+    <li><strong>Flexible Routing:</strong> 4 exchange types for different routing needs</li>
+    <li><strong>Multiple consumers:</strong> Load balancing across consumers</li>
+  </ul>
+
+  <table class="data-table comp-table">
+    <thead><tr><th>Feature</th><th class="h-u3">MQTT</th><th class="h-u4">AMQP</th><th class="h-u2">XMPP</th><th class="h-u1">CoAP</th></tr></thead>
+    <tbody>
+      <tr><td>Transport</td><td>TCP</td><td>TCP</td><td>TCP</td><td>UDP</td></tr>
+      <tr><td>Pattern</td><td>Pub-Sub</td><td>Pub-Sub + Queuing</td><td>Messaging + Presence</td><td>Request-Response</td></tr>
+      <tr><td>Weight</td><td>Very Light</td><td>Heavy</td><td>Medium</td><td>Very Light</td></tr>
+      <tr><td>For</td><td>Constrained IoT</td><td>Enterprise IoT</td><td>Real-time chat/IoT</td><td>Constrained REST</td></tr>
+      <tr><td>Data Format</td><td>Binary</td><td>Binary</td><td>XML</td><td>Binary/JSON</td></tr>
+      <tr><td>Transactions</td><td>No</td><td>Yes</td><td>No</td><td>No</td></tr>
+    </tbody>
+  </table>
+
+  <div class="exam-tip"><span class="star">⭐</span><p>AMQP = Enterprise MQTT. The 4 exchange types (Direct, Fanout, Topic, Headers) and 4 frame types (Method, Header, Body, Heartbeat) are important. RabbitMQ is the most popular AMQP broker. Remember: AMQP has QUEUES, MQTT has only TOPICS.</p></div>
+  <div class="conclusion"><p>✏️ AMQP's sophisticated routing, transaction support, and reliability make it the preferred choice for industrial IoT and enterprise applications where data integrity is paramount.</p></div>
+</div>
+
+</div></div><!-- /unit4 -->
+
+<!-- ============================== UNIT 5 ============================== -->
+<div id="unit5">
+<div class="unit-header u5-hdr">
+  <div class="unit-num-badge">5</div>
+  <div>
+    <h2>UNIT 5 — IoT Platforms, Analytics, Security &amp; Case Studies</h2>
+    <p>Arduino · Raspberry Pi · Cloud for IoT · IoT Security · Smart Home · Smart Farming</p>
+  </div>
+</div>
+<div class="unit-body">
+
+<!-- TOPIC 5.1 -->
+<div class="topic">
+  <div class="topic-title t-u5">5.1 IoT Platforms Overview</div>
+  <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span></div>
+
+  <span class="sec-label sl-def">Definition</span>
+  <p>An <strong>IoT Platform</strong> is a <u>suite of components that enables the deployment, management, and automation of IoT devices and applications</u>. It bridges the gap between hardware (devices) and software (applications).</p>
+
+  <span class="sec-label sl-exp">Functions of an IoT Platform</span>
+  <ul class="point-list">
+    <li><strong>Device Management:</strong> Register, monitor, and update firmware of IoT devices</li>
+    <li><strong>Connectivity Management:</strong> Handle protocols (MQTT, CoAP, HTTP) and connections</li>
+    <li><strong>Data Collection &amp; Storage:</strong> Collect, store, and organize IoT data</li>
+    <li><strong>Data Analytics:</strong> Process and visualize IoT data</li>
+    <li><strong>Application Enablement:</strong> Provide APIs for building IoT apps</li>
+    <li><strong>Security:</strong> Authentication, authorization, and data encryption</li>
+  </ul>
+
+  <span class="sec-label sl-types">Popular IoT Platforms</span>
+  <table class="data-table">
+    <thead><tr><th>Platform</th><th>Provider</th><th>Key Features</th></tr></thead>
+    <tbody>
+      <tr><td><strong>AWS IoT Core</strong></td><td>Amazon</td><td>MQTT broker, device registry, rules engine, shadow</td></tr>
+      <tr><td><strong>Azure IoT Hub</strong></td><td>Microsoft</td><td>Device management, bi-directional communication, stream analytics</td></tr>
+      <tr><td><strong>Google Cloud IoT</strong></td><td>Google</td><td>Big data integration, ML-based analytics, Pub/Sub</td></tr>
+      <tr><td><strong>IBM Watson IoT</strong></td><td>IBM</td><td>AI-powered analytics, cognitive IoT, Blockchain integration</td></tr>
+      <tr><td><strong>ThingSpeak</strong></td><td>MathWorks</td><td>Free platform for students/prototyping, MATLAB analytics</td></tr>
+      <tr><td><strong>Thingsboard</strong></td><td>Open Source</td><td>Free, self-hosted, MQTT/HTTP/CoAP, dashboards</td></tr>
+      <tr><td><strong>Arduino IoT Cloud</strong></td><td>Arduino</td><td>Easy Arduino device management and monitoring</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- TOPIC 5.2 -->
+<div class="topic">
+  <div class="topic-title t-u5">5.2 Arduino Platform</div>
+  <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span><span class="marks-badge m10">10 Marks</span></div>
+
+  <span class="sec-label sl-def">Introduction to Arduino</span>
+  <p><strong>Arduino</strong> is an <u>open-source electronics prototyping platform</u> consisting of a hardware (microcontroller board) and software (IDE) part. It is the most popular platform for IoT prototyping and education worldwide.</p>
+
+  <span class="sec-label sl-arch">Arduino Uno — Block Diagram</span>
+  <div class="diagram-container">
+    <div class="diag-title">Arduino Uno Block Diagram</div>
+    <div class="diag-col" style="gap:6px;">
+      <div class="diag-row">
+        <div class="diag-box db-gray">⚡ Power Supply<br><small>USB / 7-12V DC</small></div>
+        <div class="diag-box db-gray">🔌 USB Interface<br><small>ATmega16U2</small></div>
+        <div class="diag-box db-gray">🔄 Crystal<br><small>16 MHz</small></div>
+      </div>
+      <div class="arrow">↓</div>
+      <div class="diag-box db-blue" style="width:80%;padding:12px">🧠 ATmega328P Microcontroller<br><small>32KB Flash | 2KB RAM | 1KB EEPROM</small></div>
+      <div class="arrow">↓</div>
+      <div class="diag-row">
+        <div class="diag-box db-green">📌 Digital I/O<br><small>14 pins (6 PWM)</small></div>
+        <div class="diag-box db-orange">📊 Analog Input<br><small>6 pins (10-bit ADC)</small></div>
+        <div class="diag-box db-purple">🔗 Serial/I2C/SPI<br><small>UART, TWI, SPI</small></div>
+      </div>
+    </div>
+  </div>
+
+  <span class="sec-label sl-char">Arduino Uno Specifications</span>
+  <table class="data-table">
+    <thead><tr><th>Specification</th><th>Value</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Microcontroller</strong></td><td>ATmega328P</td></tr>
+      <tr><td><strong>Clock Speed</strong></td><td>16 MHz</td></tr>
+      <tr><td><strong>Flash Memory</strong></td><td>32 KB (0.5 KB used by bootloader)</td></tr>
+      <tr><td><strong>SRAM</strong></td><td>2 KB</td></tr>
+      <tr><td><strong>EEPROM</strong></td><td>1 KB</td></tr>
+      <tr><td><strong>Digital I/O Pins</strong></td><td>14 (6 PWM capable)</td></tr>
+      <tr><td><strong>Analog Input Pins</strong></td><td>6 (10-bit ADC)</td></tr>
+      <tr><td><strong>Operating Voltage</strong></td><td>5V</td></tr>
+      <tr><td><strong>Input Voltage</strong></td><td>7–12V recommended</td></tr>
+      <tr><td><strong>Communication</strong></td><td>UART, I2C (TWI), SPI</td></tr>
+    </tbody>
+  </table>
+
+  <span class="sec-label sl-exp">Arduino Programming (Sketch Structure)</span>
+  <div class="formula-box">
+void setup() {<br>
+&nbsp;&nbsp;// Run ONCE at startup — initialize pins, serial<br>
+&nbsp;&nbsp;pinMode(13, OUTPUT);&nbsp; // Set pin 13 as output (LED)<br>
+&nbsp;&nbsp;Serial.begin(9600);&nbsp;&nbsp; // Start serial communication<br>
+}<br>
+<br>
+void loop() {<br>
+&nbsp;&nbsp;// Run CONTINUOUSLY — main program logic<br>
+&nbsp;&nbsp;digitalWrite(13, HIGH); // Turn LED ON<br>
+&nbsp;&nbsp;delay(1000);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Wait 1 second<br>
+&nbsp;&nbsp;digitalWrite(13, LOW);&nbsp; // Turn LED OFF<br>
+&nbsp;&nbsp;delay(1000);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Wait 1 second<br>
+}
+  </div>
+
+  <span class="sec-label sl-adv">Advantages of Arduino</span>
+  <ul class="point-list check">
+    <li>Cheap and easily available (Arduino Uno ≈ ₹500)</li>
+    <li>Large community and thousands of open-source libraries</li>
+    <li>Easy to program using simplified C/C++</li>
+    <li>Shields (add-on boards) for WiFi, GSM, motor control, etc.</li>
+    <li>Cross-platform IDE (Windows, Mac, Linux)</li>
+    <li>Perfect for rapid IoT prototyping</li>
+  </ul>
+  <span class="sec-label sl-dis">Limitations of Arduino</span>
+  <ul class="point-list red">
+    <li>No built-in WiFi or Ethernet (need separate shield)</li>
+    <li>Cannot run a full OS (Linux)</li>
+    <li>Limited processing power and memory</li>
+    <li>Not suitable for complex image/audio processing</li>
+  </ul>
+</div>
+
+<!-- TOPIC 5.3 -->
+<div class="topic">
+  <div class="topic-title t-u5">5.3 Raspberry Pi Board</div>
+  <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span><span class="marks-badge m10">10 Marks</span></div>
+
+  <span class="sec-label sl-def">Introduction</span>
+  <p><strong>Raspberry Pi</strong> is a <u>low-cost, credit card-sized single-board computer (SBC)</u> that runs a full Linux OS (Raspberry Pi OS). Unlike Arduino, it can run multiple programs simultaneously and connect to the internet, making it powerful enough to act as an IoT gateway or even a small server.</p>
+
+  <span class="sec-label sl-char">Raspberry Pi 4 Key Specifications</span>
+  <table class="data-table">
+    <thead><tr><th>Specification</th><th>Raspberry Pi 4 B</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Processor</strong></td><td>Broadcom BCM2711, Quad-core ARM Cortex-A72 @ 1.8 GHz</td></tr>
+      <tr><td><strong>RAM</strong></td><td>2GB / 4GB / 8GB LPDDR4</td></tr>
+      <tr><td><strong>Storage</strong></td><td>MicroSD card slot (OS stored here)</td></tr>
+      <tr><td><strong>Connectivity</strong></td><td>2.4/5 GHz WiFi, Bluetooth 5.0, Gigabit Ethernet</td></tr>
+      <tr><td><strong>USB</strong></td><td>2× USB 3.0, 2× USB 2.0</td></tr>
+      <tr><td><strong>Display</strong></td><td>2× Micro-HDMI (up to 4K)</td></tr>
+      <tr><td><strong>GPIO</strong></td><td>40-pin GPIO header</td></tr>
+      <tr><td><strong>OS</strong></td><td>Raspberry Pi OS (Debian Linux), Ubuntu, etc.</td></tr>
+      <tr><td><strong>Power</strong></td><td>5V 3A via USB-C</td></tr>
+    </tbody>
+  </table>
+
+  <table class="data-table comp-table">
+    <thead><tr><th>Feature</th><th class="h-u5">Raspberry Pi</th><th class="h-u1">Arduino Uno</th></tr></thead>
+    <tbody>
+      <tr><td>Type</td><td>Single-Board Computer (SBC)</td><td>Microcontroller Board</td></tr>
+      <tr><td>OS</td><td>Linux (full OS)</td><td>No OS (bare metal)</td></tr>
+      <tr><td>Processing</td><td>Quad-core ARM Cortex (GHz)</td><td>ATmega328P (16 MHz)</td></tr>
+      <tr><td>RAM</td><td>Up to 8 GB</td><td>2 KB SRAM</td></tr>
+      <tr><td>Storage</td><td>MicroSD (GB range)</td><td>32 KB Flash</td></tr>
+      <tr><td>WiFi</td><td>Built-in WiFi</td><td>No (needs shield)</td></tr>
+      <tr><td>Power</td><td>5W+ (higher)</td><td>&lt;1W (very low)</td></tr>
+      <tr><td>Analog Input</td><td>None (needs ADC chip)</td><td>6 analog pins (built-in)</td></tr>
+      <tr><td>Best For</td><td>IoT Gateway, ML at edge, camera</td><td>Simple sensors, prototyping</td></tr>
+      <tr><td>Cost</td><td>₹3,000–₹7,000</td><td>₹400–₹600</td></tr>
+    </tbody>
+  </table>
+
+  <span class="sec-label sl-app">Raspberry Pi IoT Applications</span>
+  <ul class="point-list">
+    <li>IoT Gateway (connects multiple sensors to cloud)</li>
+    <li>Home automation hub (Home Assistant, OpenHAB)</li>
+    <li>Face recognition at doorbell (camera + ML)</li>
+    <li>Network attached storage (NAS)</li>
+    <li>Weather station with web dashboard</li>
+    <li>Edge AI for real-time image processing</li>
+  </ul>
+
+  <div class="exam-tip"><span class="star">⭐</span><p>Arduino vs Raspberry Pi comparison table is one of the MOST asked questions in RGPV. Remember the key difference: Arduino = Microcontroller (no OS, low power). Raspberry Pi = Mini Computer (Linux OS, more powerful). Use Arduino for sensing; use Raspberry Pi for processing and connectivity.</p></div>
+</div>
+
+<!-- TOPIC 5.4 -->
+<div class="topic">
+  <div class="topic-title t-u5">5.4 Data Analytics for IoT</div>
+  <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span></div>
+
+  <span class="sec-label sl-def">Definition</span>
+  <p><strong>IoT Data Analytics</strong> is the process of <u>collecting, processing, and analyzing data generated by IoT devices</u> to extract actionable insights, detect patterns, and enable intelligent decision-making.</p>
+
+  <span class="sec-label sl-types">Types of IoT Analytics</span>
+  <table class="data-table">
+    <thead><tr><th>Type</th><th>Definition</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Descriptive Analytics</strong></td><td>What happened? — Summarizes historical IoT data</td><td>Monthly temperature report for a factory</td></tr>
+      <tr><td><strong>Diagnostic Analytics</strong></td><td>Why did it happen? — Root cause analysis</td><td>Why did machine temperature spike on Monday?</td></tr>
+      <tr><td><strong>Predictive Analytics</strong></td><td>What will happen? — ML models on IoT data</td><td>Predict machine failure before it occurs</td></tr>
+      <tr><td><strong>Prescriptive Analytics</strong></td><td>What should be done? — Automated decision-making</td><td>Automatically reduce AC temperature when high load detected</td></tr>
+    </tbody>
+  </table>
+
+  <span class="sec-label sl-exp">IoT Analytics Architecture</span>
+  <div class="diagram-container">
+    <div class="diag-title">IoT Analytics Pipeline</div>
+    <div class="diag-row">
+      <div class="diag-box db-gray">📡 IoT Devices<br><small>Generate raw data</small></div>
+      <div class="arrow">→</div>
+      <div class="diag-box db-orange">🔗 IoT Gateway<br><small>Preprocess &amp; filter</small></div>
+      <div class="arrow">→</div>
+      <div class="diag-box db-purple">☁️ Cloud Ingestion<br><small>Kafka, Kinesis</small></div>
+      <div class="arrow">→</div>
+      <div class="diag-box db-blue">📊 Analytics Engine<br><small>Spark, ML models</small></div>
+      <div class="arrow">→</div>
+      <div class="diag-box db-green">📈 Dashboard / Action<br><small>Insights &amp; alerts</small></div>
+    </div>
+  </div>
+
+  <ul class="point-list">
+    <li><strong>Edge Analytics:</strong> Data processed on the device or gateway itself — reduces latency and cloud costs</li>
+    <li><strong>Stream Analytics:</strong> Real-time analysis of live IoT data streams</li>
+    <li><strong>Batch Analytics:</strong> Periodic analysis of stored historical data</li>
+    <li><strong>Tools:</strong> Apache Kafka, Apache Spark, AWS Kinesis, Azure Stream Analytics, Grafana (visualization)</li>
+  </ul>
+</div>
+
+<!-- TOPIC 5.5 -->
+<div class="topic">
+  <div class="topic-title t-u5">5.5 Cloud for IoT — Storage Models and Communication APIs</div>
+  <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span></div>
+
+  <span class="sec-label sl-def">Cloud and IoT</span>
+  <p>The <strong>Cloud</strong> serves as the backend infrastructure for IoT — providing scalable storage, powerful computing, and global connectivity. IoT devices send data to the cloud for processing, storage, and action.</p>
+
+  <span class="sec-label sl-types">Cloud Storage Models for IoT</span>
+  <table class="data-table">
+    <thead><tr><th>Storage Model</th><th>Description</th><th>Best For IoT Data Type</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Relational DB</strong></td><td>Structured data in tables with SQL</td><td>Structured, transactional IoT data</td><td>MySQL, PostgreSQL, AWS RDS</td></tr>
+      <tr><td><strong>NoSQL DB</strong></td><td>Document/key-value/column-family stores</td><td>Semi-structured or unstructured IoT data</td><td>MongoDB, DynamoDB, Cassandra</td></tr>
+      <tr><td><strong>Time-Series DB</strong></td><td>Optimized for time-stamped data</td><td>Sensor readings with timestamps</td><td>InfluxDB, TimescaleDB</td></tr>
+      <tr><td><strong>Object Storage</strong></td><td>Store binary objects (files, images, video)</td><td>IoT camera footage, audio files</td><td>AWS S3, Azure Blob Storage</td></tr>
+      <tr><td><strong>Data Lakes</strong></td><td>Store raw data in any format at massive scale</td><td>All IoT data types for future analytics</td><td>AWS S3, Azure Data Lake</td></tr>
+    </tbody>
+  </table>
+
+  <span class="sec-label sl-exp">Communication APIs for IoT Cloud</span>
+  <ul class="point-list">
+    <li><strong>REST API:</strong> HTTP-based request-response. Most common for IoT cloud integration (e.g., ThingSpeak REST API).</li>
+    <li><strong>MQTT over WebSocket:</strong> MQTT protocol over WebSocket for browser-based IoT apps.</li>
+    <li><strong>WebSocket API:</strong> Full-duplex, persistent connection for real-time IoT data streaming.</li>
+    <li><strong>GraphQL API:</strong> Query exactly the IoT data fields you need — more efficient than REST.</li>
+    <li><strong>Streaming APIs:</strong> Continuous data stream from cloud to client (AWS Kinesis, Kafka APIs).</li>
+  </ul>
+</div>
+
+<!-- TOPIC 5.6 -->
+<div class="topic">
+  <div class="topic-title t-u5">5.6 Security in IoT — Attacks and Vulnerability Analysis</div>
+  <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span><span class="marks-badge m10">10 Marks</span></div>
+
+  <span class="sec-label sl-def">IoT Security Overview</span>
+  <p>IoT security is one of the biggest challenges in IoT deployment. Due to the <u>resource-constrained nature of IoT devices</u> (low power, limited memory), implementing strong security is difficult. This makes IoT devices attractive targets for attackers.</p>
+
+  <span class="sec-label sl-types">Common Attacks on IoT Systems</span>
+  <table class="data-table">
+    <thead><tr><th>Attack Type</th><th>Description</th><th>Target</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td><strong>DoS / DDoS Attack</strong></td><td>Flood device/server with requests to make it unavailable</td><td>IoT server, cloud</td><td>Mirai Botnet — used IoT cameras for massive DDoS attack (2016)</td></tr>
+      <tr><td><strong>Man-in-the-Middle (MITM)</strong></td><td>Attacker intercepts communication between devices</td><td>Network traffic</td><td>Intercepting unencrypted MQTT messages</td></tr>
+      <tr><td><strong>Eavesdropping</strong></td><td>Passive listening to IoT network traffic</td><td>Wireless communication</td><td>Sniffing ZigBee/WiFi packets</td></tr>
+      <tr><td><strong>Replay Attack</strong></td><td>Re-sends captured packets to repeat authorized actions</td><td>Authentication</td><td>Replaying a door unlock command</td></tr>
+      <tr><td><strong>Firmware Attack</strong></td><td>Inject malicious code into IoT device firmware</td><td>Device software</td><td>Malicious OTA (Over-The-Air) update</td></tr>
+      <tr><td><strong>Physical Attack</strong></td><td>Tamper with IoT device hardware directly</td><td>Physical device</td><td>Extracting encryption keys from circuit boards</td></tr>
+      <tr><td><strong>Brute Force</strong></td><td>Try all possible passwords to gain access</td><td>Authentication</td><td>Guessing default admin:admin credentials</td></tr>
+      <tr><td><strong>Sybil Attack</strong></td><td>Attacker creates multiple fake identities in network</td><td>WSN / IoT network</td><td>Fake sensor nodes injecting false data</td></tr>
+    </tbody>
+  </table>
+
+  <span class="sec-label sl-exp">Vulnerability Analysis in IoT</span>
+  <p><strong>Vulnerability analysis</strong> is the process of <u>identifying, classifying, and prioritizing weaknesses in IoT systems</u> before attackers can exploit them.</p>
+
+  <ul class="point-list red">
+    <li><strong>Insecure Network Services:</strong> Open ports, unencrypted protocols (Telnet, HTTP without TLS)</li>
+    <li><strong>Weak Authentication:</strong> Default passwords (admin/admin), no multi-factor auth</li>
+    <li><strong>Insecure Update Mechanism:</strong> No firmware signature verification — allows malicious OTA updates</li>
+    <li><strong>Use of Outdated Components:</strong> Old libraries with known vulnerabilities</li>
+    <li><strong>Insecure Data Storage:</strong> Storing passwords or keys in plain text on device</li>
+    <li><strong>Lack of Physical Security:</strong> Exposed debug ports (JTAG, UART) on production devices</li>
+    <li><strong>Privacy Issues:</strong> IoT devices collecting more data than necessary</li>
+    <li><strong>Insufficient Logging:</strong> Attacks are not detected because no logs are maintained</li>
+  </ul>
+
+  <span class="sec-label sl-exp">IoT Security Best Practices</span>
+  <ul class="point-list check">
+    <li><strong>Use TLS/SSL</strong> for all communication (MQTT over TLS, HTTPS)</li>
+    <li><strong>Change default credentials</strong> immediately after deployment</li>
+    <li><strong>Keep firmware updated</strong> with signed OTA updates</li>
+    <li><strong>Use device certificates</strong> (X.509) for authentication</li>
+    <li><strong>Network segmentation</strong> — isolate IoT devices on separate VLAN</li>
+    <li><strong>Encrypt sensitive data at rest</strong> on device storage</li>
+    <li><strong>Disable unused services</strong> and close unnecessary ports</li>
+    <li><strong>Regular penetration testing</strong> of IoT systems</li>
+  </ul>
+
+  <div class="exam-tip"><span class="star">⭐</span><p>Mirai Botnet (2016) is the most famous real-world IoT attack — it used default credentials on IP cameras to create a massive DDoS botnet. OWASP IoT Top 10 vulnerabilities list is important. Most asked: DoS, MITM, Firmware Attack, Sybil Attack definitions + countermeasures.</p></div>
+</div>
+
+<!-- TOPIC 5.7 -->
+<div class="topic">
+  <div class="topic-title t-u5">5.7 IoT Case Study — Smart Home</div>
+  <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span><span class="marks-badge m10">10 Marks</span></div>
+
+  <span class="sec-label sl-def">Introduction</span>
+  <p>A <strong>Smart Home</strong> is a <u>residence equipped with IoT-enabled devices</u> that can be monitored and controlled remotely via smartphones or automated based on sensor data. All devices are connected through a home network (WiFi/ZigBee) to a central hub.</p>
+
+  <span class="sec-label sl-arch">Smart Home Architecture</span>
+  <div class="diagram-container">
+    <div class="diag-title">Smart Home IoT Architecture</div>
+    <div class="diag-col">
+      <div class="diag-row" style="flex-wrap:wrap;gap:8px;">
+        <div class="diag-box db-blue">🌡️ Temp Sensor</div>
+        <div class="diag-box db-blue">💡 Smart Lights</div>
+        <div class="diag-box db-blue">🔒 Smart Lock</div>
+        <div class="diag-box db-blue">📷 IP Camera</div>
+        <div class="diag-box db-blue">❄️ Smart AC</div>
+        <div class="diag-box db-blue">🔌 Smart Plug</div>
+      </div>
+      <div class="arrow">↓ ZigBee / Z-Wave / WiFi (IoT LAN)</div>
+      <div class="diag-box db-orange" style="width:70%">🏠 Smart Home Hub / Gateway<br><small>(Amazon Echo, Google Home, Raspberry Pi)</small></div>
+      <div class="arrow">↓ Internet (broadband)</div>
+      <div class="diag-box db-purple" style="width:70%">☁️ Cloud Platform (AWS IoT / Google Cloud)</div>
+      <div class="arrow">↓</div>
+      <div class="diag-box db-green" style="width:70%">📱 Smartphone App — Remote Monitoring &amp; Control</div>
+    </div>
+  </div>
+
+  <span class="sec-label sl-exp">Smart Home Features</span>
+  <ul class="point-list">
+    <li><strong>Smart Lighting:</strong> Lights controlled by presence sensors, voice commands (Alexa), or schedules</li>
+    <li><strong>Smart Security:</strong> IP cameras, smart locks, motion sensors, alarm systems with remote monitoring</li>
+    <li><strong>Smart Thermostat:</strong> Learns preferences, auto-adjusts AC/heater (e.g., Nest Thermostat)</li>
+    <li><strong>Smart Appliances:</strong> Refrigerators, washing machines with WiFi connectivity</li>
+    <li><strong>Energy Management:</strong> Smart meters and plugs monitor and optimize energy consumption</li>
+    <li><strong>Voice Assistant:</strong> Amazon Alexa, Google Home as central controller</li>
+    <li><strong>Smart Entertainment:</strong> Smart TVs, streaming, multi-room audio systems</li>
+    <li><strong>Health Monitoring:</strong> Air quality sensors, sleep trackers</li>
+  </ul>
+
+  <span class="sec-label sl-exp">Protocols Used in Smart Home</span>
+  <ul class="point-list">
+    <li><strong>Communication:</strong> WiFi (high bandwidth devices), ZigBee/Z-Wave (low power sensors)</li>
+    <li><strong>Messaging:</strong> MQTT for sensor data, HTTP/REST for control commands</li>
+    <li><strong>Cloud:</strong> AWS IoT Core, Google Firebase, Azure IoT Hub</li>
+    <li><strong>Voice:</strong> Alexa Skills Kit, Google Assistant API</li>
+  </ul>
+
+  <span class="sec-label sl-adv">Benefits</span>
+  <ul class="point-list check">
+    <li>Convenience — control everything from smartphone</li>
+    <li>Energy saving — automatic optimization reduces electricity bills</li>
+    <li>Enhanced security — real-time alerts and remote monitoring</li>
+    <li>Accessibility — helps elderly and disabled people</li>
+    <li>Automation — reduces repetitive manual tasks</li>
+  </ul>
+  <span class="sec-label sl-dis">Challenges</span>
+  <ul class="point-list red">
+    <li>Privacy concerns — devices always listening/watching</li>
+    <li>High initial cost</li>
+    <li>Interoperability issues between different vendors</li>
+    <li>Security vulnerabilities — hacked smart home devices</li>
+    <li>Dependence on internet — useless if internet goes down</li>
+  </ul>
+</div>
+
+<!-- TOPIC 5.8 -->
+<div class="topic">
+  <div class="topic-title t-u5">5.8 IoT Case Study — Smart Farming (Precision Agriculture)</div>
+  <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span><span class="marks-badge m10">10 Marks</span></div>
+
+  <span class="sec-label sl-def">Introduction</span>
+  <p><strong>Smart Farming</strong> (also called <strong>Precision Agriculture</strong>) uses IoT technologies to <u>monitor and optimize crop production</u> by collecting real-time data from sensors in the field and making data-driven farming decisions. This directly increases crop yield and reduces costs.</p>
+
+  <span class="sec-label sl-arch">Smart Farming IoT Architecture</span>
+  <div class="diagram-container">
+    <div class="diag-title">Smart Farming IoT System</div>
+    <div class="diag-col">
+      <div class="diag-row" style="flex-wrap:wrap;gap:8px;">
+        <div class="diag-box db-green">🌱 Soil Moisture Sensor</div>
+        <div class="diag-box db-green">🌡️ Weather Station</div>
+        <div class="diag-box db-green">🚁 Drone (Camera)</div>
+        <div class="diag-box db-green">📍 GPS Tracker</div>
+        <div class="diag-box db-green">💧 Water Level Sensor</div>
+        <div class="diag-box db-green">🐛 Pest Detection Camera</div>
+      </div>
+      <div class="arrow">↓ LoRaWAN / NB-IoT / ZigBee (long range, low power)</div>
+      <div class="diag-box db-orange" style="width:70%">🔗 IoT Gateway (on-farm, solar powered)</div>
+      <div class="arrow">↓ Cellular / Satellite Internet</div>
+      <div class="diag-box db-purple" style="width:70%">☁️ Agricultural Cloud Platform (AI + ML Analytics)</div>
+      <div class="arrow">↓</div>
+      <div class="diag-row" style="gap:8px;">
+        <div class="diag-box db-blue">📱 Farmer's Smartphone App</div>
+        <div class="diag-box db-teal">🚿 Auto Irrigation System</div>
+        <div class="diag-box db-gray">📊 Dashboard &amp; Alerts</div>
+      </div>
+    </div>
+  </div>
+
+  <span class="sec-label sl-exp">Smart Farming Components and Functions</span>
+  <table class="data-table">
+    <thead><tr><th>Component</th><th>What it Measures</th><th>Action Taken</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Soil Moisture Sensor</strong></td><td>Soil water content (%)</td><td>Auto-start/stop irrigation pump</td></tr>
+      <tr><td><strong>Weather Station</strong></td><td>Temp, humidity, wind, rainfall</td><td>Adjust irrigation schedule, alert for frost</td></tr>
+      <tr><td><strong>Drone with Camera</strong></td><td>Aerial crop health (NDVI index)</td><td>Identify diseased/stressed crop areas</td></tr>
+      <tr><td><strong>GPS + Vehicle Tracker</strong></td><td>Farm machinery location</td><td>Optimize field operations, prevent theft</td></tr>
+      <tr><td><strong>Water Level Sensor</strong></td><td>Reservoir/tank water level</td><td>Trigger pump to refill water tank</td></tr>
+      <tr><td><strong>CO₂/NH₃ Sensor</strong></td><td>Greenhouse gas levels</td><td>Ventilation control in greenhouse</td></tr>
+      <tr><td><strong>Livestock Tracking</strong></td><td>Animal health, location, milk yield</td><td>Early disease detection, feed optimization</td></tr>
+    </tbody>
+  </table>
+
+  <span class="sec-label sl-adv">Benefits of Smart Farming</span>
+  <ul class="point-list check">
+    <li><strong>Water savings:</strong> Precision irrigation reduces water usage by up to 50%</li>
+    <li><strong>Increased yield:</strong> Data-driven decisions improve crop productivity by 15–20%</li>
+    <li><strong>Reduced chemical use:</strong> Targeted pesticide application — less pollution</li>
+    <li><strong>Early disease detection:</strong> Drones and sensors detect crop disease early</li>
+    <li><strong>Remote monitoring:</strong> Farmer monitors entire farm from smartphone</li>
+    <li><strong>Cost reduction:</strong> Less manual labor, optimized resource use</li>
+    <li><strong>Traceability:</strong> Track crop from farm to consumer (food safety)</li>
+  </ul>
+
+  <span class="sec-label sl-exp">IoT Protocols Used in Smart Farming</span>
+  <ul class="point-list green">
+    <li><strong>LoRaWAN:</strong> Long range (15 km in rural areas), very low power — ideal for large farms</li>
+    <li><strong>NB-IoT:</strong> Cellular-based, penetrates soil and buildings well — used for buried sensors</li>
+    <li><strong>ZigBee:</strong> For greenhouse sensor mesh networks</li>
+    <li><strong>Satellite (GPS):</strong> For drone navigation and vehicle tracking</li>
+    <li><strong>MQTT:</strong> Sending sensor data to cloud platform</li>
+  </ul>
+
+  <span class="sec-label sl-imp">Important Points for Exam</span>
+  <div class="exam-tip"><span class="star">⭐</span><p>Smart Farming Architecture diagram is frequently asked in 10-mark questions. Key parameters to remember: Soil moisture, temperature, humidity, NDVI (drone). LoRaWAN is the preferred communication for farms (long range + low power). Real-world example: Mahindra's IoT farm solutions in India, Fasal (Indian startup).</p></div>
+
+  <div class="conclusion"><p>✏️ Smart Farming is one of the most impactful IoT applications, especially for a country like India where agriculture is the primary livelihood. It combines sensors, wireless networks, cloud computing, and AI to revolutionize traditional farming.</p></div>
+</div>
+
+</div></div><!-- /unit5 -->
+
+<!-- FOOTER -->
+<div class="site-footer" style="background:#263238;color:#B0BEC5;text-align:center;padding:2rem;margin-top:1rem;">
+  <p style="font-size:1rem;font-weight:700;color:#80CBC4;margin-bottom:0.5rem;">📡 CS801 — Internet of Things | RGPV Exam Notes</p>
+  <p style="font-size:0.85rem;">All 5 Units Covered · 40+ Topics · Diagrams · Tables · Comparison Charts · Exam Tips</p>
+  <p style="font-size:0.8rem;margin-top:0.5rem;opacity:0.7;">Best of luck for your RGPV exams! Study well. 🎯</p>
+</div>
+
+<!-- THEME TOGGLE SCRIPT -->
+<script>
+  function toggleTheme() {
+    const html = document.documentElement;
+    const btn = document.getElementById('themeToggle');
+    if (html.getAttribute('data-theme') === 'dark') {
+      html.removeAttribute('data-theme');
+      btn.textContent = '🌙';
+      btn.title = 'Switch to Dark Mode';
+      localStorage.setItem('rgpv-theme', 'light');
+    } else {
+      html.setAttribute('data-theme', 'dark');
+      btn.textContent = '☀️';
+      btn.title = 'Switch to Light Mode';
+      localStorage.setItem('rgpv-theme', 'dark');
+    }
+  }
+  // Load saved preference
+  (function() {
+    const saved = localStorage.getItem('rgpv-theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (saved === 'dark' || (!saved && prefersDark)) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      document.getElementById('themeToggle').textContent = '☀️';
+      document.getElementById('themeToggle').title = 'Switch to Light Mode';
+    }
+  })();
+</script>
+
+</body>
+</html>
