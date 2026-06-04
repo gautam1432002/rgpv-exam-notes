@@ -1,0 +1,1768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CS802(A) IPCV — Previous Year Question Bank | RGPV</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Fira+Mono:wght@400;600&display=swap');
+
+    :root {
+      --u1: #1565C0; --u2: #6A1B9A; --u3: #2E7D32; --u4: #E65100; --u5: #AD1457;
+      --u1l: #E3F2FD; --u2l: #F3E5F5; --u3l: #E8F5E9; --u4l: #FFF3E0; --u5l: #FCE4EC;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Nunito', sans-serif; background: #F8F9FA; color: #1a1a2e; line-height: 1.8; }
+
+    .top-banner { background: linear-gradient(135deg, #1B5E20, #2E7D32, #388E3C); color: #fff; padding: 2.5rem 2rem; text-align: center; }
+    .top-banner h1 { font-size: 2rem; font-weight: 800; letter-spacing: 1px; }
+    .top-banner p { font-size: 1rem; opacity: 0.9; margin-top: 0.5rem; }
+    .badges { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 1rem; }
+    .badge { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.4); padding: 4px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
+
+    .toc { background: #fff; border-radius: 12px; margin: 1.5rem 2rem; box-shadow: 0 2px 12px rgba(0,0,0,0.08); padding: 1.5rem; }
+    .toc h2 { font-size: 1.2rem; color: #2E7D32; margin-bottom: 1rem; font-weight: 800; }
+    .toc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; }
+    .toc-item { padding: 8px 14px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; border-left: 4px solid; cursor: pointer; text-decoration: none; display: block; transition: all 0.2s; }
+    .toc-item:hover { opacity: 0.85; transform: translateX(3px); }
+    .toc-u1 { background: var(--u1l); border-color: var(--u1); color: var(--u1); }
+    .toc-u2 { background: var(--u2l); border-color: var(--u2); color: var(--u2); }
+    .toc-u3 { background: var(--u3l); border-color: var(--u3); color: var(--u3); }
+    .toc-u4 { background: var(--u4l); border-color: var(--u4); color: var(--u4); }
+    .toc-u5 { background: var(--u5l); border-color: var(--u5); color: var(--u5); }
+
+    .unit-header { margin: 2rem 2rem 0; padding: 1.4rem 2rem; border-radius: 14px 14px 0 0; color: #fff; display: flex; align-items: center; gap: 1rem; }
+    .unit-num-badge { background: rgba(255,255,255,0.25); border-radius: 50%; width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 800; flex-shrink: 0; }
+    .unit-header h2 { font-size: 1.4rem; font-weight: 800; }
+    .unit-header p { font-size: 0.85rem; opacity: 0.9; margin-top: 2px; }
+    .u1-hdr { background: linear-gradient(135deg, #1565C0, #1976D2); }
+    .u2-hdr { background: linear-gradient(135deg, #6A1B9A, #7B1FA2); }
+    .u3-hdr { background: linear-gradient(135deg, #2E7D32, #388E3C); }
+    .u4-hdr { background: linear-gradient(135deg, #E65100, #F57C00); }
+    .u5-hdr { background: linear-gradient(135deg, #AD1457, #C2185B); }
+
+    .unit-body { background: #fff; margin: 0 2rem 2rem; border-radius: 0 0 14px 14px; box-shadow: 0 4px 20px rgba(0,0,0,0.07); padding: 2rem; }
+    .q-block { margin-bottom: 2.5rem; border-bottom: 1px dashed #e0e0e0; padding-bottom: 2rem; }
+    .q-block:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+    .or-sep { text-align: center; margin: 1.5rem 0; position: relative; }
+    .or-sep::before { content: ''; position: absolute; left: 0; top: 50%; width: 100%; height: 1px; background: #e0e0e0; }
+    .or-sep span { background: #fff; position: relative; padding: 0 14px; font-weight: 800; font-size: 0.85rem; color: #888; letter-spacing: 2px; }
+
+    .q-title { font-size: 1.05rem; font-weight: 800; padding: 0.55rem 1rem 0.55rem 1.2rem; border-radius: 8px; margin-bottom: 0.6rem; border-left: 5px solid; }
+    .q-u1 { background: var(--u1l); color: var(--u1); border-color: var(--u1); }
+    .q-u2 { background: var(--u2l); color: var(--u2); border-color: var(--u2); }
+    .q-u3 { background: var(--u3l); color: var(--u3); border-color: var(--u3); }
+    .q-u4 { background: var(--u4l); color: var(--u4); border-color: var(--u4); }
+    .q-u5 { background: var(--u5l); color: var(--u5); border-color: var(--u5); }
+
+    .popular-tag { display: inline-block; background: #FF6F00; color: #fff; font-size: 0.68rem; font-weight: 800; padding: 2px 8px; border-radius: 12px; letter-spacing: 1px; vertical-align: middle; margin-left: 8px; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;}50%{opacity:0.7;} }
+
+    .sec-label { display: inline-block; font-size: 0.72rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; padding: 2px 10px; border-radius: 20px; margin-bottom: 0.4rem; margin-top: 0.9rem; }
+    .sl-def { background: #E3F2FD; color: #0d47a1; }
+    .sl-exp { background: #E8F5E9; color: #1B5E20; }
+    .sl-char { background: #F3E5F5; color: #4A148C; }
+    .sl-types { background: #FFF3E0; color: #BF360C; }
+    .sl-arch { background: #E0F7FA; color: #006064; }
+    .sl-adv { background: #F1F8E9; color: #33691E; }
+    .sl-dis { background: #FFEBEE; color: #B71C1C; }
+    .sl-app { background: #EDE7F6; color: #311B92; }
+    .sl-imp { background: #FFF8E1; color: #F57F17; }
+    .sl-conc { background: #ECEFF1; color: #37474F; }
+    .sl-diff { background: #FBE9E7; color: #BF360C; }
+
+    p { margin-bottom: 0.6rem; font-size: 0.95rem; }
+    strong { color: #1a1a2e; }
+    u { text-decoration-color: #E65100; text-decoration-thickness: 2px; }
+
+    .highlight-box { border-radius: 10px; padding: 1rem 1.2rem; margin: 0.8rem 0; border-left: 5px solid; font-size: 0.92rem; }
+    .hb-blue { background: #E3F2FD; border-color: #1565C0; }
+    .hb-green { background: #E8F5E9; border-color: #2E7D32; }
+    .hb-orange { background: #FFF3E0; border-color: #E65100; }
+    .hb-purple { background: #F3E5F5; border-color: #6A1B9A; }
+    .hb-red { background: #FFEBEE; border-color: #C62828; }
+    .hb-yellow { background: #FFFDE7; border-color: #F9A825; }
+    .hb-teal { background: #E0F7FA; border-color: #00838F; }
+
+    .exam-tip { background: linear-gradient(135deg, #FFF9C4, #FFFDE7); border: 2px solid #F9A825; border-radius: 10px; padding: 0.9rem 1.2rem; margin: 0.8rem 0; display: flex; gap: 0.7rem; align-items: flex-start; }
+    .exam-tip .star { font-size: 1.3rem; flex-shrink: 0; }
+    .exam-tip p { margin: 0; font-size: 0.88rem; font-weight: 700; color: #5D4037; }
+
+    .marks-row { display: flex; gap: 8px; margin: 0.5rem 0 0.8rem; flex-wrap: wrap; }
+    .marks-badge { font-size: 0.75rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+    .m5 { background: #BBDEFB; color: #0d47a1; }
+    .m7 { background: #C8E6C9; color: #1B5E20; }
+    .m10 { background: #FFE0B2; color: #BF360C; }
+
+    .point-list { list-style: none; padding-left: 0; margin: 0.4rem 0; }
+    .point-list li { padding: 3px 0 3px 22px; position: relative; font-size: 0.92rem; }
+    .point-list li::before { content: '▸'; position: absolute; left: 0; color: #1976D2; font-weight: 700; }
+    .point-list.green li::before { color: #2E7D32; }
+    .point-list.orange li::before { color: #E65100; }
+    .point-list.purple li::before { color: #6A1B9A; }
+    .point-list.red li::before { content: '✗'; color: #C62828; }
+    .point-list.check li::before { content: '✓'; color: #2E7D32; font-weight: 700; }
+
+    .data-table { width: 100%; border-collapse: collapse; margin: 0.8rem 0; font-size: 0.88rem; border-radius: 8px; overflow: hidden; }
+    .data-table th { padding: 10px 12px; text-align: left; font-weight: 700; color: #fff; background: #2E7D32; }
+    .data-table td { padding: 9px 12px; border-bottom: 1px solid #E0E0E0; }
+    .data-table tr:nth-child(even) td { background: #F5F5F5; }
+    .data-table tr:hover td { background: #E8F5E9; }
+    .comp-table th.h-u1 { background: var(--u1); } .comp-table th.h-u2 { background: var(--u2); }
+    .comp-table th.h-u3 { background: var(--u3); } .comp-table th.h-u4 { background: var(--u4); }
+    .comp-table th.h-u5 { background: var(--u5); }
+
+    .diagram-container { background: #F8F9FA; border: 1.5px solid #CFD8DC; border-radius: 12px; padding: 1.2rem; margin: 1rem 0; text-align: center; font-family: 'Fira Mono', monospace; font-size: 0.82rem; color: #37474F; overflow-x: auto; }
+    .diagram-container .diag-title { background: #37474F; color: #fff; font-size: 0.78rem; font-weight: 700; padding: 4px 16px; border-radius: 20px; display: inline-block; margin-bottom: 1rem; letter-spacing: 1px; text-transform: uppercase; }
+    .diag-box { display: inline-block; background: #fff; border: 2px solid; border-radius: 8px; padding: 6px 16px; margin: 4px; font-weight: 700; font-size: 0.82rem; }
+    .db-blue { border-color: #1565C0; color: #1565C0; background: #E3F2FD; }
+    .db-green { border-color: #2E7D32; color: #2E7D32; background: #E8F5E9; }
+    .db-orange { border-color: #E65100; color: #E65100; background: #FFF3E0; }
+    .db-purple { border-color: #6A1B9A; color: #6A1B9A; background: #F3E5F5; }
+    .db-red { border-color: #C62828; color: #C62828; background: #FFEBEE; }
+    .db-teal { border-color: #00838F; color: #00838F; background: #E0F7FA; }
+    .db-gray { border-color: #607D8B; color: #37474F; background: #ECEFF1; }
+    .arrow { font-size: 1.2rem; color: #607D8B; margin: 2px 4px; }
+    .diag-row { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; margin: 4px 0; }
+    .diag-col { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+
+    /* Pixel grid for morphology diagrams */
+    .pixel-grid { display: inline-grid; gap: 2px; margin: 0.5rem auto; }
+    .px { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; border-radius: 4px; border: 1px solid #ccc; }
+    .px-b { background: #1a1a2e; color: #fff; }
+    .px-w { background: #fff; color: #333; }
+    .px-g { background: #4CAF50; color: #fff; } /* result green */
+    .px-r { background: #f44336; color: #fff; } /* eroded red */
+
+    .conclusion { background: linear-gradient(135deg, #E8EAF6, #EDE7F6); border-radius: 10px; padding: 0.9rem 1.2rem; margin-top: 0.8rem; border-left: 5px solid #5C6BC0; }
+    .conclusion p { margin: 0; font-size: 0.9rem; font-style: italic; color: #283593; font-weight: 600; }
+    .formula-box { background: #263238; color: #80CBC4; font-family: 'Fira Mono', monospace; padding: 0.8rem 1.2rem; border-radius: 8px; margin: 0.6rem 0; font-size: 0.85rem; white-space: pre-wrap; }
+    .site-footer { background: #1a1a2e; color: #aaa; text-align: center; padding: 2rem; margin-top: 2rem; font-size: 0.9rem; }
+
+    @media(max-width:600px) { .unit-header,.unit-body{margin-left:0.5rem;margin-right:0.5rem;} .toc{margin:1rem 0.5rem;} .top-banner h1{font-size:1.4rem;} .diag-row{flex-direction:column;} }
+
+    /* THEME TOGGLE */
+    .theme-toggle { position: fixed; top: 20px; right: 20px; z-index: 9999; width: 40px; height: 40px; border-radius: 50%; border: none; cursor: pointer; background-color: #ffffff; color: #5f6368; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2); transition: background-color 0.2s, transform 0.2s; }
+    .theme-toggle:hover { background-color: #f1f3f4; }
+    .theme-toggle:active { transform: scale(0.95); }
+
+    /* DARK MODE */
+    [data-theme="dark"] { color-scheme: dark; }
+    [data-theme="dark"] body { background: #0f1117; color: #d0d4e0; }
+    [data-theme="dark"] strong { color: #e0e4f0; }
+    [data-theme="dark"] u { text-decoration-color: #ffa726; }
+    [data-theme="dark"] p { color: #c8ccda; }
+    [data-theme="dark"] .theme-toggle { background-color: #202124; color: #e8eaed; }
+    [data-theme="dark"] .theme-toggle:hover { background-color: #303134; }
+    [data-theme="dark"] .top-banner { background: linear-gradient(135deg, #0a2010, #0f2818, #1a3a20); }
+    [data-theme="dark"] .toc { background: #161829; box-shadow: 0 2px 12px rgba(0,0,0,0.4); }
+    [data-theme="dark"] .toc h2 { color: #81C784; }
+    [data-theme="dark"] .toc-u1 { background: #1a2744; color: #64B5F6; border-color: #42A5F5; }
+    [data-theme="dark"] .toc-u2 { background: #2a1a3e; color: #CE93D8; border-color: #AB47BC; }
+    [data-theme="dark"] .toc-u3 { background: #1a2e1e; color: #81C784; border-color: #66BB6A; }
+    [data-theme="dark"] .toc-u4 { background: #2e2418; color: #FFB74D; border-color: #FFA726; }
+    [data-theme="dark"] .toc-u5 { background: #2e1a26; color: #F48FB1; border-color: #EC407A; }
+    [data-theme="dark"] .u1-hdr { background: linear-gradient(135deg, #0d2137, #1565C0); }
+    [data-theme="dark"] .u2-hdr { background: linear-gradient(135deg, #1a0a2e, #6A1B9A); }
+    [data-theme="dark"] .u3-hdr { background: linear-gradient(135deg, #0a2010, #2E7D32); }
+    [data-theme="dark"] .u4-hdr { background: linear-gradient(135deg, #2e1800, #E65100); }
+    [data-theme="dark"] .u5-hdr { background: linear-gradient(135deg, #2e0a1a, #AD1457); }
+    [data-theme="dark"] .unit-body { background: #161829; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+    [data-theme="dark"] .q-block { border-bottom-color: #2a2d45; }
+    [data-theme="dark"] .or-sep span { background: #161829; color: #aaa; }
+    [data-theme="dark"] .or-sep::before { background: #2a2d45; }
+    [data-theme="dark"] .q-u1 { background: #1a2744; color: #64B5F6; border-color: #42A5F5; }
+    [data-theme="dark"] .q-u2 { background: #2a1a3e; color: #CE93D8; border-color: #AB47BC; }
+    [data-theme="dark"] .q-u3 { background: #1a2e1e; color: #81C784; border-color: #66BB6A; }
+    [data-theme="dark"] .q-u4 { background: #2e2418; color: #FFB74D; border-color: #FFA726; }
+    [data-theme="dark"] .q-u5 { background: #2e1a26; color: #F48FB1; border-color: #EC407A; }
+    [data-theme="dark"] .sl-def{background:#1a2744;color:#64B5F6;} [data-theme="dark"] .sl-exp{background:#1a2e1e;color:#81C784;}
+    [data-theme="dark"] .sl-char{background:#2a1a3e;color:#CE93D8;} [data-theme="dark"] .sl-types{background:#2e2418;color:#FFB74D;}
+    [data-theme="dark"] .sl-arch{background:#1a2e2e;color:#4DD0E1;} [data-theme="dark"] .sl-adv{background:#1a2e1e;color:#A5D6A7;}
+    [data-theme="dark"] .sl-dis{background:#2e1a1a;color:#EF9A9A;} [data-theme="dark"] .sl-app{background:#1e1a3e;color:#B39DDB;}
+    [data-theme="dark"] .sl-imp{background:#2e2a18;color:#FFD54F;} [data-theme="dark"] .sl-conc{background:#1e2028;color:#B0BEC5;}
+    [data-theme="dark"] .sl-diff{background:#2e1810;color:#FFAB91;}
+    [data-theme="dark"] .hb-blue{background:#101e33;border-color:#42A5F5;color:#b8d4f0;}
+    [data-theme="dark"] .hb-green{background:#0f2418;border-color:#66BB6A;color:#b0d8b4;}
+    [data-theme="dark"] .hb-orange{background:#261c0f;border-color:#FFA726;color:#e0c8a8;}
+    [data-theme="dark"] .hb-purple{background:#1e1030;border-color:#AB47BC;color:#d4b8e0;}
+    [data-theme="dark"] .hb-red{background:#260f0f;border-color:#EF5350;color:#e0b0b0;}
+    [data-theme="dark"] .hb-yellow{background:#26220f;border-color:#FFCA28;color:#e0d8a8;}
+    [data-theme="dark"] .hb-teal{background:#0f2626;border-color:#26C6DA;color:#a8d8e0;}
+    [data-theme="dark"] .exam-tip{background:linear-gradient(135deg,#2a2410,#26220f);border-color:#F9A825;}
+    [data-theme="dark"] .exam-tip p{color:#FFD54F;}
+    [data-theme="dark"] .m5{background:#1a2744;color:#64B5F6;} [data-theme="dark"] .m7{background:#1a2e1e;color:#81C784;} [data-theme="dark"] .m10{background:#2e2418;color:#FFB74D;}
+    [data-theme="dark"] .point-list li{color:#c8ccda;} [data-theme="dark"] .point-list li::before{color:#42A5F5;}
+    [data-theme="dark"] .point-list.green li::before{color:#66BB6A;} [data-theme="dark"] .point-list.orange li::before{color:#FFA726;} [data-theme="dark"] .point-list.purple li::before{color:#AB47BC;}
+    [data-theme="dark"] .data-table th{background:#1a2e1e;color:#e0e4f0;} [data-theme="dark"] .data-table td{border-bottom-color:#2a2d45;color:#c8ccda;background:#161829;}
+    [data-theme="dark"] .data-table tr:nth-child(even) td{background:#1a1d30;} [data-theme="dark"] .data-table tr:hover td{background:#1a2e1e;}
+    [data-theme="dark"] .diagram-container{background:#10121c;border-color:#2a2d45;color:#b0b4c8;}
+    [data-theme="dark"] .diagram-container .diag-title{background:#b0b4c8;color:#10121c;}
+    [data-theme="dark"] .db-blue{border-color:#42A5F5;color:#64B5F6;background:#101e33;} [data-theme="dark"] .db-green{border-color:#66BB6A;color:#81C784;background:#0f2418;}
+    [data-theme="dark"] .db-orange{border-color:#FFA726;color:#FFB74D;background:#261c0f;} [data-theme="dark"] .db-purple{border-color:#AB47BC;color:#CE93D8;background:#1e1030;}
+    [data-theme="dark"] .db-teal{border-color:#26C6DA;color:#4DD0E1;background:#0f2626;} [data-theme="dark"] .db-gray{border-color:#78909C;color:#B0BEC5;background:#1a1d28;}
+    [data-theme="dark"] .db-red{border-color:#EF5350;color:#EF9A9A;background:#260f0f;}
+    [data-theme="dark"] .arrow{color:#78909C;}
+    [data-theme="dark"] .conclusion{background:linear-gradient(135deg,#161839,#1a1a3e);border-color:#5C6BC0;}
+    [data-theme="dark"] .conclusion p{color:#9FA8DA;}
+    [data-theme="dark"] .formula-box{background:#0a0e14;color:#80CBC4;}
+    [data-theme="dark"] .site-footer{background:#0a0c12;}
+    [data-theme="dark"] .px-w{background:#2a2d45;color:#d0d4e0;border-color:#3a3d55;}
+
+    body,.toc,.unit-body,.q-title,.highlight-box,.exam-tip,.data-table td,.data-table th,.diagram-container,.diag-box,.conclusion,.sec-label,.marks-badge,.site-footer {
+      transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode" aria-label="Toggle theme">🌙</button>
+
+  <div class="top-banner">
+    <h1>🖼️ CS802(A) — Image Processing &amp; CV | Previous Year Question Bank</h1>
+    <p>RGPV Bhopal · CSE · VIII Semester · 5-Year PYQ Answers</p>
+    <div class="badges">
+      <span class="badge">📘 5-Mark Answers</span>
+      <span class="badge">📗 7-Mark Answers</span>
+      <span class="badge">📕 10-Mark Answers</span>
+      <span class="badge">🔥 Popular Questions Marked</span>
+      <span class="badge">📋 OR Questions Grouped</span>
+    </div>
+  </div>
+
+  <div class="toc">
+    <h2>📋 Table of Contents — Unit-wise PYQ</h2>
+    <div class="toc-grid">
+      <a href="#unit1" class="toc-item toc-u1">Unit 1 — CVIP Basics &amp; Morphological Processing</a>
+      <a href="#unit2" class="toc-item toc-u2">Unit 2 — Image Representation, Segmentation &amp; Area Extraction</a>
+      <a href="#unit3" class="toc-item toc-u3">Unit 3 — Region Analysis &amp; Matching Frameworks</a>
+      <a href="#unit4" class="toc-item toc-u4">Unit 4 — Facet Models, Projective Geometry &amp; Matching</a>
+      <a href="#unit5" class="toc-item toc-u5">Unit 5 — Knowledge-Based Vision &amp; ML in CV</a>
+    </div>
+  </div>
+
+  <!-- ============================== UNIT 1 ============================== -->
+  <div id="unit1">
+    <div class="unit-header u1-hdr">
+      <div class="unit-num-badge">1</div>
+      <div>
+        <h2>UNIT 1 — CVIP Basics &amp; Morphological Processing</h2>
+        <p>History · CV Models · Image Filtering · Sampling · Morphology: Dilation · Erosion · Opening · Closing · Thinning</p>
+      </div>
+    </div>
+    <div class="unit-body">
+
+      <!-- Q1 -->
+      <div class="q-block">
+        <div class="q-title q-u1">Q1. Discuss the history and evolution of Computer Vision and Image Processing (CVIP). How have advancements in technology influenced its development? <span class="popular-tag">🔥 POPULAR</span></div>
+        <div class="marks-row"><span class="marks-badge m7">7 Marks</span><span class="marks-badge m10">10 Marks</span></div>
+
+        <span class="sec-label sl-def">Definition</span>
+        <p><strong>Computer Vision and Image Processing (CVIP)</strong> is a field of Artificial Intelligence that enables computers to <u>interpret, understand, and analyze visual information</u> from the real world — such as images and videos — in the way that humans do.</p>
+        <div class="highlight-box hb-blue">
+          <strong>Difference to remember:</strong> <em>Image Processing</em> = transforming an image (enhance, filter, compress). <em>Computer Vision</em> = understanding the image content (detect objects, recognize faces, interpret scenes).
+        </div>
+
+        <span class="sec-label sl-exp">History and Evolution of CVIP</span>
+        <table class="data-table">
+          <tr><th>Era</th><th>Key Development</th></tr>
+          <tr><td><strong>1960s — Dawn</strong></td><td>Larry Roberts (MIT, 1963) — first CV dissertation on 3D solid objects from 2D images. CVIP began as an academic research area.</td></tr>
+          <tr><td><strong>1970s — Foundations</strong></td><td>David Marr proposed the computational theory of vision (3-level model). Edge detection algorithms (Roberts, Prewitt, Sobel) developed.</td></tr>
+          <tr><td><strong>1980s — Growth</strong></td><td>Marr's book "Vision" (1982) formalized CVIP. Hough Transform, texture analysis, stereo vision research flourished.</td></tr>
+          <tr><td><strong>1990s — Maturity</strong></td><td>Statistical methods, wavelets, Active Contours (Snakes), face detection (Eigenfaces by Turk &amp; Pentland, 1991). First real-time applications.</td></tr>
+          <tr><td><strong>2000s — Digital Era</strong></td><td>SIFT (Scale-Invariant Feature Transform) by Lowe (2004). HOG (Histogram of Oriented Gradients). Medical imaging, surveillance applications.</td></tr>
+          <tr><td><strong>2010s — Deep Learning Revolution</strong></td><td>AlexNet (2012) won ImageNet challenge using CNN — revolutionized CV. Deep Learning replaced hand-crafted features. YOLO, VGG, ResNet, GAN developed.</td></tr>
+          <tr><td><strong>2020s — Present</strong></td><td>Vision Transformers (ViT), multimodal AI (CLIP, DALL-E), real-time autonomous driving (Tesla), AR/VR. AI-powered cameras everywhere.</td></tr>
+        </table>
+
+        <span class="sec-label sl-exp">How Technology Influenced CVIP</span>
+        <ul class="point-list green">
+          <li><strong>Hardware (GPU):</strong> NVIDIA GPUs enabled parallel processing of millions of image pixels — made deep learning feasible.</li>
+          <li><strong>Big Data:</strong> ImageNet (14 million labeled images) provided massive training datasets for deep learning models.</li>
+          <li><strong>Internet:</strong> Massive image databases available for training (Instagram, Google Images).</li>
+          <li><strong>Embedded Systems:</strong> Powerful microprocessors (Raspberry Pi, NVIDIA Jetson) enabled real-time CV on edge devices.</li>
+          <li><strong>Medical Imaging:</strong> MRI, CT scan advancements pushed CVIP for automated disease diagnosis.</li>
+          <li><strong>Smartphones:</strong> High-resolution cameras + powerful mobile CPUs enabled face unlock, AR filters.</li>
+        </ul>
+
+        <div class="exam-tip"><span class="star">⭐</span>
+          <p>History table is the most effective way to answer this. Key milestones: 1963 (Roberts), 1982 (Marr's Vision), 1991 (Eigenfaces), 2004 (SIFT), 2012 (AlexNet). Remember: Technology influence = GPU + Big Data + Deep Learning = CVIP revolution.</p>
+        </div>
+        <div class="conclusion">
+          <p>✏️ CVIP has evolved from simple edge detection algorithms to deep learning-based systems capable of superhuman image recognition — driven by advances in hardware, data availability, and neural network architectures.</p>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="q-block">
+        <div class="q-title q-u1">Q2. Define Digital Image. What do you mean by Image Sampling and Quantization? Illustrate how an image is digitized. <span class="popular-tag">🔥 POPULAR</span></div>
+        <div class="or-sep"><span>— OR —</span></div>
+        <div class="q-title q-u1">Q2B. Describe various elements of a digital image processing system. What are its components? Explain each in detail.</div>
+        <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span><span class="marks-badge m10">10 Marks</span></div>
+
+        <span class="sec-label sl-def">Digital Image — Definition</span>
+        <p>A <strong>Digital Image</strong> is a <u>2D matrix of picture elements (pixels)</u>, where each pixel has a discrete intensity value representing brightness or color. It is a finite, discrete representation of a continuous analog image.</p>
+        <div class="formula-box">Image f(x,y) = 2D array of pixels
+f(x,y) = intensity at position (x, y)
+x = row (0 to M-1),  y = column (0 to N-1)
+Grayscale: f(x,y) ∈ [0, 255]   (0=Black, 255=White)
+Color: f(x,y) = (R, G, B) triplet</div>
+
+        <span class="sec-label sl-exp">Image Digitization Process</span>
+        <div class="diagram-container">
+          <div class="diag-title">Digitization: Analog → Digital Image</div>
+          <div class="diag-col">
+            <div class="diag-box db-orange">Continuous Scene (Real World)</div>
+            <div class="arrow">⬇ Camera / Scanner</div>
+            <div class="diag-box db-blue">Analog Image Signal (continuous)</div>
+            <div class="arrow">⬇ STEP 1: Sampling</div>
+            <div class="diag-box db-teal">Discrete Spatial Grid (M × N pixels)</div>
+            <div class="arrow">⬇ STEP 2: Quantization</div>
+            <div class="diag-box db-green">Digital Image (M × N × k-bit values)</div>
+          </div>
+        </div>
+
+        <span class="sec-label sl-exp">Step 1 — Sampling</span>
+        <p><strong>Sampling</strong> is the process of <u>converting a continuous spatial image into a discrete spatial grid</u> by measuring the image value at regular intervals.</p>
+        <ul class="point-list">
+          <li>The image is divided into a grid of M × N sample points (pixels).</li>
+          <li>Higher sampling rate → more pixels → higher spatial resolution → sharper image.</li>
+          <li><strong>Nyquist Theorem:</strong> Sampling frequency must be ≥ 2× the highest spatial frequency in the image to avoid aliasing.</li>
+          <li>Example: 640×480 image = 640 samples in x-direction, 480 in y-direction.</li>
+        </ul>
+
+        <span class="sec-label sl-exp">Step 2 — Quantization</span>
+        <p><strong>Quantization</strong> is the process of <u>converting the continuous intensity (amplitude) values at each sample point into discrete integer levels</u>.</p>
+        <ul class="point-list purple">
+          <li>The continuous range of intensities is divided into 2<sup>k</sup> discrete levels.</li>
+          <li>k = number of bits per pixel. k=8 → 256 gray levels (0–255).</li>
+          <li>Higher k → more gray levels → smoother image → larger file size.</li>
+          <li>k=1 → Binary image (only Black/White). k=8 → 8-bit grayscale. k=24 → True color (8 bits per R,G,B).</li>
+          <li><strong>Quantization error:</strong> The difference between true continuous value and the assigned discrete level — causes "false contouring" if too few levels used.</li>
+        </ul>
+
+        <span class="sec-label sl-arch">Elements of a Digital Image Processing System</span>
+        <ul class="point-list green">
+          <li><strong>Image Acquisition:</strong> Camera, scanner, MRI, CT — captures the image. Converts optical signal to digital data.</li>
+          <li><strong>Image Storage:</strong> Primary memory (RAM — for processing), secondary storage (HDD/SSD/Cloud — for archiving).</li>
+          <li><strong>Image Processing Hardware:</strong> GPU/FPGA for parallel image processing. DSP chips for real-time processing.</li>
+          <li><strong>Display System:</strong> Monitor, printer — outputs the processed image to the user.</li>
+          <li><strong>Image Processing Software:</strong> MATLAB Image Processing Toolbox, OpenCV, Photoshop, Python PIL.</li>
+          <li><strong>Networking:</strong> For transmitting images (telemedicine, satellite imagery, video surveillance).</li>
+          <li><strong>Hard Copy Devices:</strong> Laser/inkjet printers for permanent hardcopy output of processed images.</li>
+        </ul>
+
+        <div class="exam-tip"><span class="star">⭐</span>
+          <p>Sampling = spatial discretization (how many pixels). Quantization = intensity discretization (how many gray levels). Key formula: Image size = M × N × k bits. Draw the digitization flow diagram. This is asked almost every year!</p>
+        </div>
+        <div class="conclusion">
+          <p>✏️ Digitization converts the continuous real-world scene into a discrete matrix of pixels through two steps — sampling (spatial) and quantization (intensity) — enabling computers to store, process, and analyze visual information.</p>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="q-block">
+        <div class="q-title q-u1">Q3. Describe various Computer Vision Models and their applications. What are the different types of CV models? <span class="popular-tag">🔥 POPULAR</span></div>
+        <div class="or-sep"><span>— OR —</span></div>
+        <div class="q-title q-u1">Q3B. Describe the concept of computer vision. Does it require image processing? Discuss various color vision models. Discuss the procedure for conversion from RGB to HSI color model.</div>
+        <div class="marks-row"><span class="marks-badge m7">7 Marks</span><span class="marks-badge m10">10 Marks</span></div>
+
+        <span class="sec-label sl-def">Computer Vision — Definition</span>
+        <p><strong>Computer Vision (CV)</strong> is a field of AI that trains computers to <u>interpret and understand visual data</u> from the world — images, videos, 3D scans — and make decisions based on that visual understanding.</p>
+        <div class="highlight-box hb-teal">
+          <strong>Relationship:</strong> CV requires image processing as a prerequisite — image processing enhances and prepares images, while CV extracts meaning. Image Processing = Input preprocessing; Computer Vision = Output understanding.
+        </div>
+
+        <span class="sec-label sl-types">Computer Vision Models</span>
+        <ul class="point-list">
+          <li><strong>1. Marr's 3-Level Computational Model (1982) ⭐ Most Important:</strong>
+            <ul class="point-list purple" style="margin-top:4px">
+              <li><strong>Primal Sketch:</strong> Edges, bars, boundaries — raw 2D features from intensity changes.</li>
+              <li><strong>2.5D Sketch:</strong> Depth and surface orientation of objects relative to viewer.</li>
+              <li><strong>3D Model:</strong> Complete 3D representation — object-centered, viewpoint-independent description.</li>
+            </ul>
+          </li>
+          <li><strong>2. Bottom-Up (Data-Driven) Model:</strong> Processing starts from raw pixels → features → object recognition. No prior knowledge used. Example: Edge detection → contour grouping → object.</li>
+          <li><strong>3. Top-Down (Model-Driven) Model:</strong> Prior knowledge / model of expected object guides processing. Verify hypotheses against image data. Example: Face detection using known face template.</li>
+          <li><strong>4. Geometric Model:</strong> Uses 3D geometry (camera calibration, perspective projection) to reconstruct 3D world from 2D images. Applications: Robotics, autonomous vehicles.</li>
+          <li><strong>5. Probabilistic/Statistical Model:</strong> Uses statistical methods (Bayesian inference, Hidden Markov Models) to handle uncertainty. Used in gesture recognition, action recognition.</li>
+          <li><strong>6. Deep Learning Model (CNN):</strong> Convolutional Neural Networks learn features automatically from data. State-of-the-art for image classification, object detection (YOLO, Faster R-CNN).</li>
+        </ul>
+
+        <span class="sec-label sl-types">Color Vision Models</span>
+        <ul class="point-list green">
+          <li><strong>RGB Model:</strong> Additive color model — Red, Green, Blue. Used in monitors, cameras. Each channel: 0-255. Total colors: 256³ = 16.7 million.</li>
+          <li><strong>CMY/CMYK Model:</strong> Subtractive model — Cyan, Magenta, Yellow, Black. Used in printing. CMY = complement of RGB.</li>
+          <li><strong>HSI/HSV Model:</strong> Hue (color type), Saturation (color purity), Intensity/Value (brightness). Most natural for human perception. Best for image segmentation tasks.</li>
+          <li><strong>YCbCr Model:</strong> Separates luminance (Y) from chrominance (Cb, Cr). Used in JPEG compression, TV broadcast.</li>
+        </ul>
+
+        <span class="sec-label sl-arch">RGB to HSI Conversion</span>
+        <div class="formula-box">Given: R, G, B values (normalized 0 to 1)
+
+I = (R + G + B) / 3
+
+S = 1 - [3/(R+G+B)] × min(R, G, B)
+
+H = arccos{ [(R-G) + (R-B)] / [2√((R-G)²+(R-B)(G-B))] }
+    If B > G: H = 360 - H
+
+H ∈ [0°, 360°], S ∈ [0,1], I ∈ [0,1]</div>
+        <div class="highlight-box hb-orange">
+          <strong>Why HSI?</strong> In RGB, changing brightness changes all 3 values. In HSI, only I (Intensity) changes — H and S remain same. This makes color-based image segmentation much easier in HSI space.
+        </div>
+
+        <div class="exam-tip"><span class="star">⭐</span>
+          <p>Marr's 3-level model is most important — Primal Sketch → 2.5D Sketch → 3D Model. RGB→HSI conversion formula is a direct exam question. Color models: RGB (monitors), HSI (image processing preferred), CMYK (printing). Always write an application for each model.</p>
+        </div>
+        <div class="conclusion">
+          <p>✏️ Computer vision models provide the theoretical and computational framework for understanding visual information. From Marr's classic 3-level model to modern deep learning CNNs, each model reflects advances in our understanding of both vision and computation.</p>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="q-block">
+        <div class="q-title q-u1">Q4. Discuss the various types of Image Filtering Techniques. Explain spatial and frequency domain enhancement. <span class="popular-tag">🔥 POPULAR</span></div>
+        <div class="or-sep"><span>— OR —</span></div>
+        <div class="q-title q-u1">Q4B. Show various techniques in frequency domain to enhance an image. Distinguish between spatial and frequency domain image enhancement. What is Image Transformation? Explain its need.</div>
+        <div class="marks-row"><span class="marks-badge m7">7 Marks</span><span class="marks-badge m10">10 Marks</span></div>
+
+        <span class="sec-label sl-def">Image Filtering — Introduction</span>
+        <p><strong>Image Filtering</strong> is the process of <u>modifying pixel values of an image</u> based on the values of neighboring pixels to achieve effects like noise removal, sharpening, or edge detection.</p>
+
+        <span class="sec-label sl-types">A. Spatial Domain Filtering</span>
+        <p>Filtering is performed <u>directly on the image pixels</u> using a mask/kernel (small matrix). Result pixel = weighted sum of neighboring pixels.</p>
+        <div class="formula-box">Output g(x,y) = ΣΣ f(x+s, y+t) × w(s,t)
+where w(s,t) = filter kernel/mask
+f = input image, g = output image</div>
+        <ul class="point-list">
+          <li><strong>Mean Filter (Averaging Filter):</strong> Replaces each pixel with the average of its neighbors. Blurs the image, removes noise. Kernel: all 1/(k²) values.</li>
+          <li><strong>Median Filter:</strong> Replaces pixel with median value of neighbors. Excellent for removing Salt-and-Pepper noise while preserving edges. Non-linear filter.</li>
+          <li><strong>Gaussian Filter:</strong> Weighted average — center pixel has highest weight, decreasing towards edges. Smooth blur. Used for noise reduction before edge detection.</li>
+          <li><strong>Sharpening Filter (Laplacian):</strong> Enhances edges and fine details. Uses second derivative of image. Kernel: [0,-1,0;-1,5,-1;0,-1,0].</li>
+          <li><strong>Sobel Filter:</strong> First derivative filter for edge detection. Separate Gx (horizontal) and Gy (vertical) kernels detect gradient magnitude.</li>
+          <li><strong>High-Pass Filter:</strong> Passes high frequencies (edges, details), suppresses low frequencies (smooth regions).</li>
+          <li><strong>Low-Pass Filter:</strong> Passes low frequencies (smooth regions), suppresses high frequencies (edges, noise).</li>
+        </ul>
+
+        <span class="sec-label sl-types">B. Frequency Domain Filtering</span>
+        <p>Image is first transformed to frequency domain using <strong>Fourier Transform (FFT)</strong>. Filtering applied to frequency spectrum, then converted back.</p>
+        <div class="formula-box">Steps:
+1. Compute DFT: F(u,v) = FFT of f(x,y)
+2. Apply filter: G(u,v) = H(u,v) × F(u,v)
+3. Compute Inverse DFT: g(x,y) = IFFT of G(u,v)
+
+Low frequencies = smooth regions (center of spectrum)
+High frequencies = edges, noise (edges of spectrum)</div>
+        <ul class="point-list purple">
+          <li><strong>Ideal Low-Pass Filter (ILPF):</strong> Allows all frequencies below cutoff D₀ — sharp boundary. Causes ringing artifacts (Gibbs effect).</li>
+          <li><strong>Butterworth LPF (BLPF):</strong> Smooth transition around cutoff. Order n controls transition sharpness. No ringing. Most practical.</li>
+          <li><strong>Gaussian LPF (GLPF):</strong> Gaussian-shaped transfer function. No ringing. Smooth results. Best for noise removal.</li>
+          <li><strong>Ideal High-Pass Filter (IHPF):</strong> Allows frequencies above D₀ — edge enhancement. Also causes ringing.</li>
+          <li><strong>Homomorphic Filter:</strong> Simultaneously enhances edges (illumination correction) and compresses dynamic range. Useful for non-uniform lighting images.</li>
+        </ul>
+
+        <table class="data-table comp-table">
+          <tr><th class="h-u1">Feature</th><th class="h-u3">Spatial Domain</th><th class="h-u2">Frequency Domain</th></tr>
+          <tr><td>Operation</td><td>Convolution with mask</td><td>Multiplication in frequency domain</td></tr>
+          <tr><td>Speed</td><td>Fast for small kernels</td><td>Fast for large kernels (FFT)</td></tr>
+          <tr><td>Intuitiveness</td><td>Easy to understand</td><td>More complex concept</td></tr>
+          <tr><td>Noise Removal</td><td>Median (salt-pepper), Gaussian</td><td>Low-pass filter</td></tr>
+          <tr><td>Edge Enhancement</td><td>Sobel, Laplacian masks</td><td>High-pass filter</td></tr>
+          <tr><td>Transforms used</td><td>None (direct)</td><td>DFT/FFT, DCT, Wavelet</td></tr>
+        </table>
+
+        <div class="exam-tip"><span class="star">⭐</span>
+          <p>Spatial domain = direct convolution with mask. Frequency domain = FFT → filter → IFFT. Key filters to memorize: Averaging (noise removal), Median (salt-pepper noise), Sobel (edges), Gaussian LPF (smooth), Butterworth (practical LPF). Spatial vs Frequency domain comparison table is a direct exam question.</p>
+        </div>
+        <div class="conclusion">
+          <p>✏️ Image filtering is fundamental to image processing — spatial domain filters provide simplicity and speed for small kernels, while frequency domain filters offer powerful global operations for complex enhancement tasks like periodic noise removal and illumination correction.</p>
+        </div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="q-block">
+        <div class="q-title q-u1">Q5. Define Morphological Image Processing. Describe Dilation and Erosion operations on binary and grayscale images. <span class="popular-tag">🔥 POPULAR</span></div>
+        <div class="or-sep"><span>— OR —</span></div>
+        <div class="q-title q-u1">Q5B. Explain the following operations: (i) Dilation (ii) Erosion (iii) Opening (iv) Closing. Discuss morphological algorithm operations performed on grayscale images.</div>
+        <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span><span class="marks-badge m10">10 Marks</span></div>
+
+        <span class="sec-label sl-def">Morphological Image Processing — Definition</span>
+        <p><strong>Morphological Image Processing</strong> is a <u>collection of non-linear operations</u> that process images based on <u>shape and structure</u>. It uses a small binary shape called a <strong>Structuring Element (SE)</strong> to probe and interact with the input image.</p>
+        <div class="highlight-box hb-green">
+          <strong>Key Terms:</strong> A = Input image (binary/grayscale). B = Structuring Element (SE) — the probe shape. Operations modify the shape of foreground objects in A based on SE B.
+        </div>
+
+        <span class="sec-label sl-exp">1. Dilation (A ⊕ B)</span>
+        <p><strong>Dilation</strong> <u>expands / grows the foreground (white) objects</u> in the image. The SE is placed at each pixel; if any pixel under SE overlaps the foreground — output pixel is set to 1 (foreground).</p>
+        <div class="formula-box">A ⊕ B = { z | (B̂)z ∩ A ≠ ∅ }
+→ A pixel becomes 1 if any SE pixel touches foreground of A</div>
+        <div class="diagram-container">
+          <div class="diag-title">Dilation Example (Binary)</div>
+          <div class="diag-row" style="gap:24px; align-items:flex-start;">
+            <div class="diag-col">
+              <p style="font-size:0.75rem; margin:0 0 4px; font-weight:700;">Input A</p>
+              <div class="pixel-grid" style="grid-template-columns: repeat(5,28px)">
+                <div class="px px-w">0</div><div class="px px-w">0</div><div class="px px-w">0</div><div class="px px-w">0</div><div class="px px-w">0</div>
+                <div class="px px-w">0</div><div class="px px-b">1</div><div class="px px-b">1</div><div class="px px-w">0</div><div class="px px-w">0</div>
+                <div class="px px-w">0</div><div class="px px-b">1</div><div class="px px-b">1</div><div class="px px-w">0</div><div class="px px-w">0</div>
+                <div class="px px-w">0</div><div class="px px-w">0</div><div class="px px-w">0</div><div class="px px-w">0</div><div class="px px-w">0</div>
+                <div class="px px-w">0</div><div class="px px-w">0</div><div class="px px-w">0</div><div class="px px-w">0</div><div class="px px-w">0</div>
+              </div>
+            </div>
+            <div style="align-self:center; font-size:1.5rem; color:#2E7D32; font-weight:900;">⊕ B →</div>
+            <div class="diag-col">
+              <p style="font-size:0.75rem; margin:0 0 4px; font-weight:700;">Dilated (Expanded)</p>
+              <div class="pixel-grid" style="grid-template-columns: repeat(5,28px)">
+                <div class="px px-g">1</div><div class="px px-g">1</div><div class="px px-g">1</div><div class="px px-g">1</div><div class="px px-w">0</div>
+                <div class="px px-g">1</div><div class="px px-b">1</div><div class="px px-b">1</div><div class="px px-g">1</div><div class="px px-w">0</div>
+                <div class="px px-g">1</div><div class="px px-b">1</div><div class="px px-b">1</div><div class="px px-g">1</div><div class="px px-w">0</div>
+                <div class="px px-g">1</div><div class="px px-g">1</div><div class="px px-g">1</div><div class="px px-g">1</div><div class="px px-w">0</div>
+                <div class="px px-w">0</div><div class="px px-w">0</div><div class="px px-w">0</div><div class="px px-w">0</div><div class="px px-w">0</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ul class="point-list green">
+          <li>Expands (grows) foreground objects.</li>
+          <li>Fills small holes inside objects.</li>
+          <li>Bridges small gaps between nearby objects.</li>
+          <li>Applications: Connecting broken lines, filling cracks in text OCR.</li>
+        </ul>
+
+        <span class="sec-label sl-exp">2. Erosion (A ⊖ B)</span>
+        <p><strong>Erosion</strong> <u>shrinks / erodes the foreground objects</u>. The SE must be completely contained within the foreground region for the output pixel to be 1.</p>
+        <div class="formula-box">A ⊖ B = { z | Bz ⊆ A }
+→ Output pixel = 1 ONLY if entire SE fits within foreground of A</div>
+        <div class="diagram-container">
+          <div class="diag-title">Erosion Example (Binary)</div>
+          <div class="diag-row" style="gap:24px; align-items:flex-start;">
+            <div class="diag-col">
+              <p style="font-size:0.75rem; margin:0 0 4px; font-weight:700;">Input A (Large object)</p>
+              <div class="pixel-grid" style="grid-template-columns: repeat(5,28px)">
+                <div class="px px-b">1</div><div class="px px-b">1</div><div class="px px-b">1</div><div class="px px-b">1</div><div class="px px-b">1</div>
+                <div class="px px-b">1</div><div class="px px-b">1</div><div class="px px-b">1</div><div class="px px-b">1</div><div class="px px-b">1</div>
+                <div class="px px-b">1</div><div class="px px-b">1</div><div class="px px-b">1</div><div class="px px-b">1</div><div class="px px-b">1</div>
+                <div class="px px-b">1</div><div class="px px-b">1</div><div class="px px-b">1</div><div class="px px-b">1</div><div class="px px-b">1</div>
+                <div class="px px-b">1</div><div class="px px-b">1</div><div class="px px-b">1</div><div class="px px-b">1</div><div class="px px-b">1</div>
+              </div>
+            </div>
+            <div style="align-self:center; font-size:1.5rem; color:#C62828; font-weight:900;">⊖ B →</div>
+            <div class="diag-col">
+              <p style="font-size:0.75rem; margin:0 0 4px; font-weight:700;">Eroded (Shrunk)</p>
+              <div class="pixel-grid" style="grid-template-columns: repeat(5,28px)">
+                <div class="px px-w">0</div><div class="px px-w">0</div><div class="px px-w">0</div><div class="px px-w">0</div><div class="px px-w">0</div>
+                <div class="px px-w">0</div><div class="px px-r">1</div><div class="px px-r">1</div><div class="px px-r">1</div><div class="px px-w">0</div>
+                <div class="px px-w">0</div><div class="px px-r">1</div><div class="px px-r">1</div><div class="px px-r">1</div><div class="px px-w">0</div>
+                <div class="px px-w">0</div><div class="px px-r">1</div><div class="px px-r">1</div><div class="px px-r">1</div><div class="px px-w">0</div>
+                <div class="px px-w">0</div><div class="px px-w">0</div><div class="px px-w">0</div><div class="px px-w">0</div><div class="px px-w">0</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ul class="point-list red">
+          <li>Shrinks foreground objects.</li>
+          <li>Removes small noise objects (smaller than SE).</li>
+          <li>Separates touching or overlapping objects.</li>
+          <li>Applications: Removing small noise pixels, separating connected objects in PCB inspection.</li>
+        </ul>
+
+        <span class="sec-label sl-exp">3. Opening (A ∘ B = (A ⊖ B) ⊕ B)</span>
+        <p><strong>Opening</strong> = Erosion followed by Dilation. <u>Removes small objects/noise without significantly changing the size of larger objects</u>.</p>
+        <ul class="point-list">
+          <li>Erosion removes small foreground objects → Dilation restores size of remaining objects.</li>
+          <li>Smooths contours from outside, breaks narrow isthmuses, eliminates thin protrusions.</li>
+          <li>Application: <strong>Remove salt noise</strong> (white noise pixels), remove thin connectors between objects.</li>
+        </ul>
+
+        <span class="sec-label sl-exp">4. Closing (A • B = (A ⊕ B) ⊖ B)</span>
+        <p><strong>Closing</strong> = Dilation followed by Erosion. <u>Fills small holes and gaps inside foreground objects</u> without significantly changing overall shape.</p>
+        <ul class="point-list green">
+          <li>Dilation fills holes → Erosion restores overall size.</li>
+          <li>Smooths contours from inside, fills narrow gulfs, holes, breaks in contours.</li>
+          <li>Application: <strong>Remove pepper noise</strong> (black holes/gaps), fill small gaps in fingerprint ridges.</li>
+        </ul>
+
+        <table class="data-table comp-table">
+          <tr><th class="h-u1">Operation</th><th class="h-u3">Effect</th><th class="h-u2">Formula</th><th class="h-u4">Application</th></tr>
+          <tr><td><strong>Dilation (⊕)</strong></td><td>Expands foreground</td><td>A ⊕ B</td><td>Connect broken parts</td></tr>
+          <tr><td><strong>Erosion (⊖)</strong></td><td>Shrinks foreground</td><td>A ⊖ B</td><td>Remove small noise</td></tr>
+          <tr><td><strong>Opening (∘)</strong></td><td>Erosion then Dilation — removes small objects</td><td>(A⊖B)⊕B</td><td>Remove salt noise</td></tr>
+          <tr><td><strong>Closing (•)</strong></td><td>Dilation then Erosion — fills holes</td><td>(A⊕B)⊖B</td><td>Fill pepper noise holes</td></tr>
+        </table>
+
+        <span class="sec-label sl-exp">Morphological Operations on Grayscale Images</span>
+        <p>For grayscale images, the operations use <strong>min/max</strong> instead of set operations:</p>
+        <div class="formula-box">Grayscale Dilation:  (f ⊕ b)(s,t) = max{f(s-x, t-y) + b(x,y)}
+Grayscale Erosion:   (f ⊖ b)(s,t) = min{f(s+x, t+y) - b(x,y)}
+
+Effect of Dilation: Bright regions EXPAND (local maximum → bright spots grow)
+Effect of Erosion:  Dark regions EXPAND (local minimum → dark spots grow, bright spots shrink)</div>
+
+        <div class="exam-tip"><span class="star">⭐</span>
+          <p>MUST DRAW the pixel grid diagrams for dilation and erosion — examiner loves visual examples. The 4-operation comparison table is perfect. Key mnemonic: Opening = Erosion first (removes small OBJECTS). Closing = Dilation first (fills small HOLES). Grayscale: Dilation=max, Erosion=min.</p>
+        </div>
+        <div class="conclusion">
+          <p>✏️ Morphological operations — dilation, erosion, opening, and closing — are powerful shape-based tools that process images based on their geometric structure, enabling noise removal, shape analysis, and feature extraction in both binary and grayscale images.</p>
+        </div>
+      </div>
+
+      <!-- Q6 -->
+      <div class="q-block">
+        <div class="q-title q-u1">Q6. Describe Thinning and Thickening operations. Provide an example where these operations are useful. Write a short note on Thinning. <span class="popular-tag">🔥 POPULAR</span></div>
+        <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span></div>
+
+        <span class="sec-label sl-def">Thinning — Definition</span>
+        <p><strong>Thinning</strong> is a morphological operation that <u>iteratively removes boundary pixels from a binary object</u> until only a 1-pixel-wide skeleton (medial axis) remains, while <u>preserving connectivity and topology</u>.</p>
+        <div class="formula-box">Thinning: A ⊗ B = A ∩ (A ⊖ B)ᶜ = A - (A ⊛ B)
+where B is a structuring element for boundary detection
+Iteratively applied until no more pixels can be removed</div>
+        <ul class="point-list">
+          <li>Reduces objects to their <strong>skeleton/medial axis</strong>.</li>
+          <li>The skeleton has the same connectivity as the original object.</li>
+          <li>Pixels are removed if their removal doesn't disconnect the object (using hit-or-miss criterion).</li>
+          <li><strong>Applications:</strong>
+            <ul class="point-list green" style="margin-top:4px">
+              <li>OCR (Optical Character Recognition) — reduce text to skeleton for recognition.</li>
+              <li>Fingerprint analysis — extract ridge skeleton for matching.</li>
+              <li>Medical imaging — skeleton of blood vessels, neurons, bones.</li>
+              <li>Shape analysis — compact representation for shape matching.</li>
+            </ul>
+          </li>
+        </ul>
+
+        <span class="sec-label sl-def">Thickening — Definition</span>
+        <p><strong>Thickening</strong> is the <u>dual operation of thinning</u> — it <u>adds pixels to the boundary</u> of objects, growing the skeleton outward. Defined as the complement of thinning applied to the complement image.</p>
+        <div class="formula-box">Thickening: A ⊙ B = A ∪ (A ⊛ B)
+→ Pixels are ADDED to the boundary (opposite of thinning)</div>
+        <ul class="point-list purple">
+          <li>Creates thicker versions of skeleton structures.</li>
+          <li>Used when objects are too thin and need to be made broader.</li>
+          <li>Application: Enhancing thin lines in engineering drawings before printing.</li>
+          <li>Creating broader zones around skeletal paths for navigation planning in robotics.</li>
+        </ul>
+
+        <div class="exam-tip"><span class="star">⭐</span>
+          <p>Short note on Thinning: Definition → formula → properties (preserves connectivity) → 3 applications (OCR, fingerprint, blood vessel) → conclusion. This is a perfect 5-mark answer. Always mention that thinning = skeleton extraction.</p>
+        </div>
+        <div class="conclusion">
+          <p>✏️ Thinning is a critical preprocessing step in pattern recognition — it reduces complex shapes to simple 1-pixel skeletons while preserving shape topology, enabling efficient shape analysis and recognition in fingerprint matching, OCR, and medical image analysis.</p>
+        </div>
+      </div>
+
+      <!-- Q7 -->
+      <div class="q-block">
+        <div class="q-title q-u1">Q7. Explain the steps involved in image conditioning, labeling, and grouping for image recognition. Explain the concept of computer vision which is mandatory in image processing.</div>
+        <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span></div>
+
+        <span class="sec-label sl-def">Recognition Methodology — Overview</span>
+        <p>Image recognition follows a structured pipeline of steps that transform raw pixel data into meaningful labels and decisions.</p>
+
+        <div class="diagram-container">
+          <div class="diag-title">Image Recognition Pipeline</div>
+          <div class="diag-col">
+            <div class="diag-box db-orange">Raw Image (Pixels)</div>
+            <div class="arrow">⬇</div>
+            <div class="diag-box db-teal">1. Conditioning (Pre-processing)</div>
+            <div class="arrow">⬇</div>
+            <div class="diag-box db-blue">2. Labeling (Feature Extraction)</div>
+            <div class="arrow">⬇</div>
+            <div class="diag-box db-purple">3. Grouping (Segmentation / Clustering)</div>
+            <div class="arrow">⬇</div>
+            <div class="diag-box db-green">4. Extracting (Measuring properties)</div>
+            <div class="arrow">⬇</div>
+            <div class="diag-box db-red">5. Matching (Classification / Recognition)</div>
+          </div>
+        </div>
+
+        <ul class="point-list">
+          <li><strong>1. Conditioning:</strong> Pre-processing to improve image quality — noise removal (Gaussian/Median filter), contrast enhancement (histogram equalization), geometric correction (removing distortion).</li>
+          <li><strong>2. Labeling:</strong> Assigning labels (class tags) to image regions or features. Connected component labeling assigns unique IDs to connected foreground regions. Edge labeling identifies boundary types.</li>
+          <li><strong>3. Grouping:</strong> Combining pixels/regions into meaningful objects based on similarity — segmentation (thresholding, region growing, clustering). Groups pixels that belong to the same object.</li>
+          <li><strong>4. Extracting:</strong> Measuring properties of labeled regions — area, perimeter, centroid, moments, Fourier descriptors. Creates a feature vector for each object.</li>
+          <li><strong>5. Matching:</strong> Comparing extracted feature vectors against known templates/models to classify/recognize objects. Uses nearest-neighbor, SVM, CNN classifiers.</li>
+        </ul>
+
+        <div class="exam-tip"><span class="star">⭐</span>
+          <p>Draw the pipeline diagram. Remember the 5 steps: Conditioning → Labeling → Grouping → Extracting → Matching. Real example: Face recognition — Conditioning (denoise) → Labeling (detect face region) → Grouping (segment face) → Extracting (Eigenfaces/HOG) → Matching (compare with database).</p>
+        </div>
+        <div class="conclusion">
+          <p>✏️ The recognition methodology provides a systematic five-step pipeline from raw image to object recognition — each step refining the information until meaningful recognition decisions can be made with confidence.</p>
+        </div>
+      </div>
+
+    </div><!-- /unit-body -->
+  </div>
+
+  <!-- ============================== UNIT 2 ============================== -->
+  <div id="unit2">
+    <div class="unit-header u2-hdr">
+      <div class="unit-num-badge">2</div>
+      <div>
+        <h2>UNIT 2 — Image Representation, Segmentation &amp; Area Extraction</h2>
+        <p>Representation Schemes · Boundary/Region Descriptors · Thresholding · Segmentation · Hough Transform · Line Fitting</p>
+      </div>
+    </div>
+    <div class="unit-body">
+
+      <!-- Q8 -->
+      <div class="q-block">
+        <div class="q-title q-u2">Q8. What is Image Segmentation? Discuss Thresholding and Connected Component Labeling techniques. <span class="popular-tag">🔥 POPULAR</span></div>
+        <div class="or-sep"><span>— OR —</span></div>
+        <div class="q-title q-u2">Q8B. Explain global and adaptive thresholding techniques. What is Thresholding? Discuss its use and limitations.</div>
+        <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span><span class="marks-badge m10">10 Marks</span></div>
+
+        <span class="sec-label sl-def">Image Segmentation — Definition</span>
+        <p><strong>Image Segmentation</strong> is the process of <u>partitioning a digital image into multiple segments (regions or objects)</u> to simplify its representation and make analysis more meaningful. It separates the image into foreground and background or into different object regions.</p>
+
+        <span class="sec-label sl-exp">1. Thresholding</span>
+        <p><strong>Thresholding</strong> converts a grayscale image into a binary image by comparing each pixel intensity with a threshold value T.</p>
+        <div class="formula-box">g(x,y) = 1 (White/Foreground)  if f(x,y) ≥ T
+         = 0 (Black/Background)   if f(x,y) &lt; T</div>
+
+        <span class="sec-label sl-types">Types of Thresholding</span>
+        <ul class="point-list">
+          <li><strong>Global Thresholding:</strong> One single threshold T applied to the entire image. Works well for uniform lighting. T can be found using histogram analysis (valley between peaks). <strong>Otsu's Method:</strong> Automatically finds optimal T by maximizing inter-class variance.</li>
+          <li><strong>Adaptive Thresholding (Local Thresholding):</strong> Different threshold T(x,y) computed for each region/pixel based on local neighborhood. Handles non-uniform illumination. Types: Mean-based, Gaussian-based, Bernsen method.</li>
+          <li><strong>Multi-level Thresholding:</strong> Uses multiple thresholds T₁, T₂, ... to segment image into more than 2 classes.</li>
+        </ul>
+
+        <span class="sec-label sl-dis">Limitations of Thresholding</span>
+        <ul class="point-list red">
+          <li>Does NOT use spatial relationships between pixels — ignores context.</li>
+          <li>Fails for images with non-uniform illumination (unless adaptive).</li>
+          <li>Sensitive to noise — noise pixels get misclassified.</li>
+          <li>Cannot separate objects of similar intensity but different spatial locations.</li>
+          <li>Binary output — loses all intensity information.</li>
+        </ul>
+
+        <span class="sec-label sl-exp">2. Connected Component Labeling (CCL)</span>
+        <p><strong>CCL</strong> is an algorithm that <u>identifies and labels each separate connected group of foreground pixels</u> with a unique integer label after thresholding.</p>
+        <ul class="point-list green">
+          <li><strong>4-connectivity:</strong> A pixel is connected to its 4 neighbors (up, down, left, right).</li>
+          <li><strong>8-connectivity:</strong> A pixel is connected to all 8 neighbors (including diagonals).</li>
+          <li><strong>Two-pass Algorithm:</strong>
+            <ul class="point-list" style="margin-top:4px">
+              <li>Pass 1: Scan left-to-right, top-to-bottom. Assign provisional labels. Record equivalences (if two labels are actually the same component).</li>
+              <li>Pass 2: Replace provisional labels with final minimum equivalent labels.</li>
+            </ul>
+          </li>
+          <li><strong>Applications:</strong> Counting objects (blood cells, coins), isolating objects for further analysis, blob detection.</li>
+        </ul>
+
+        <div class="exam-tip"><span class="star">⭐</span>
+          <p>Thresholding formula must be written. Otsu's method = automatic optimal threshold using histogram — mention it for extra marks. CCL = two-pass algorithm. 4-vs-8 connectivity is a common MCQ. Limitations of thresholding = fail with non-uniform illumination (→ use adaptive thresholding as solution).</p>
+        </div>
+        <div class="conclusion">
+          <p>✏️ Thresholding is the simplest and fastest segmentation technique, ideal for images with clear bimodal histograms. Connected component labeling then isolates individual objects for further analysis, making the (Threshold + CCL) pipeline fundamental to binary machine vision.</p>
+        </div>
+      </div>
+
+      <!-- Q9 -->
+      <div class="q-block">
+        <div class="q-title q-u2">Q9. What are Boundary and Region Descriptors? Explain their importance in image analysis. Explain Boundary Descriptors in detail with a neat diagram. <span class="popular-tag">🔥 POPULAR</span></div>
+        <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span><span class="marks-badge m10">10 Marks</span></div>
+
+        <span class="sec-label sl-def">Descriptors — Introduction</span>
+        <p>After segmentation, <strong>Descriptors</strong> are <u>numerical features that represent the properties of a segmented region or boundary</u> for subsequent classification and recognition tasks. They convert visual shapes into compact numerical vectors.</p>
+
+        <span class="sec-label sl-exp">A. Boundary Descriptors</span>
+        <p>Describe the shape of the <u>boundary/contour</u> of an object. Used when shape is the key feature.</p>
+        <ul class="point-list">
+          <li><strong>Chain Code:</strong> Represents boundary as a sequence of directional codes (0–7 for 8-connectivity). Start at a boundary pixel and record direction to next boundary pixel. Chain: 0=right, 1=upper-right, 2=up, 3=upper-left, 4=left, 5=lower-left, 6=down, 7=lower-right.</li>
+          <li><strong>Polygonal Approximation:</strong> Approximate boundary with a polygon (fewer vertices). Reduces data while maintaining shape. Min-perimeter polygon method.</li>
+          <li><strong>Boundary Signatures:</strong> Plot of distance r(θ) from centroid to boundary as a function of angle θ. 1D representation of 2D boundary — easy to analyze using Fourier transform.</li>
+          <li><strong>Fourier Descriptors:</strong> Apply Fourier Transform to boundary coordinates (x+jy). Low-frequency coefficients describe overall shape; high-frequency describe fine details. Scale, rotation, translation invariant.</li>
+          <li><strong>Shape Numbers:</strong> Derived from chain code — first difference of chain code, then take minimum rotation. Rotation-invariant boundary descriptor.</li>
+        </ul>
+
+        <span class="sec-label sl-exp">B. Region Descriptors</span>
+        <p>Describe the properties of the <u>interior (region) of the object</u>. Used for area-based analysis.</p>
+        <ul class="point-list purple">
+          <li><strong>Area:</strong> Number of pixels in the region. Simple but important measure.</li>
+          <li><strong>Perimeter:</strong> Number of boundary pixels. Used to compute circularity = 4π×Area/Perimeter².</li>
+          <li><strong>Compactness/Circularity:</strong> Ratio of area to perimeter² — measures how "round" an object is. Circle = 1, elongated = lower value.</li>
+          <li><strong>Euler Number:</strong> E = C - H (C = connected components, H = holes). Topological descriptor.</li>
+          <li><strong>Moments:</strong> Statistical measures of intensity distribution — zeroth moment=area, first moments=centroid, second moments=orientation/eccentricity.</li>
+          <li><strong>Bounding Box:</strong> Smallest axis-aligned rectangle containing the region.</li>
+          <li><strong>Eccentricity:</strong> Ratio of major to minor axis length of equivalent ellipse — distinguishes elongated from circular objects.</li>
+        </ul>
+
+        <table class="data-table comp-table">
+          <tr><th class="h-u2">Feature</th><th class="h-u1">Boundary Descriptor</th><th class="h-u3">Region Descriptor</th></tr>
+          <tr><td>What it describes</td><td>Shape of boundary/contour</td><td>Properties of interior region</td></tr>
+          <tr><td>Data used</td><td>Boundary pixels only</td><td>All pixels inside region</td></tr>
+          <tr><td>Best for</td><td>Shape matching, handwriting</td><td>Texture, size-based classification</td></tr>
+          <tr><td>Examples</td><td>Chain code, Fourier Desc, Signatures</td><td>Area, Moments, Compactness, Euler No.</td></tr>
+        </table>
+
+        <div class="exam-tip"><span class="star">⭐</span>
+          <p>Chain code directions (0–7) is a common exam diagram — draw the 8-directional compass. Fourier Descriptors = most powerful boundary descriptor. Region: Area + Perimeter + Compactness = minimum 3 region descriptors to write. "Importance" = they convert visual shapes to numbers for machine classification.</p>
+        </div>
+        <div class="conclusion">
+          <p>✏️ Boundary and region descriptors bridge the gap between segmented image regions and classification algorithms — converting complex visual shapes into compact numerical representations that can be compared, classified, and recognized by computer systems.</p>
+        </div>
+      </div>
+
+      <!-- Q10 -->
+      <div class="q-block">
+        <div class="q-title q-u2">Q10. Explain the Split-and-Merge technique used in hierarchical segmentation. Explain the segmentation techniques based on finding regions directly. <span class="popular-tag">🔥 POPULAR</span></div>
+        <div class="or-sep"><span>— OR —</span></div>
+        <div class="q-title q-u2">Q10B. Write short notes on: (a) Motion-based Segmentation (b) Curve Fitting (Least-square fitting) (c) Define: Image restoration, Compression, Segmentation, Morphological processing.</div>
+        <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span></div>
+
+        <span class="sec-label sl-def">Hierarchical Segmentation — Split and Merge</span>
+        <p>The <strong>Split-and-Merge</strong> technique is a <u>hierarchical image segmentation method</u> that works on a quadtree representation of the image. It combines top-down splitting and bottom-up merging to find homogeneous regions.</p>
+
+        <div class="diagram-container">
+          <div class="diag-title">Split and Merge — Quadtree</div>
+          <div class="diag-col">
+            <div class="diag-box db-orange">Whole Image R (non-homogeneous)</div>
+            <div class="arrow">⬇ SPLIT into 4 quadrants</div>
+            <div class="diag-row">
+              <div class="diag-box db-blue">R₁ (homogeneous)</div>
+              <div class="diag-box db-red">R₂ (split further)</div>
+              <div class="diag-box db-blue">R₃ (homogeneous)</div>
+              <div class="diag-box db-red">R₄ (split further)</div>
+            </div>
+            <div class="arrow">⬇ MERGE adjacent similar quadrants</div>
+            <div class="diag-box db-green">Final Segmented Regions</div>
+          </div>
+        </div>
+
+        <span class="sec-label sl-exp">Split Phase</span>
+        <ul class="point-list">
+          <li>Start with the entire image as a single region R.</li>
+          <li>If R is <strong>not homogeneous</strong> (predicate P(R) = FALSE), split it into 4 equal quadrants.</li>
+          <li>Repeat recursively for each non-homogeneous sub-region.</li>
+          <li>Homogeneity criterion: All pixels within the region have similar intensity (variance below threshold).</li>
+          <li>Continue until all regions are homogeneous OR minimum region size is reached.</li>
+        </ul>
+
+        <span class="sec-label sl-exp">Merge Phase</span>
+        <ul class="point-list green">
+          <li>After splitting, examine adjacent regions Rᵢ and Rⱼ at the same quadtree level.</li>
+          <li>If P(Rᵢ ∪ Rⱼ) = TRUE (merged region is homogeneous), <strong>merge</strong> them into one region.</li>
+          <li>Continue until no further merging is possible.</li>
+          <li>Result: A set of non-overlapping, connected, homogeneous regions that cover the entire image.</li>
+        </ul>
+
+        <span class="sec-label sl-types">Other Region-based Segmentation Techniques</span>
+        <ul class="point-list purple">
+          <li><strong>Region Growing:</strong> Start from a seed pixel and grow the region by adding neighboring pixels that are similar (within a similarity criterion) to the seed. Good for simple, uniform regions.</li>
+          <li><strong>Region Shrinking:</strong> Opposite of growing — start with the full image and shrink by removing boundary pixels that are dissimilar.</li>
+          <li><strong>Watershed Segmentation:</strong> Treats image as topographic map (pixel intensity = elevation). Finds catchment basins and watershed lines. Excellent for separating touching objects.</li>
+          <li><strong>K-Means Clustering (Spatial Clustering):</strong> Groups pixels into K clusters based on color/intensity similarity. Iterative algorithm — good for color image segmentation.</li>
+        </ul>
+
+        <div class="or-sep"><span>— Least Square Fitting / Other Short Notes —</span></div>
+
+        <span class="sec-label sl-def">Curve Fitting — Least-Square Fitting</span>
+        <p><strong>Least-Square Fitting</strong> is a mathematical method to <u>find the best-fit curve (line, polynomial, circle) to a set of data points</u> by minimizing the sum of squares of residuals (vertical distances between data points and the curve).</p>
+        <div class="formula-box">For line y = mx + c:
+Minimize: E = Σ(yᵢ - mxᵢ - c)²
+
+Solution: m = [nΣxᵢyᵢ - ΣxᵢΣyᵢ] / [nΣxᵢ² - (Σxᵢ)²]
+          c = (Σyᵢ - mΣxᵢ) / n</div>
+        <p><strong>Applications in CVIP:</strong> Line fitting in edge detection, fitting curves to boundary contours, fitting circles to circular features (Hough Transform uses least-squares implicitly), road lane detection.</p>
+
+        <div class="exam-tip"><span class="star">⭐</span>
+          <p>Split-and-Merge: SPLIT when P(R)=FALSE (non-homogeneous), MERGE when P(R₁∪R₂)=TRUE. Draw the quadtree diagram. Least squares: formula must be written. Region Growing: seed pixel + similarity criterion = the key idea. These are ALL common short-note questions.</p>
+        </div>
+        <div class="conclusion">
+          <p>✏️ Split-and-Merge provides a hierarchical, adaptive approach to segmentation — intelligently dividing non-uniform regions and merging similar adjacent ones, producing a complete, non-overlapping partition of the image into homogeneous regions.</p>
+        </div>
+      </div>
+
+      <!-- Q11 -->
+      <div class="q-block">
+        <div class="q-title q-u2">Q11. Explain Edge Detection and the Hough Transform in area extraction. Explain how a line is detected in an image and give the masks used. <span class="popular-tag">🔥 POPULAR</span></div>
+        <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span></div>
+
+        <span class="sec-label sl-def">Edge Detection</span>
+        <p>An <strong>edge</strong> is a <u>rapid change in image intensity</u> between adjacent pixels. Edge detection identifies boundaries between regions, providing compact shape information.</p>
+        <div class="formula-box">Edge Magnitude: M(x,y) = √(Gx² + Gy²)  ≈ |Gx| + |Gy|
+Edge Direction: θ(x,y) = arctan(Gy / Gx)
+Gx = horizontal gradient,  Gy = vertical gradient</div>
+
+        <span class="sec-label sl-types">Line Detection Masks</span>
+        <div class="formula-box">Horizontal Lines:  [-1,-1,-1]     Vertical Lines:   [-1,2,-1]
+                          [ 2, 2, 2]                        [-1,2,-1]
+                          [-1,-1,-1]                        [-1,2,-1]
+
+45° Diagonal:     [ 2,-1,-1]    -45° Diagonal:    [-1,-1, 2]
+                  [-1, 2,-1]                       [-1, 2,-1]
+                  [-1,-1, 2]                       [ 2,-1,-1]</div>
+        <p>A line in a specific direction is detected by convolving the image with the corresponding mask. High response value = line in that direction detected.</p>
+
+        <span class="sec-label sl-exp">Hough Transform for Line Detection</span>
+        <p>The <strong>Hough Transform</strong> is a feature extraction technique to detect <u>geometric shapes (lines, circles, ellipses)</u> in images — robust to noise and gaps in the shape.</p>
+        <div class="formula-box">Line equation (Normal form — avoids infinite slope):
+ρ = x·cosθ + y·sinθ
+
+ρ = perpendicular distance from origin to the line
+θ = angle of the perpendicular (0° to 180°)
+
+Algorithm:
+1. For each edge pixel (x,y): compute ρ for all θ values
+2. Increment Accumulator[ρ,θ] (Hough space)
+3. Peaks in accumulator = detected lines in image space</div>
+
+        <ul class="point-list green">
+          <li>Each point in image space maps to a sinusoid in Hough space (ρ–θ space).</li>
+          <li>Collinear points in image → their sinusoids intersect at same (ρ,θ) in Hough space.</li>
+          <li>Peak in accumulator = strong line detection.</li>
+          <li><strong>Advantages:</strong> Works even with gaps/noise in lines. Detects multiple lines simultaneously. Tolerant to partial occlusion.</li>
+          <li><strong>Applications:</strong> Road lane detection, barcode reading, edge linking, vanishing point detection.</li>
+        </ul>
+
+        <div class="exam-tip"><span class="star">⭐</span>
+          <p>Hough Transform formula: ρ = x·cosθ + y·sinθ — MUST memorize. Draw the accumulator matrix diagram. Line detection masks: draw all 4 (H, V, 45°, -45°) — examiner loves to see these 3×3 masks. Peak in Hough accumulator = line detected in image.</p>
+        </div>
+        <div class="conclusion">
+          <p>✏️ The Hough Transform elegantly solves the line (and shape) detection problem by transforming a global feature detection task into a local peak-finding task in parameter space — making it robust to noise, gaps, and partial occlusion.</p>
+        </div>
+      </div>
+
+      <!-- Q12 -->
+      <div class="q-block">
+        <div class="q-title q-u2">Q12. What are the various Representation Schemes of digital image processing? Explain.</div>
+        <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span></div>
+
+        <span class="sec-label sl-def">Representation Schemes</span>
+        <p><strong>Representation Schemes</strong> define <u>how to encode the boundary or interior of a segmented region</u> efficiently for storage, analysis, and recognition.</p>
+
+        <span class="sec-label sl-types">Types of Representation Schemes</span>
+        <ul class="point-list">
+          <li><strong>Chain Code:</strong> Encodes boundary as a sequence of directional codes. 4-connectivity (codes 0–3) or 8-connectivity (codes 0–7). Compact, but sensitive to noise. First difference = rotation-invariant version.</li>
+          <li><strong>Polygonal Approximation:</strong> Represents boundary as a sequence of straight line segments (polygon). Reduces boundary data. Min-perimeter polygon or split-and-merge approach.</li>
+          <li><strong>Quadtree Representation:</strong> Hierarchical partitioning of image into quadrants. Black nodes = all foreground, White nodes = all background, Gray nodes = mixed (subdivided). Efficient for regions with large uniform areas.</li>
+          <li><strong>Medial Axis Transform (MAT/Skeleton):</strong> Represents region as its skeleton (medial axis) — set of center points of maximum inscribed circles. Captures shape topology compactly.</li>
+          <li><strong>Run-Length Encoding (RLE):</strong> Encodes rows of pixels as (value, run-length) pairs. Very efficient for binary images with large uniform regions. Used in fax machines, JPEG.</li>
+          <li><strong>Boundary Code (B-rep):</strong> Explicit list of boundary pixel coordinates. Simple, but requires much storage for complex boundaries.</li>
+        </ul>
+
+        <div class="exam-tip"><span class="star">⭐</span>
+          <p>Remember at least 4 schemes: Chain Code, Polygonal Approx, Quadtree, Run-Length Encoding (RLE). Draw the quadtree subdivision diagram. Chain code = boundary encoding, Quadtree = region encoding, RLE = compression-based encoding.</p>
+        </div>
+        <div class="conclusion">
+          <p>✏️ Different representation schemes offer different trade-offs between compactness, robustness, and ease of analysis — chain codes for boundary analysis, quadtrees for region analysis, and RLE for efficient storage.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================== UNIT 3 ============================== -->
+  <div id="unit3">
+    <div class="unit-header u3-hdr">
+      <div class="unit-num-badge">3</div>
+      <div>
+        <h2>UNIT 3 — Region Analysis &amp; General Matching Frameworks</h2>
+        <p>Spatial Moments · Gray-level Moments · Boundary Signatures · Shape Numbers · Matching Frameworks</p>
+      </div>
+    </div>
+    <div class="unit-body">
+
+      <!-- Q13 -->
+      <div class="q-block">
+        <div class="q-title q-u3">Q13. Define Region Analysis and describe the concept of Spatial Moments. Explain spatial and gray-level moments in region analysis and their use in object recognition. <span class="popular-tag">🔥 POPULAR</span></div>
+        <div class="or-sep"><span>— OR —</span></div>
+        <div class="q-title q-u3">Q13B. Discuss how to measure the properties of the region in a labeled image.</div>
+        <div class="marks-row"><span class="marks-badge m7">7 Marks</span><span class="marks-badge m10">10 Marks</span></div>
+
+        <span class="sec-label sl-def">Region Analysis — Introduction</span>
+        <p><strong>Region Analysis</strong> involves <u>quantitatively measuring properties of connected image regions</u> to describe their size, shape, position, and content — producing feature vectors for object recognition and classification.</p>
+
+        <span class="sec-label sl-exp">Spatial Moments</span>
+        <p><strong>Moments</strong> are <u>weighted averages of pixel intensities</u> used to compute geometric properties of a region. They capture shape information compactly.</p>
+        <div class="formula-box">General Moment (p+q order) of Binary Image:
+m_pq = ΣΣ x^p · y^q · f(x,y)
+where f(x,y) = 1 for foreground pixels, 0 for background
+
+m₀₀ = Area (total number of foreground pixels)
+m₁₀ / m₀₀ = x̄ (centroid x-coordinate)
+m₀₁ / m₀₀ = ȳ (centroid y-coordinate)</div>
+
+        <span class="sec-label sl-types">Central Moments</span>
+        <div class="formula-box">Central Moment (translated to centroid):
+μ_pq = ΣΣ (x - x̄)^p · (y - ȳ)^q · f(x,y)
+
+μ₂₀ = moment of inertia about y-axis (x-variance)
+μ₀₂ = moment of inertia about x-axis (y-variance)
+μ₁₁ = cross-correlation (orientation information)
+
+Orientation angle: θ = ½ arctan(2μ₁₁ / (μ₂₀ - μ₀₂))</div>
+
+        <span class="sec-label sl-imp">Hu's 7 Invariant Moments ⭐</span>
+        <p>Hu (1962) derived <strong>7 invariant moment features</strong> from central moments that are invariant to <u>translation, rotation, and scale</u> — making them ideal for object recognition.</p>
+        <ul class="point-list purple">
+          <li>Computed from normalized central moments (η_pq = μ_pq / μ₀₀^(1+(p+q)/2)).</li>
+          <li>φ₁ through φ₇ — seven numerical features per object.</li>
+          <li>φ₁ = η₂₀ + η₀₂ (total inertia — scale-invariant area measure).</li>
+          <li>φ₇ is also mirror-image invariant (detects reflection).</li>
+          <li><strong>Applications:</strong> Character recognition (invariant to font size, rotation), medical image analysis, industrial part inspection.</li>
+        </ul>
+
+        <span class="sec-label sl-exp">Gray-level (Mixed) Moments</span>
+        <p>For <strong>grayscale images</strong>, moments incorporate pixel intensity values:</p>
+        <div class="formula-box">Gray-level moment:
+m_pq = ΣΣ x^p · y^q · f(x,y)
+where f(x,y) = gray intensity at (x,y)  (not just 0/1)
+
+→ Captures both spatial distribution AND intensity distribution of the region</div>
+        <ul class="point-list green">
+          <li>Provides richer description than binary moments.</li>
+          <li>Useful when objects of same shape have different intensity patterns.</li>
+          <li>Applications: Texture discrimination, medical tissue classification.</li>
+        </ul>
+
+        <div class="exam-tip"><span class="star">⭐</span>
+          <p>Moments formula m_pq = ΣΣ x^p y^q f(x,y) must be written. Centroid = (m₁₀/m₀₀, m₀₁/m₀₀). Hu's 7 invariant moments = translation + rotation + scale invariant. This is a 10-mark question — write all types: simple, central, normalized, Hu's invariant moments.</p>
+        </div>
+        <div class="conclusion">
+          <p>✏️ Spatial and gray-level moments provide a powerful, mathematically rigorous framework for region description — from simple area and centroid computation to Hu's invariant moments that enable recognition regardless of object position, orientation, and size.</p>
+        </div>
+      </div>
+
+      <!-- Q14 -->
+      <div class="q-block">
+        <div class="q-title q-u3">Q14. Explain the role of Signature Properties and Shape Numbers in boundary analysis. What is Boundary Analysis? <span class="popular-tag">🔥 POPULAR</span></div>
+        <div class="or-sep"><span>— OR —</span></div>
+        <div class="q-title q-u3">Q14B. Define: Shape Numbers used in boundary analysis. Write a short note on View Class Matching.</div>
+        <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span></div>
+
+        <span class="sec-label sl-def">Boundary Analysis — Definition</span>
+        <p><strong>Boundary Analysis</strong> is the <u>study and measurement of an object's contour/boundary</u> to characterize its shape. The boundary contains significant shape information and is computationally more efficient than analyzing the full region.</p>
+
+        <span class="sec-label sl-exp">1. Boundary Signatures</span>
+        <p>A <strong>Boundary Signature</strong> is a <u>1D representation of a 2D boundary</u> obtained by plotting some boundary property as a function of angle or arc length.</p>
+        <div class="formula-box">r(θ) = distance from centroid (x̄,ȳ) to boundary pixel at angle θ
+
+For angle θ = 0° to 360°, compute r(θ) at each angle.
+Result: A 1D function r(θ) — the boundary signature.
+
+Properties used:
+• r(θ) vs θ — radial distance signature
+• Curvature κ(s) vs arc length s — curvature signature</div>
+        <ul class="point-list">
+          <li>Convert 2D boundary to 1D signal — apply 1D signal processing techniques.</li>
+          <li>Fourier Transform of r(θ) → Fourier Descriptors (compact, noise-robust).</li>
+          <li>Low-frequency Fourier coefficients = overall shape, high-frequency = fine details.</li>
+          <li><strong>Properties:</strong> Circular object → constant r(θ). Elongated object → sinusoidal r(θ). Square → 4 peaks at 45°, 135°, 225°, 315°.</li>
+          <li><strong>Application:</strong> Shape recognition, industrial part inspection, medical shape analysis.</li>
+        </ul>
+
+        <span class="sec-label sl-exp">2. Shape Numbers</span>
+        <p><strong>Shape Numbers</strong> are derived from the <u>first difference of the chain code</u> and provide a <strong>rotation-invariant</strong> boundary descriptor.</p>
+        <div class="formula-box">Steps to compute Shape Number:
+1. Trace boundary → get chain code sequence
+   Example boundary chain code: 0 0 7 6 5 5 4 3 2 2 1
+
+2. First Difference (mod 8):
+   diff[i] = (chain[i+1] - chain[i] + 8) mod 8
+   Example: 0,7,7,7,0,7,6,7,0,7
+
+3. Rotate first difference to find smallest integer sequence
+   (minimum rotation = the shape number)
+
+Shape Number ORDER = number of digits in the sequence
+Order 4 = simple shapes (square, rhombus)
+Higher order = more complex shapes</div>
+        <ul class="point-list green">
+          <li>Shape number is independent of starting point and rotation of the boundary trace.</li>
+          <li>Higher order shape numbers → more complex boundary shapes.</li>
+          <li>Application: Shape classification in industrial inspection, handwriting recognition.</li>
+        </ul>
+
+        <div class="or-sep"><span>— View Class Matching —</span></div>
+
+        <span class="sec-label sl-def">View Class Matching</span>
+        <p><strong>View Class Matching</strong> is an <u>object recognition approach that groups all 2D views of a 3D object</u> into "view classes" — sets of views that look similar from different viewing angles. Recognition is done by matching the input view to the correct view class.</p>
+        <ul class="point-list purple">
+          <li>A 3D object looks different from different viewpoints — side view, top view, front view.</li>
+          <li>View classes: Group similar-looking views together (e.g., all front-views form one class, all side-views another).</li>
+          <li>Recognition: Input image → extract features → find matching view class → identify object AND estimate viewpoint.</li>
+          <li>Advantage over 3D model matching: No 3D model needed — works purely from 2D example images.</li>
+          <li>Application: Robot grasping (identify part AND its orientation), vehicle recognition from cameras.</li>
+        </ul>
+
+        <div class="exam-tip"><span class="star">⭐</span>
+          <p>Shape Numbers: Chain code → First Difference → Minimum rotation = shape number. Write the step-by-step calculation with an example. Boundary Signature: r(θ) plot — draw a circular object's signature (constant) vs elongated object's signature (sinusoidal). View class matching = 3D object recognition using grouped 2D views.</p>
+        </div>
+        <div class="conclusion">
+          <p>✏️ Boundary signatures and shape numbers provide compact, rotation-invariant representations of object contours — enabling robust shape recognition across different orientations and scales. View class matching extends this to 3D object recognition from 2D images.</p>
+        </div>
+      </div>
+
+      <!-- Q15 -->
+      <div class="q-block">
+        <div class="q-title q-u3">Q15. Explain the Distance Relational Approach in image matching. Compare it with Ordered Structural Matching. What is distance in image processing? <span class="popular-tag">🔥 POPULAR</span></div>
+        <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span></div>
+
+        <span class="sec-label sl-def">Matching Frameworks — Introduction</span>
+        <p><strong>Image Matching</strong> is the process of <u>determining whether two image descriptions represent the same object or scene</u>. Different frameworks use different representations and matching strategies.</p>
+
+        <span class="sec-label sl-exp">1. Distance Relational Approach</span>
+        <p>In this approach, objects are described by <u>a set of features and the distances (relations) between them</u>. Matching compares the relational distance structure of the input to stored models.</p>
+        <ul class="point-list">
+          <li>Object description: Set of features {f₁, f₂, ..., fₙ} + distance matrix D[i][j] = distance between features i and j.</li>
+          <li><strong>Matching:</strong> Find a correspondence between input features and model features such that distances are preserved (isomorphic subgraph matching).</li>
+          <li><strong>Flexibility:</strong> Can handle partial matches (some features missing) using relaxation labeling.</li>
+          <li><strong>Example:</strong> Matching faces — features are eye, nose, mouth positions. Distances between them must match the model's distance matrix.</li>
+          <li><strong>Advantage:</strong> Robust to small shape changes, handles partial occlusion, translation invariant (distances are translation-invariant).</li>
+        </ul>
+
+        <span class="sec-label sl-exp">Distance Measures in Image Processing</span>
+        <div class="formula-box">Euclidean Distance: d_E(p,q) = √((x₁-x₂)² + (y₁-y₂)²)
+  → Real geometric distance between pixels p and q
+
+City-Block (Manhattan) Distance: d₄(p,q) = |x₁-x₂| + |y₁-y₂|
+  → Only horizontal/vertical movement
+
+Chessboard Distance: d₈(p,q) = max(|x₁-x₂|, |y₁-y₂|)
+  → Diagonal movement also counted</div>
+
+        <span class="sec-label sl-exp">2. Ordered Structural Matching</span>
+        <p>In <strong>Ordered Structural Matching</strong>, objects are described as <u>ordered sequences of parts or features</u>. Matching uses string-matching or Dynamic Programming algorithms.</p>
+        <ul class="point-list green">
+          <li>Object = ordered sequence of primitive elements (edges, curves, corners).</li>
+          <li>Matching: Compute edit distance (Levenshtein distance) between sequences or use Dynamic Time Warping (DTW).</li>
+          <li>Best for: Objects with natural ordering — handwriting (characters as sequence of strokes), contours (sequence of curve segments).</li>
+          <li>Dynamic Programming gives efficient O(nm) matching algorithm.</li>
+        </ul>
+
+        <table class="data-table comp-table">
+          <tr><th class="h-u3">Feature</th><th class="h-u1">Distance Relational</th><th class="h-u2">Ordered Structural</th></tr>
+          <tr><td>Object representation</td><td>Features + distance matrix</td><td>Ordered sequence of primitives</td></tr>
+          <tr><td>Matching algorithm</td><td>Graph matching, relaxation</td><td>String matching, DTW, DP</td></tr>
+          <tr><td>Order sensitivity</td><td>Order-free (distance only)</td><td>Order-dependent</td></tr>
+          <tr><td>Best for</td><td>Face recognition, parts matching</td><td>Handwriting, shape contours</td></tr>
+          <tr><td>Occlusion handling</td><td>Good (partial matching)</td><td>Moderate</td></tr>
+        </table>
+
+        <div class="exam-tip"><span class="star">⭐</span>
+          <p>Distance types: Euclidean (circle), City-block (diamond), Chessboard (square) — draw these shapes showing equidistant pixels. Distance Relational = graph-based, Ordered Structural = sequence/string-based. Comparison table is perfect for 5-mark answer.</p>
+        </div>
+        <div class="conclusion">
+          <p>✏️ Both relational and structural matching frameworks provide principled approaches to object recognition — distance relational matching excels for spatial feature configurations while ordered structural matching is ideal for sequential shape descriptions.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================== UNIT 4 ============================== -->
+  <div id="unit4">
+    <div class="unit-header u4-hdr">
+      <div class="unit-num-badge">4</div>
+      <div>
+        <h2>UNIT 4 — Facet Models, Projective Geometry &amp; Object Matching</h2>
+        <p>Backtracking · Consistency Labeling · Perspective Projection · Inverse Projection · Photogrammetry · Shape Recognition</p>
+      </div>
+    </div>
+    <div class="unit-body">
+
+      <!-- Q16 -->
+      <div class="q-block">
+        <div class="q-title q-u4">Q16. What is the Backtracking Algorithm? Explain its application in solving Consistency Labeling problems. Write a brief note on Backtracking. Discuss with an example. <span class="popular-tag">🔥 POPULAR</span></div>
+        <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span><span class="marks-badge m10">10 Marks</span></div>
+
+        <span class="sec-label sl-def">Consistency Labeling — Introduction</span>
+        <p><strong>Consistency Labeling</strong> is a problem in computer vision where <u>each image primitive (region, edge, vertex) must be assigned a label</u> from a set of possible labels such that the assignment is globally consistent — i.e., neighboring labels are compatible.</p>
+        <div class="highlight-box hb-orange">
+          <strong>Classic Example:</strong> Line labeling in a line drawing interpretation — each line segment must be labeled as either a convex edge (+), concave edge (−), or occluding boundary (→) such that all labels at each junction are physically possible for a 3D object.
+        </div>
+
+        <span class="sec-label sl-def">Backtracking Algorithm</span>
+        <p><strong>Backtracking</strong> is a <u>systematic, depth-first search algorithm</u> that tries all possible label assignments for image primitives, <u>abandoning (backtracking) any partial assignment that becomes inconsistent</u> — pruning the search space.</p>
+
+        <span class="sec-label sl-arch">Backtracking Algorithm Steps</span>
+        <div class="diagram-container">
+          <div class="diag-title">Backtracking Search Tree</div>
+          <div class="diag-col">
+            <div class="diag-box db-orange">Start: Assign label L₁ to primitive u₁</div>
+            <div class="arrow">⬇ Check consistency with neighbors</div>
+            <div class="diag-row">
+              <div class="diag-box db-green">Consistent → Proceed to u₂</div>
+              <div class="diag-box db-red">Inconsistent → BACKTRACK</div>
+            </div>
+            <div class="arrow">⬇</div>
+            <div class="diag-box db-blue">Try next label for u₁</div>
+            <div class="arrow">⬇</div>
+            <div class="diag-box db-purple">Continue until all primitives labeled OR all options exhausted</div>
+          </div>
+        </div>
+
+        <div class="formula-box">Algorithm:
+procedure BACKTRACK(level k):
+  for each label Lᵢ in label set L:
+    assign Lᵢ to primitive uₖ
+    if consistent(uₖ, Lᵢ, already-labeled neighbors):
+      if k == N (all primitives labeled):
+        SOLUTION FOUND — output labels
+      else:
+        BACKTRACK(k+1)   // recurse deeper
+    // else: try next label (implicit backtrack)
+
+Consistency check: label(uₖ) must be compatible
+with labels already assigned to uₖ's neighbors</div>
+
+        <span class="sec-label sl-app">Example: Line Labeling (Waltz Algorithm)</span>
+        <ul class="point-list">
+          <li>Image primitives: Line segments at junctions of a polyhedron drawing.</li>
+          <li>Labels: + (convex), − (concave), → or ← (occluding boundary).</li>
+          <li>Constraint: At each junction, only certain label combinations are physically realizable (from a catalog of valid junction types).</li>
+          <li>Backtracking: Start with one line, assign a label, propagate constraints to adjacent lines. If contradiction found → backtrack and try different label.</li>
+          <li>Waltz filtering: Constraint propagation prunes label sets before backtracking — dramatically reduces search space.</li>
+        </ul>
+
+        <span class="sec-label sl-adv">Properties of Backtracking</span>
+        <ul class="point-list green">
+          <li><strong>Complete:</strong> Finds all solutions or proves none exists.</li>
+          <li><strong>Correct:</strong> Only outputs consistent labelings.</li>
+          <li><strong>Exponential worst case:</strong> O(|L|ᴺ) — but pruning greatly reduces practical complexity.</li>
+          <li><strong>Improvement:</strong> Forward checking + constraint propagation (arc consistency) makes it practical.</li>
+        </ul>
+
+        <div class="exam-tip"><span class="star">⭐</span>
+          <p>Backtracking = DFS + consistency check + pruning. Draw the search tree with consistent/inconsistent branches. Line labeling example is THE classic example — use it! Waltz algorithm = backtracking + constraint propagation. This appears in 5 and 7 mark questions.</p>
+        </div>
+        <div class="conclusion">
+          <p>✏️ Backtracking provides a principled, complete search through the space of all possible label assignments — with consistency constraints guiding the search and pruning inconsistent branches, making it practical for image interpretation problems like 3D line-drawing analysis.</p>
+        </div>
+      </div>
+
+      <!-- Q17 -->
+      <div class="q-block">
+        <div class="q-title q-u4">Q17. Describe Perspective Projective Geometry and Inverse Perspective Projection. Explain its role in interpreting 3D objects from 2D images. <span class="popular-tag">🔥 POPULAR</span></div>
+        <div class="or-sep"><span>— OR —</span></div>
+        <div class="q-title q-u4">Q17B. Compare weak perspective projection and orthographic projection in affine projection models. Explain briefly how photogrammetric processing is done from 2D to 3D.</div>
+        <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span><span class="marks-badge m10">10 Marks</span></div>
+
+        <span class="sec-label sl-def">Perspective Projection — Definition</span>
+        <p><strong>Perspective Projection</strong> is the process of <u>mapping 3D world points onto a 2D image plane</u> through a focal point (center of projection). It models how a camera forms an image — objects farther away appear smaller.</p>
+
+        <div class="diagram-container">
+          <div class="diag-title">Perspective Projection Model (Pinhole Camera)</div>
+          <div class="diag-col">
+            <div class="diag-box db-orange">3D World Point P = (X, Y, Z)</div>
+            <div class="arrow">⬇ Through focal point (pinhole)</div>
+            <div class="diag-row">
+              <div class="diag-box db-blue">Image Plane (at distance f)</div>
+              <span class="arrow">→</span>
+              <div class="diag-box db-green">Image point p = (x, y)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="formula-box">Perspective Projection Equations:
+x = f · X / Z    (image x-coordinate)
+y = f · Y / Z    (image y-coordinate)
+
+where:
+f = focal length (distance from camera center to image plane)
+(X, Y, Z) = 3D world coordinates of object point
+(x, y) = 2D image coordinates of projected point
+
+Key Property: Objects at large Z (far away) project to small (x,y) — 
+              creates depth/perspective effect (far objects look small)</div>
+
+        <span class="sec-label sl-exp">Camera Intrinsic Matrix (K)</span>
+        <div class="formula-box">Homogeneous form:
+[x]   [f  0  cx]   [X]
+[y] = [0  f  cy] × [Y/Z]
+[1]   [0  0   1]   [1]
+
+K = intrinsic matrix, cx,cy = principal point (image center)</div>
+
+        <span class="sec-label sl-exp">Inverse Perspective Projection</span>
+        <p><strong>Inverse Perspective Projection</strong> reconstructs <u>the 3D position of a point from its 2D image coordinates</u>. This is the fundamental problem of 3D reconstruction from images.</p>
+        <div class="formula-box">Given image point (x,y) and depth Z:
+X = x · Z / f
+Y = y · Z / f
+
+Problem: Z is unknown from single image → AMBIGUITY
+Solutions:
+1. Stereo vision — use 2 cameras to triangulate Z
+2. Structure from Motion — use multiple frames + camera motion
+3. Depth sensor (LiDAR, structured light) — directly measure Z</div>
+        <ul class="point-list purple">
+          <li>A single 2D image point corresponds to an INFINITE number of 3D points (along the ray from focal center through image point).</li>
+          <li>Additional constraints needed: stereo baseline, multiple views, known object size, or depth sensor.</li>
+          <li><strong>Applications:</strong> Autonomous driving, 3D reconstruction, augmented reality, robot navigation.</li>
+        </ul>
+
+        <span class="sec-label sl-diff">Projection Model Comparison</span>
+        <table class="data-table comp-table">
+          <tr><th class="h-u4">Feature</th><th class="h-u1">Perspective Projection</th><th class="h-u2">Weak Perspective</th><th class="h-u3">Orthographic</th></tr>
+          <tr><td>Formula</td><td>x=fX/Z, y=fY/Z</td><td>x=mX, y=mY (m=f/Z̄)</td><td>x=X, y=Y (Z ignored)</td></tr>
+          <tr><td>Depth effect</td><td>Objects farther = smaller</td><td>Scaled uniformly</td><td>No depth effect</td></tr>
+          <tr><td>Accuracy</td><td>Most accurate</td><td>Approximate</td><td>Least accurate</td></tr>
+          <tr><td>Complexity</td><td>Non-linear</td><td>Linear (easier)</td><td>Simplest</td></tr>
+          <tr><td>Use case</td><td>Real cameras</td><td>Distant objects approx</td><td>CAD, engineering drawings</td></tr>
+        </table>
+
+        <span class="sec-label sl-exp">Photogrammetric Processing (2D to 3D)</span>
+        <ul class="point-list green">
+          <li><strong>Camera Calibration:</strong> Find intrinsic (K) and extrinsic (R,t) parameters from known calibration target.</li>
+          <li><strong>Feature Detection:</strong> Find corresponding points in multiple images (SIFT, ORB features).</li>
+          <li><strong>Essential/Fundamental Matrix:</strong> Compute geometric relationship between two camera views.</li>
+          <li><strong>Triangulation:</strong> Find 3D point from 2 corresponding 2D points using perspective projection equations.</li>
+          <li><strong>Bundle Adjustment:</strong> Optimize camera poses and 3D point positions simultaneously to minimize reprojection error.</li>
+          <li><strong>Dense Reconstruction:</strong> Generate dense 3D point cloud using depth from stereo or multi-view stereo (MVS).</li>
+        </ul>
+
+        <div class="exam-tip"><span class="star">⭐</span>
+          <p>Perspective projection formula: x=fX/Z, y=fY/Z — MUST memorize and write. Inverse projection = ambiguous without depth Z. The comparison table (Perspective vs Orthographic) is perfect for a 5-mark answer. Draw the pinhole camera diagram with focal point, image plane, and 3D object.</p>
+        </div>
+        <div class="conclusion">
+          <p>✏️ Perspective projection models how cameras map the 3D world to 2D images — understanding and inverting this projection is the core problem of 3D computer vision, enabling depth estimation, 3D reconstruction, and autonomous navigation.</p>
+        </div>
+      </div>
+
+      <!-- Q18 -->
+      <div class="q-block">
+        <div class="q-title q-u4">Q18. Describe the Facet Model recognition method. Explain the importance of shape recognition in image processing. Discuss evaluating extracted shape descriptors in 3D vision.</div>
+        <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span></div>
+
+        <span class="sec-label sl-def">Facet Model — Definition</span>
+        <p>The <strong>Facet Model</strong> represents an <u>image surface as a piecewise polynomial (facet) surface</u> — each small local region is fitted with a polynomial (usually bivariate cubic) to model the local intensity landscape. It enables accurate feature extraction at the local level.</p>
+        <ul class="point-list">
+          <li>Image intensity surface approximated by: f(x,y) ≈ k₁ + k₂x + k₃y + k₄x² + k₅xy + k₆y² + ... (polynomial)</li>
+          <li>Coefficients fitted using Least-Squares for each local window.</li>
+          <li>From coefficients: Compute gradient, curvature, Laplacian analytically — no numerical differentiation needed.</li>
+          <li><strong>Facet-based edge detection:</strong> Find locations where gradient magnitude exceeds threshold AND Laplacian zero crossing exists → subpixel accurate edge detection.</li>
+          <li><strong>Facet-based peak detection:</strong> Find local maxima of intensity surface → detect bright spots, blobs.</li>
+          <li><strong>Shape Classification:</strong> Classify local surface shape (pit, flat, ridge, saddle, peak) based on gradient and curvature — like terrain classification.</li>
+        </ul>
+
+        <span class="sec-label sl-exp">Importance of Shape Recognition</span>
+        <ul class="point-list green">
+          <li><strong>Object Identification:</strong> Recognize objects regardless of color or texture — shape is invariant to lighting.</li>
+          <li><strong>Industrial Inspection:</strong> Detect manufacturing defects by comparing shape to CAD model.</li>
+          <li><strong>Medical Diagnosis:</strong> Identify tumors, organs, blood cells by shape analysis.</li>
+          <li><strong>Robotics:</strong> Robots grasp objects by understanding their 3D shape.</li>
+          <li><strong>Autonomous Driving:</strong> Recognize pedestrians, signs, vehicles by shape.</li>
+          <li><strong>Biometrics:</strong> Fingerprint, iris, face recognition — all shape-based.</li>
+        </ul>
+
+        <span class="sec-label sl-exp">Evaluating Shape Descriptors in 3D Vision</span>
+        <ul class="point-list purple">
+          <li><strong>Invariance:</strong> Descriptor should be invariant to rotation, scale, translation (RST). Test by applying transforms and checking descriptor stability.</li>
+          <li><strong>Discriminability:</strong> Different shapes should have different descriptors. Measured by classification rate on benchmark datasets.</li>
+          <li><strong>Robustness:</strong> Robust to noise, occlusion, partial views. Test with noisy and occluded versions of test shapes.</li>
+          <li><strong>Compactness:</strong> Descriptor vector should be short (small number of dimensions) for efficiency.</li>
+          <li><strong>Computational efficiency:</strong> Fast to compute for real-time applications.</li>
+        </ul>
+
+        <div class="exam-tip"><span class="star">⭐</span>
+          <p>Facet model = fit local polynomial to image intensity → analytically compute gradients. Key advantage: subpixel edge accuracy. Shape recognition importance: 3-5 applications always needed. Shape descriptor evaluation criteria: Invariance + Discriminability + Robustness.</p>
+        </div>
+        <div class="conclusion">
+          <p>✏️ The facet model provides a mathematically elegant local image description enabling accurate, continuous-domain feature extraction. Shape recognition, powered by invariant descriptors, is the cornerstone of intelligent visual systems from industrial inspection to autonomous driving.</p>
+        </div>
+      </div>
+
+      <!-- Q19 -->
+      <div class="q-block">
+        <div class="q-title q-u4">Q19. What is image intensity in image processing? Discuss Intensity Matching of 1D signals.</div>
+        <div class="marks-row"><span class="marks-badge m5">5 Marks</span></div>
+
+        <span class="sec-label sl-def">Image Intensity</span>
+        <p><strong>Image Intensity</strong> (or gray level) is the <u>numerical value assigned to each pixel representing its brightness</u>. For grayscale images: 0 = black, 255 = white. For color: (R,G,B) triple. Intensity represents the amount of light reflected/emitted at each pixel position.</p>
+
+        <span class="sec-label sl-exp">Intensity Matching of 1D Signals</span>
+        <p>For matching image regions, intensity profiles (rows/columns of pixel values) are treated as 1D signals and matched using signal correlation.</p>
+        <div class="formula-box">Cross-Correlation (Template Matching in 1D):
+NCC(d) = Σ [f(x) · t(x-d)] / √(Σf²(x) · Σt²(x))
+
+where: f(x) = image signal (1D intensity profile)
+       t(x) = template signal
+       d = displacement (shift)
+       Peak of NCC at displacement d* = best match location
+
+NCC ∈ [-1, +1]  (1 = perfect match, 0 = no correlation, -1 = inverse)</div>
+        <ul class="point-list green">
+          <li>1D matching used in stereo vision — match row-scanlines of left and right camera images to find disparity.</li>
+          <li>Sum of Squared Differences (SSD) is simpler alternative: SSD(d) = Σ[f(x) - t(x-d)]² → minimum = best match.</li>
+          <li>Application: Stereo depth estimation, barcode reading, 1D signal alignment in medical signals.</li>
+        </ul>
+        <div class="conclusion">
+          <p>✏️ Intensity matching using cross-correlation provides a robust method for finding corresponding regions between images, forming the foundation of stereo vision and template-based object detection.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================== UNIT 5 ============================== -->
+  <div id="unit5">
+    <div class="unit-header u5-hdr">
+      <div class="unit-num-badge">5</div>
+      <div>
+        <h2>UNIT 5 — Knowledge-Based Vision &amp; Machine Learning in CV</h2>
+        <p>Knowledge-Based Vision · Hough Transform · PCA · Neural Networks · Knowledge Representation · Feature Extraction</p>
+      </div>
+    </div>
+    <div class="unit-body">
+
+      <!-- Q20 -->
+      <div class="q-block">
+        <div class="q-title q-u5">Q20. What is Knowledge-Based Vision and how does it support object recognition? Define and explain Knowledge Representation and Information Integration. <span class="popular-tag">🔥 POPULAR</span></div>
+        <div class="or-sep"><span>— OR —</span></div>
+        <div class="q-title q-u5">Q20B. Write short notes on: (a) Knowledge-Based Vision (b) Knowledge Representation. Give a brief summary of object recognition methods.</div>
+        <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span><span class="marks-badge m10">10 Marks</span></div>
+
+        <span class="sec-label sl-def">Knowledge-Based Vision — Definition</span>
+        <p><strong>Knowledge-Based Vision (KBV)</strong> is a <u>computer vision approach that integrates domain knowledge, models, and context</u> into the vision process to guide and constrain image interpretation — moving beyond purely data-driven processing.</p>
+        <div class="highlight-box hb-purple">
+          <strong>Core Idea:</strong> Humans recognize objects not just by raw pixel data, but also using knowledge — "a round object + 4 cylinders = likely a car." Knowledge-Based Vision formalizes and encodes this contextual knowledge to help computers interpret ambiguous images.
+        </div>
+
+        <span class="sec-label sl-arch">Components of Knowledge-Based Vision</span>
+        <div class="diagram-container">
+          <div class="diag-title">Knowledge-Based Vision Architecture</div>
+          <div class="diag-col">
+            <div class="diag-box db-orange">Low-level Processing (edges, regions, blobs)</div>
+            <div class="arrow">⬇</div>
+            <div class="diag-box db-blue">Symbolic Representation (feature vector)</div>
+            <div class="arrow">⬇</div>
+            <div class="diag-box db-purple">Knowledge Base (rules, models, ontology)</div>
+            <div class="arrow">⬇</div>
+            <div class="diag-box db-green">Inference Engine (reasoning, matching)</div>
+            <div class="arrow">⬇</div>
+            <div class="diag-box db-red">Object Recognition / Scene Understanding</div>
+          </div>
+        </div>
+
+        <span class="sec-label sl-exp">Knowledge Representation Methods</span>
+        <ul class="point-list">
+          <li><strong>1. Production Rules (IF-THEN Rules):</strong>
+            <br>IF [edge at angle 0°] AND [length > 50px] THEN [likely horizontal road marking]
+            <br>Simple, modular, human-readable. Used in expert systems.</li>
+          <li><strong>2. Semantic Networks:</strong> Graph structure where nodes = concepts, edges = relationships. Example: "Car" node → connected to "Wheel" (has-part), "Engine" (has-part), "Vehicle" (is-a) nodes.</li>
+          <li><strong>3. Frames (Object-Oriented):</strong> Data structure with slots (attributes) and values. A "Face" frame has slots: eyes, nose, mouth, skin-color, shape. Default values allow partial information handling.</li>
+          <li><strong>4. Ontology:</strong> Formal hierarchical taxonomy of concepts with relationships. Example: OWL ontology for medical image anatomy — Body → Organ → Heart → LeftVentricle.</li>
+          <li><strong>5. Model-Based Representation:</strong> Store explicit 3D models (CAD models) of known objects. Match by projecting model and comparing to image.</li>
+        </ul>
+
+        <span class="sec-label sl-types">Control Strategies in KBV</span>
+        <ul class="point-list purple">
+          <li><strong>Bottom-Up (Data-Driven):</strong> Raw image data drives processing upwards to recognition. No initial hypothesis. Comprehensive but slow.</li>
+          <li><strong>Top-Down (Model-Driven):</strong> High-level hypothesis generated → verified against image data. Fast if hypothesis is correct, but may miss unexpected objects.</li>
+          <li><strong>Blackboard Architecture:</strong> Shared data structure (blackboard) where multiple specialist modules (KSs — Knowledge Sources) read/write. Flexible, collaborative problem solving. Used in complex scene understanding.</li>
+        </ul>
+
+        <span class="sec-label sl-app">Information Integration</span>
+        <p><strong>Information Integration</strong> combines information from multiple sources — multiple sensors, multiple views, multiple feature types — to make robust recognition decisions.</p>
+        <ul class="point-list green">
+          <li>Sensor fusion: Camera + LiDAR + Radar → robust vehicle detection.</li>
+          <li>Multi-modal: RGB image + depth image → rich 3D scene understanding.</li>
+          <li>Temporal integration: Multiple video frames → object tracking, action recognition.</li>
+          <li>Bayesian fusion: Combine evidence from different sources probabilistically.</li>
+        </ul>
+
+        <div class="exam-tip"><span class="star">⭐</span>
+          <p>KBV = domain knowledge + image data → better recognition. Knowledge Representation: write all 4 forms (Rules, Semantic Nets, Frames, Ontology) with simple examples. Blackboard architecture is unique to KBV — mention it. Object recognition methods summary: Template matching, Eigenfaces, CNN, HoG+SVM, KBV.</p>
+        </div>
+        <div class="conclusion">
+          <p>✏️ Knowledge-Based Vision represents the integration of human intelligence (domain knowledge, context, semantics) with computer processing power — enabling robust interpretation of complex, ambiguous visual scenes that pure data-driven approaches struggle with.</p>
+        </div>
+      </div>
+
+      <!-- Q21 -->
+      <div class="q-block">
+        <div class="q-title q-u5">Q21. Explain the Hough Transform and discuss how it detects simple objects in images. Explain with derivation. Discuss accurate centre location using Hough Transform. <span class="popular-tag">🔥 POPULAR</span></div>
+        <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span><span class="marks-badge m10">10 Marks</span></div>
+
+        <span class="sec-label sl-def">Hough Transform — Recap and Extension to Circles</span>
+        <p>The <strong>Hough Transform</strong> is a <u>feature extraction technique</u> that detects instances of geometric shapes (lines, circles, ellipses) by finding peaks in a parameter space (accumulator array). It is robust to noise and partial occlusion.</p>
+
+        <span class="sec-label sl-exp">Hough Transform for Circles</span>
+        <div class="formula-box">Circle equation: (x - a)² + (y - b)² = r²
+Parameters: center (a, b) and radius r
+
+For each edge pixel (x,y) and each possible radius r:
+  → compute (a, b): a = x - r·cosθ,  b = y - r·sinθ
+  → vote in 3D accumulator A[a][b][r]
+
+Peak at (a*, b*, r*) in accumulator = detected circle
+with center (a*, b*) and radius r*
+
+Accurate centre: (a*, b*) = position of peak in Hough space
+Sub-pixel accuracy: Fit parabola to accumulator peak neighbourhood</div>
+
+        <span class="sec-label sl-exp">Hough Transform for Lines (Full Derivation)</span>
+        <div class="formula-box">Normal (Hesse) form of line:
+ρ = x·cosθ + y·sinθ
+
+For edge pixel (x₀, y₀):
+  ρ(θ) = x₀·cosθ + y₀·sinθ    for θ ∈ [0°, 180°]
+  → This is a sinusoid in (ρ,θ) space
+
+For TWO collinear edge pixels (x₀,y₀) and (x₁,y₁):
+  Their sinusoids intersect at (ρ*, θ*) = parameters of line through both
+
+Peak detection: Find (ρ*, θ*) where accumulator A[ρ,θ] is maximum</div>
+
+        <span class="sec-label sl-types">Object Detection Using Hough Transform</span>
+        <ul class="point-list">
+          <li><strong>Line detection:</strong> 2D accumulator (ρ, θ). Used for: lane detection, document deskewing, barcode detection.</li>
+          <li><strong>Circle detection:</strong> 3D accumulator (a, b, r). Used for: eye detection (iris), coin detection, bubble detection in microscopy.</li>
+          <li><strong>Ellipse detection:</strong> 5D accumulator (a, b, θ, major, minor). Computationally expensive.</li>
+          <li><strong>Generalized Hough Transform (GHT):</strong> Detects arbitrary shapes by storing reference table of edge directions vs displacement vectors to shape centroid. Used for arbitrary template matching.</li>
+        </ul>
+
+        <span class="sec-label sl-app">Accurate Centre Location</span>
+        <p>To improve accuracy of detected circle centre beyond the discrete accumulator resolution:</p>
+        <ul class="point-list green">
+          <li>Fit a 2D Gaussian or paraboloid to the peak neighbourhood in the accumulator → sub-pixel centre accuracy.</li>
+          <li>Alternatively: Use the peak as initial estimate → refine using gradient descent on edge-to-circle distance.</li>
+          <li>Least-squares fit of circle equation to detected edge points → optimal (a, b, r) with sub-pixel precision.</li>
+        </ul>
+
+        <div class="exam-tip"><span class="star">⭐</span>
+          <p>Hough Transform derivation: ρ = x·cosθ + y·sinθ. Circle: (x-a)²+(y-b)²=r². Draw the accumulator concept diagram. GHT = Generalized Hough Transform (for arbitrary shapes). Accurate centre = fit Gaussian to accumulator peak. This is asked almost every year in Unit 5!</p>
+        </div>
+        <div class="conclusion">
+          <p>✏️ The Hough Transform elegantly converts global shape detection into a local peak-finding problem — its ability to detect shapes despite noise, gaps, and partial occlusion makes it one of the most robust and widely-used techniques in classical computer vision.</p>
+        </div>
+      </div>
+
+      <!-- Q22 -->
+      <div class="q-block">
+        <div class="q-title q-u5">Q22. Define Principal Component Analysis (PCA) and its application in feature extraction for object recognition. Write brief notes on Feature Extraction. <span class="popular-tag">🔥 POPULAR</span></div>
+        <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span><span class="marks-badge m10">10 Marks</span></div>
+
+        <span class="sec-label sl-def">PCA — Definition</span>
+        <p><strong>Principal Component Analysis (PCA)</strong> is a <u>dimensionality reduction technique</u> that transforms a high-dimensional dataset into a lower-dimensional space by finding the directions (<strong>principal components</strong>) of <u>maximum variance</u> in the data.</p>
+        <div class="highlight-box hb-blue">
+          <strong>Eigenfaces:</strong> PCA applied to face images — each face image (50×50=2500 pixels) is a vector in 2500-dimensional space. PCA finds the principal components of this space → "Eigenfaces" → project each face onto top-K eigenfaces for compact recognition.
+        </div>
+
+        <span class="sec-label sl-arch">PCA Algorithm (Step-by-Step)</span>
+        <div class="formula-box">Step 1: Data preparation
+  X = matrix of N training images, each row = flattened image vector
+
+Step 2: Mean centering
+  μ = (1/N) ΣXᵢ   (mean image)
+  X' = X - μ      (subtract mean from each image)
+
+Step 3: Covariance matrix
+  C = (1/N) X'ᵀ X'   (covariance of centered data)
+
+Step 4: Eigendecomposition
+  Find eigenvalues λ₁ ≥ λ₂ ≥ ... ≥ λₙ
+  and eigenvectors e₁, e₂, ..., eₙ of C
+
+Step 5: Select top-K eigenvectors (Principal Components)
+  PC matrix W = [e₁, e₂, ..., eK]  (K &lt;&lt; N)
+
+Step 6: Project data
+  Feature vector = Wᵀ(x - μ)   (K-dimensional feature vector)
+
+Step 7: Recognition
+  Compare input feature vector to stored feature vectors (nearest neighbour)</div>
+
+        <span class="sec-label sl-char">Properties of PCA</span>
+        <ul class="point-list purple">
+          <li>Each principal component is orthogonal to all others.</li>
+          <li>First PC has maximum variance, each subsequent PC has maximum remaining variance.</li>
+          <li>Data compression: Represent N-dimensional data with K dimensions (K ≪ N).</li>
+          <li>Reconstruction: Approximate original image from K-dimensional feature vector.</li>
+          <li><strong>Limitations:</strong> Linear method only — cannot capture non-linear variations. Eigenfaces sensitive to lighting and pose changes.</li>
+        </ul>
+
+        <span class="sec-label sl-app">Feature Extraction — Overview</span>
+        <p><strong>Feature Extraction</strong> transforms raw image data into compact, discriminative representations (feature vectors) suitable for classification.</p>
+        <ul class="point-list green">
+          <li><strong>HOG (Histogram of Oriented Gradients):</strong> Computes gradient orientation histograms in local cells. Excellent for pedestrian detection. Used in classic SVM-HOG person detector.</li>
+          <li><strong>SIFT (Scale-Invariant Feature Transform):</strong> Detects keypoints at multiple scales → computes 128-dim descriptor. Invariant to scale, rotation, illumination changes.</li>
+          <li><strong>LBP (Local Binary Pattern):</strong> Encodes local texture by comparing pixel with neighbors → binary pattern. Lightweight, rotation-invariant. Used in face recognition.</li>
+          <li><strong>CNN Features:</strong> Deep CNN layers automatically learn hierarchical features from raw pixels. Best discriminative features for most visual tasks.</li>
+          <li><strong>Gabor Filters:</strong> Band-pass filters at multiple orientations → good for texture feature extraction.</li>
+          <li><strong>Zernike Moments:</strong> Orthogonal polynomial-based moments → rotation-invariant region features, better than Hu's moments for complex shapes.</li>
+        </ul>
+
+        <table class="data-table comp-table">
+          <tr><th class="h-u5">Feature</th><th class="h-u1">HOG</th><th class="h-u2">SIFT</th><th class="h-u3">PCA/Eigenfaces</th></tr>
+          <tr><td>Type</td><td>Gradient-based</td><td>Keypoint + descriptor</td><td>Global appearance</td></tr>
+          <tr><td>Invariance</td><td>Illumination, small translation</td><td>Scale + Rotation + Illumination</td><td>Lighting (mean-subtracted)</td></tr>
+          <tr><td>Dimension</td><td>Fixed (based on cells)</td><td>128-dim per keypoint</td><td>K (chosen by user)</td></tr>
+          <tr><td>Best for</td><td>Pedestrian detection</td><td>Object matching, SLAM</td><td>Face recognition</td></tr>
+        </table>
+
+        <div class="exam-tip"><span class="star">⭐</span>
+          <p>PCA steps: Mean center → Covariance → Eigendecomposition → Select top-K → Project. Eigenfaces = PCA on face images. Feature extraction: write HOG (pedestrian), SIFT (scale invariant), LBP (texture), CNN (deep learning). Always mention the application for each feature type.</p>
+        </div>
+        <div class="conclusion">
+          <p>✏️ PCA and feature extraction transform high-dimensional image data into compact, discriminative representations — enabling efficient and accurate object recognition. From classical Eigenfaces to modern CNN features, feature extraction remains the crucial bridge between raw images and intelligent recognition systems.</p>
+        </div>
+      </div>
+
+      <!-- Q23 -->
+      <div class="q-block">
+        <div class="q-title q-u5">Q23. Explain the use of Neural Network structures for pattern recognition in image processing. Describe how neural networks are used for image shape recognition. Write short notes on: Machine learning and neural networks in image shape recognition. <span class="popular-tag">🔥 POPULAR</span></div>
+        <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span><span class="marks-badge m10">10 Marks</span></div>
+
+        <span class="sec-label sl-def">Neural Networks for Pattern Recognition — Introduction</span>
+        <p><strong>Neural Networks</strong> are <u>computational models inspired by biological neural networks</u> (brain) that learn to recognize patterns by adjusting connection weights through training on labeled examples.</p>
+
+        <span class="sec-label sl-arch">Convolutional Neural Network (CNN) Architecture</span>
+        <div class="diagram-container">
+          <div class="diag-title">CNN Architecture for Image Recognition</div>
+          <div class="diag-col">
+            <div class="diag-box db-orange">Input Image (e.g., 224×224×3)</div>
+            <div class="arrow">⬇</div>
+            <div class="diag-box db-blue">Conv Layer 1 + ReLU (32 filters, 3×3) → feature maps</div>
+            <div class="arrow">⬇ MaxPooling (2×2)</div>
+            <div class="diag-box db-blue">Conv Layer 2 + ReLU (64 filters, 3×3) → feature maps</div>
+            <div class="arrow">⬇ MaxPooling (2×2)</div>
+            <div class="diag-box db-purple">Flatten → Fully Connected Layer (FC)</div>
+            <div class="arrow">⬇ Dropout</div>
+            <div class="diag-box db-green">Output Layer (Softmax) → Class probabilities</div>
+          </div>
+        </div>
+
+        <span class="sec-label sl-exp">How CNN Components Work</span>
+        <ul class="point-list">
+          <li><strong>Convolutional Layer:</strong> Applies learned filters to detect local features — edges, textures, shapes. Each filter detects one specific pattern. Result = feature map.</li>
+          <li><strong>ReLU Activation:</strong> max(0, x) — introduces non-linearity. Allows network to learn complex decision boundaries.</li>
+          <li><strong>Pooling Layer (Max/Avg):</strong> Reduces spatial dimensions. Provides translation invariance — feature detected even if slightly shifted.</li>
+          <li><strong>Fully Connected Layer:</strong> Combines all features to make final classification decision. Like a traditional neural network on extracted features.</li>
+          <li><strong>Softmax Output:</strong> Converts raw scores to probability distribution over all classes.</li>
+          <li><strong>Backpropagation + SGD:</strong> Training algorithm — computes gradient of loss, updates weights to minimize classification error.</li>
+        </ul>
+
+        <span class="sec-label sl-types">CNN for Shape Recognition</span>
+        <ul class="point-list green">
+          <li><strong>Early layers:</strong> Learn low-level features — edges, corners, blobs (shape primitives).</li>
+          <li><strong>Middle layers:</strong> Learn mid-level features — textures, parts (e.g., wheels, eyes).</li>
+          <li><strong>Deep layers:</strong> Learn high-level semantic features — whole objects, object categories.</li>
+          <li><strong>Famous Architectures for Shape Recognition:</strong>
+            <ul class="point-list purple" style="margin-top:4px">
+              <li>LeNet-5 (1998): First CNN for digit recognition (MNIST dataset).</li>
+              <li>AlexNet (2012): Won ImageNet. Deep CNN with ReLU, Dropout, GPU training.</li>
+              <li>VGGNet (2014): 16-19 layers, uniform 3×3 conv filters.</li>
+              <li>ResNet (2015): 152 layers with residual connections (skip connections) — solves vanishing gradient.</li>
+              <li>YOLO (2016): Real-time object detection — detects shape+location simultaneously.</li>
+            </ul>
+          </li>
+        </ul>
+
+        <span class="sec-label sl-exp">Training Process for Shape Recognition</span>
+        <div class="formula-box">Training:
+1. Forward pass: input image → CNN → predicted class
+2. Compute loss: L = -log(p_correct_class)  [cross-entropy loss]
+3. Backward pass: ΔW = -η × ∂L/∂W  [gradient descent]
+4. Repeat for all training images until loss converges
+
+Testing: New image → CNN → argmax(softmax output) → predicted shape label</div>
+
+        <table class="data-table comp-table">
+          <tr><th class="h-u5">Approach</th><th class="h-u1">Traditional ML</th><th class="h-u2">Deep Learning (CNN)</th></tr>
+          <tr><td>Feature extraction</td><td>Manual (HOG, SIFT, LBP)</td><td>Automatic (learned from data)</td></tr>
+          <tr><td>Accuracy</td><td>Good for simple shapes</td><td>State-of-the-art for complex shapes</td></tr>
+          <tr><td>Data requirement</td><td>Small dataset OK</td><td>Requires large dataset (ImageNet)</td></tr>
+          <tr><td>Computation</td><td>Low (CPU enough)</td><td>High (GPU required)</td></tr>
+          <tr><td>Interpretability</td><td>High (human-designed features)</td><td>Low (black box)</td></tr>
+        </table>
+
+        <div class="exam-tip"><span class="star">⭐</span>
+          <p>Draw the CNN architecture diagram — MUST HAVE. Layer explanation: Conv (feature extraction) → Pool (translation invariance) → FC (classification) → Softmax (probabilities). Famous CNNs: LeNet, AlexNet, VGG, ResNet, YOLO — mention their year and key contribution. Shape recognition: early layers=edges, deep layers=objects.</p>
+        </div>
+        <div class="conclusion">
+          <p>✏️ Convolutional Neural Networks have revolutionized image shape recognition — by automatically learning hierarchical visual features directly from training data, they have surpassed human-level performance on many benchmark recognition tasks, transforming autonomous vehicles, medical diagnosis, and visual search.</p>
+        </div>
+      </div>
+
+      <!-- Q24 -->
+      <div class="q-block">
+        <div class="q-title q-u5">Q24. Explain the identifying road signs in a vehicle vision system. Give a brief summary of object recognition methods.</div>
+        <div class="marks-row"><span class="marks-badge m5">5 Marks</span><span class="marks-badge m7">7 Marks</span></div>
+
+        <span class="sec-label sl-def">Road Sign Recognition in Vehicle Vision Systems</span>
+        <p>Road sign recognition is a <strong>critical application of CV</strong> in autonomous/assisted driving systems that automatically <u>detects, localizes, and classifies traffic signs</u> from a vehicle's camera feed in real-time.</p>
+
+        <span class="sec-label sl-arch">Pipeline for Road Sign Recognition</span>
+        <div class="diagram-container">
+          <div class="diag-title">Road Sign Recognition Pipeline</div>
+          <div class="diag-col">
+            <div class="diag-box db-orange">Camera Frame (Video)</div>
+            <div class="arrow">⬇</div>
+            <div class="diag-box db-teal">1. Pre-processing (resize, normalize, denoise)</div>
+            <div class="arrow">⬇</div>
+            <div class="diag-box db-blue">2. Detection (find sign bounding box — YOLO/Faster R-CNN)</div>
+            <div class="arrow">⬇</div>
+            <div class="diag-box db-purple">3. Feature Extraction (HOG / CNN features)</div>
+            <div class="arrow">⬇</div>
+            <div class="diag-box db-green">4. Classification (SVM / CNN → sign type)</div>
+            <div class="arrow">⬇</div>
+            <div class="diag-box db-red">5. Action (alert driver / autonomous decision)</div>
+          </div>
+        </div>
+
+        <ul class="point-list">
+          <li><strong>Detection stage:</strong> Hough circle transform detects round signs. Color segmentation (HSV) finds red/blue/yellow regions. YOLO detects all signs simultaneously with bounding boxes.</li>
+          <li><strong>Challenges:</strong> Varying lighting, weather (rain, fog), partial occlusion, different distances, multiple sign orientations.</li>
+          <li><strong>GTSRB Dataset:</strong> German Traffic Sign Recognition Benchmark — 43 sign classes, 50,000 images — standard benchmark. CNN achieves 99%+ accuracy.</li>
+          <li><strong>Real-time requirement:</strong> Must process at 30+ FPS — requires GPU acceleration and efficient networks (MobileNet, EfficientNet).</li>
+        </ul>
+
+        <span class="sec-label sl-types">Summary: Object Recognition Methods</span>
+        <table class="data-table">
+          <tr><th>Method</th><th>Approach</th><th>Best For</th></tr>
+          <tr><td><strong>Template Matching</strong></td><td>Cross-correlation with template</td><td>Fixed-size, known appearance objects</td></tr>
+          <tr><td><strong>Eigenfaces / PCA</strong></td><td>Statistical appearance model</td><td>Face recognition (frontal, controlled lighting)</td></tr>
+          <tr><td><strong>HOG + SVM</strong></td><td>Gradient features + linear classifier</td><td>Pedestrian detection, vehicle detection</td></tr>
+          <tr><td><strong>SIFT + Bag-of-Words</strong></td><td>Keypoint features + codebook</td><td>Object matching under viewpoint changes</td></tr>
+          <tr><td><strong>CNN (Deep Learning)</strong></td><td>End-to-end feature learning</td><td>All image classification tasks (state-of-art)</td></tr>
+          <tr><td><strong>Knowledge-Based Vision</strong></td><td>Rules + models + context</td><td>Structured scenes, medical diagnosis</td></tr>
+          <tr><td><strong>Hough Transform</strong></td><td>Parameter space voting</td><td>Geometric shape detection (lines, circles)</td></tr>
+        </table>
+
+        <div class="exam-tip"><span class="star">⭐</span>
+          <p>Road sign recognition pipeline: Camera → Pre-process → Detect → Extract features → Classify → Act. This is a complete 7-mark answer with the diagram. Object recognition methods table — write all 5-6 methods with their best use case. This is a perfect summary question for Unit 5.</p>
+        </div>
+        <div class="conclusion">
+          <p>✏️ Road sign recognition exemplifies the complete CV pipeline — from real-time video capture through detection, feature extraction, and classification to real-world decision making. The evolution from template matching to deep learning has made such systems reliable enough for deployment in commercial autonomous vehicles.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="site-footer">
+    <p>🖼️ CS802(A) Image Processing &amp; Computer Vision · RGPV PYQ Bank · Designed for RGPV CSE Students</p>
+    <p style="margin-top:4px; font-size:0.8rem;">Developed by Gautam Verma | Study Smart 🎯</p>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const btn = document.getElementById('themeToggle');
+      if (html.getAttribute('data-theme') === 'dark') {
+        html.removeAttribute('data-theme');
+        btn.textContent = '🌙'; btn.title = 'Switch to Dark Mode';
+        localStorage.setItem('rgpv-theme', 'light');
+      } else {
+        html.setAttribute('data-theme', 'dark');
+        btn.textContent = '☀️'; btn.title = 'Switch to Light Mode';
+        localStorage.setItem('rgpv-theme', 'dark');
+      }
+    }
+    (function() {
+      const saved = localStorage.getItem('rgpv-theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (saved === 'dark' || (!saved && prefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        const btn = document.getElementById('themeToggle');
+        if (btn) { btn.textContent = '☀️'; btn.title = 'Switch to Light Mode'; }
+      }
+    })();
+  </script>
+</body>
+</html>
